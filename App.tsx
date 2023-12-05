@@ -2,7 +2,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import TabNavigator from './src/Navigation/TabNavigator';
-import { View, StyleSheet, StatusBar } from 'react-native';
+import { View, StyleSheet, SafeAreaView } from 'react-native';
 import { Colors } from './src/Components/Colors';
 
 const App: React.FC = () => {
@@ -18,7 +18,7 @@ const App: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex : 1,
-    backgroundColor: 'blue', //Colors.screenBackground, // 배경색 설정
+    backgroundColor: Colors.screenBackground // 배경색 설정
   },
 });
 

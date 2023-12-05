@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { View, Text, StyleSheet, StyleProp, ViewStyle } from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 
 interface RoundedBoxProps {
   children?: ReactNode;
@@ -16,7 +16,7 @@ const RoundedBox: React.FC<RoundedBoxProps> = ({ children, style }) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    padding: 10,
     backgroundColor: 'lightblue',
   },
   rounded: {

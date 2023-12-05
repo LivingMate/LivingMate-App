@@ -22,5 +22,9 @@ export interface Todo {
   export const initialOtherPosts: Post[] = [
     { id: 1, content: '나머지 포스트 1' },
     { id: 2, content: '나머지 포스트 2' },
+    { id: 3, content: '나머지 포스트 3' },
+    { id: 4, content: '나머지 포스트 4' },
+    { id: 5, content: '나머지 포스트 5' },
+    { id: 6, content: '나머지 포스트 6' },
   ];
   

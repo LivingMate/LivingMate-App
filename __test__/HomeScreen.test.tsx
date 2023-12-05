@@ -1,10 +1,10 @@
 // HomeScreen.test.tsx
 import React from 'react';
 import { render, waitFor } from '@testing-library/react-native';
-import HomeScreenContainer from '../src/Screens/Home/HomeScreenContainer';
+import HomeContainer from '../src/Screens/Home/HomeContainer';
 
 test('renders HomeScreenContainer', async () => {
-  const { getByText } = render(<HomeScreenContainer />);
+  const { getByText } = render(<HomeContainer />);
 
   // wait for the component to render
   await waitFor(() => {

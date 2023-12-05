@@ -1,6 +1,6 @@
 // TodoList.tsx
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Button, ScrollView } from 'react-native';
 
 interface Todo {
   id: number;
@@ -13,13 +13,14 @@ interface TodoListProps {
 }
 
 const TodoList: React.FC<TodoListProps> = ({ todos, onDeleteTodo }) => (
+  <ScrollView>
   <View>
     {todos && todos.length > 0 ? (
       todos.map(todo => (
         <View key={todo.id}>
           <Text>{todo.content}</Text>
           <TouchableOpacity onPress={() => onDeleteTodo(todo.id)}>
-            <Text>삭제</Text>
+            <Button title="삭제"></Button>
           </TouchableOpacity>
         </View>
       ))
@@ -27,6 +28,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos, onDeleteTodo }) => (
       <Text>No todos available</Text>
     )}
   </View>
+  </ScrollView>
 );
 
 export default TodoList;

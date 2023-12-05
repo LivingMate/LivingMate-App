@@ -1,35 +1,27 @@
 
 // TabNavigator.tsx
 import React from 'react';
-import { MaterialBottomTabNavigationOptions, createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { View, StyleSheet, Platform } from 'react-native';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { StyleSheet, Platform } from 'react-native';
 import TabBarIcon from './TabBarIcon';
 import { Colors } from '../Components/Colors';
 
-import HomeScreen from '../Screens/Home/HomeScreen';
 import ExpenseScreen from '../Screens/Expense/ExpenseScreen';
-import CalanderScreen from '../Screens/Calander/CalanderScreen';
+import CalenderScreen from '../Screens/Calender/CalenderScreen';
 import MypageScreen from '../Screens/Mypage/MypageScreen';
 import NoticificationScreen from '../Screens/Noticification/NoticificationScreen';
-import HomeScreenContainer from '../Screens/Home/HomeScreenContainer';
+import HomeContainer from '../Screens/Home/HomeContainer';
 
 const Tab = createMaterialBottomTabNavigator();
 
-interface TabNavigatorProps {
-  tabBarOptions?: {
-    style?: {
-    //  borderTopRightRadius: number;
-    //  borderTopLeftRadius: number;
-    };
-  };
-}
+interface TabNavigatorProps { }
 
 const TabNavigator: React.FC<TabNavigatorProps> = ({}) => {
   return (
     <Tab.Navigator
       shifting={false}
       barStyle={{
-        backgroundColor: Colors.tabBarNavigatorBackground,
+        backgroundColor: Colors.background,
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
         overflow: 'hidden',
@@ -50,12 +42,12 @@ const TabNavigator: React.FC<TabNavigatorProps> = ({}) => {
           tabBarLabel: "가계부"
         }}
       />
-      <Tab.Screen name="Calander" component={CalanderScreen} 
+      <Tab.Screen name="Calender" component={CalenderScreen} 
          options={{
           tabBarLabel: "캘린더"
         }}
       />
-      <Tab.Screen name="Home" component={HomeScreenContainer} 
+      <Tab.Screen name="Home" component={HomeContainer} 
          options={{
           tabBarLabel: "홈"
         }}
@@ -77,7 +69,7 @@ const TabNavigator: React.FC<TabNavigatorProps> = ({}) => {
 const styles = StyleSheet.create({
   tabBarContainer: {
     flexDirection: 'row',
-    backgroundColor: Colors.tabBarNavigatorBackground,
+    backgroundColor: Colors.background,
     overflow: 'hidden',
     marginBottom: 0,
     ...Platform.select({
@@ -103,7 +95,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     padding: 0,
   },
-  focusedTab: {},
+  focusedTab: {
+
+  },
 });
 
 export default TabNavigator;

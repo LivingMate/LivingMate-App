@@ -1,13 +1,13 @@
 // containers/HomeScreenContainer.tsx
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Text } from 'react-native';
+import { ScrollView, View, Text, FlatList } from 'react-native';
 import { Post, Todo } from '../../../testData/HomeTest';
 import { getInitialData, deleteTodo } from '../../API/HomeApiTest'; // 가상의 API 호출 및 데이터 로직을 수행하는 모듈
 import HomeScreen from './HomeScreen';
 
-interface HomeScreenContainerProps {}
+interface HomeContainerProps {}
 
-const HomeScreenContainer: React.FC<HomeScreenContainerProps> = () => {
+const HomeContainer: React.FC<HomeContainerProps> = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [noticePosts, setNoticePosts] = useState<Post[]>([]);
   const [otherPosts, setOtherPosts] = useState<Post[]>([]);
@@ -33,15 +33,25 @@ const HomeScreenContainer: React.FC<HomeScreenContainerProps> = () => {
   };
 
   return (
-    <ScrollView onScroll={handleScroll}>
+    <View>
       <HomeScreen
         todos={todos}
         noticePosts={noticePosts}
-        otherPosts={otherPosts}
         onDeleteTodo={handleDeleteTodo}
       />
-    </ScrollView>
+      <FlatList
+        data={otherPosts}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({}) => (
+          <View>
+            <Text>"TEST"</Text>
+            {/* 나머지 otherPosts 아이템들 렌더링 */}
+          </View>
+        )}
+        onScroll={handleScroll}
+      />
+    </View>
   );
 };
 
-export default HomeScreenContainer;
+export default HomeContainer;

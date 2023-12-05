@@ -2,7 +2,7 @@ import React from 'react';
 import { SafeAreaView, SafeAreaViewProps } from 'react-native-safe-area-context';
 import { View, StyleSheet } from 'react-native';
 
-const CustomSafeAreaView: React.FC<SafeAreaViewProps> = ({ children, ...props }) => {
+const CustomSafeAreaView: React.FC<SafeAreaViewProps> = ({ children }) => {
   return (
     <SafeAreaView edges={['top']}>
       <View style={styles.outerContainer}>
@@ -17,7 +17,7 @@ const CustomSafeAreaView: React.FC<SafeAreaViewProps> = ({ children, ...props })
 const styles = StyleSheet.create({
   outerContainer: {
     flex: 1,
-    padding: 100,
+    padding: 0,
     flexDirection: 'row', // 가로 방향으로 설정
     borderColor: 'red',
     borderWidth: 1,

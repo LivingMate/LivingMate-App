@@ -1,6 +1,7 @@
 // PostList.tsx
 import React from 'react';
 import { View, Text } from 'react-native';
+import PostView from './PostView'; // PostView 컴포넌트를 가져옵니다.
 
 interface Post {
   id: number;
@@ -8,7 +9,7 @@ interface Post {
 }
 
 interface PostListProps {
-  posts: Post[] | undefined; // undefined에 대한 타입 추가
+  posts: Post[] | undefined;
   title: string;
 }
 
@@ -17,12 +18,19 @@ const PostList: React.FC<PostListProps> = ({ posts, title }) => (
     <Text>{title}</Text>
     {posts && posts.length > 0 ? (
       posts.map(post => (
-        <View key={post.id}>
-          <Text>{post.content}</Text>
-        </View>
+        <PostView
+          key={post.id}
+          post={post}
+          onEdit={() => {
+            // 수정 액션 처리 api
+          }}
+          onPin={() => {
+            // 핀 액션 처리 api
+          }}
+        />
       ))
     ) : (
-      <Text>No posts available</Text>
+      <Text>게시물이 없습니다</Text>
     )}
   </View>
 );
