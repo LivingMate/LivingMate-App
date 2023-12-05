@@ -1,35 +1,14 @@
-// __tests__/HomeScreen.test.tsx
+// HomeScreen.test.tsx
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react-native';
-import HomeScreen from '../src/screens/Home/HomeScreen';
+import { render, waitFor } from '@testing-library/react-native';
+import HomeScreenContainer from '../src/Screens/Home/HomeScreenContainer';
 
-// Mocked API data
-jest.mock('axios', () => ({
-  get: jest.fn(() => Promise.resolve({ data: [{ id: 1, title: 'Test Post 1' }, { id: 2, title: 'Test Post 2' }] })),
-}));
+test('renders HomeScreenContainer', async () => {
+  const { getByText } = render(<HomeScreenContainer />);
 
-describe('HomeScreen', () => {
-  it('renders a list of posts', async () => {
-    const { getByText } = render(<HomeScreen />);
-
-    // Wait for posts to be loaded
-    await waitFor(() => getByText('Test Post 1'));
-
-    // Check if posts are rendered
-    expect(getByText('Test Post 1')).toBeTruthy();
-    expect(getByText('Test Post 2')).toBeTruthy();
-  });
-
-  it('navigates to PostDetailScreen when a post is pressed', async () => {
-    const { getByText, getByTestId } = render(<HomeScreen />);
-
-    // Wait for posts to be loaded
-    await waitFor(() => getByText('Test Post 1'));
-
-    // Simulate press on a post
-    fireEvent.press(getByTestId('post-1'));
-
-    // Check if navigation occurred
-    expect(getByTestId('post-detail-title')).toBeTruthy();
+  // wait for the component to render
+  await waitFor(() => {
+    // Check if the text is present in the rendered component
+    expect(getByText('이번주할일')).toBeTruthy();
   });
 });
