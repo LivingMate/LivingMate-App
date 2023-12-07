@@ -7,18 +7,20 @@ import { Colors } from './src/Components/Colors';
 
 const App: React.FC = () => {
   return (
-    <View style={styles.container}>
+  <View style={styles.container}>
+ 
       <NavigationContainer>
         <TabNavigator />
       </NavigationContainer>
-    </View>
+ 
+   </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex : 1,
-    backgroundColor: Colors.screenBackground // 배경색 설정
+    backgroundColor: Colors.background, // 배경색 설정
   },
 });
 

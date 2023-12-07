@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     padding: 10,
     marginBottom: 10,
-    backgroundColor: Colors.background,
+    backgroundColor: Colors.white,
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   buttonText: {
-    color: Colors.text,
+    color: Colors.white,
   },
 });
 

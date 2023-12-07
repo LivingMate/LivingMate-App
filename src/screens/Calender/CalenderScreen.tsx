@@ -1,7 +1,9 @@
 import React from "react";
 import { Calendar } from "react-native-calendars";
 import { StyleSheet, Text, View } from "react-native";
-import CustomSafeAreaView from "../../Components/CustomSafeAreaView";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Mystyles } from "../../Components/MyStyles";
+import { Colors } from "../../Components/Colors";
 
 function CalendarScreen() {
   const markedDates = {
@@ -10,10 +12,8 @@ function CalendarScreen() {
     '2022-02-28': { marked: true }
   }
   return (
-  <>
-    <View>
-      <Text>-----------------------캘린더---------------------------</Text>
-    </View>
+    <View style={[Mystyles.container, { backgroundColor: Colors.background }]}>
+      <>
     <Calendar
         style={styles.calendar}
         markedDates={markedDates}
@@ -23,7 +23,8 @@ function CalendarScreen() {
           dotColor: 'green',
           todayTextColor: 'yellow',
         }} />
-  </>
+      </>
+    </View>
   );
 }
 

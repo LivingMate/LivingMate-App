@@ -1,16 +1,17 @@
 // NoticificationScreen.tsx
+import { Colors } from '../../Components/Colors';
+import { Mystyles } from '../../Components/MyStyles';
 import React from 'react';
 import { View, Text } from 'react-native';
-import CustomSafeAreaView from '../../Components/CustomSafeAreaView';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 
 const NoticificationScreen = () => {
   return (
-  <CustomSafeAreaView>
-    <View>
+    <View style={[Mystyles.container, { backgroundColor: Colors.background }]}>
       <Text>NoticificationScreen</Text>
       {/* 화면에 표시할 컴포넌트들을 추가 */}
     </View>
-  </CustomSafeAreaView>
   );
 };
 

@@ -2,24 +2,24 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Colors } from '../Components/Colors';
-import HomeIcon from "../Components/Icons/HomeIcon";
-import CalendarIcon from '../Components/Icons/CalenderIcon';
-import ExpenseIcon from '../Components/Icons/ExpenseIcon';
-import NoticificationIcon from '../Components/Icons/NoticificationIcon';
-import MypageIcon from '../Components/Icons/MypageIcon';
+import HomeIcon from "../../assets/Icons/HomeIcon";
+import CalendarIcon from '../../assets/Icons/CalenderIcon';
+import ExpenseIcon from '../../assets/Icons/ExpenseIcon';
+import NoticificationIcon from '../../assets/Icons/NoticificationIcon';
+import MypageIcon from '../../assets/Icons/MypageIcon';
 
 interface TabBarIconProps {
   routeName: string;
-  isFocused: boolean;
+ // isFocused: boolean;
   onPress: () => void;
   onLongPress: () => void;
 }
 
-const TabBarIcon: React.FC<TabBarIconProps> = ({ routeName, isFocused, onPress, onLongPress }) => {
+const TabBarIcon: React.FC<TabBarIconProps> = ({ routeName, onPress, onLongPress }) => {
   const iconSize = 24;
   let IconComponent: React.FC<{ 
     size: number; 
-    color: string; 
+   // color: string; 
     onPress?: () => void; 
     onLongPress: () => void;
     style: {}[];
@@ -42,10 +42,10 @@ const TabBarIcon: React.FC<TabBarIconProps> = ({ routeName, isFocused, onPress, 
   return IconComponent ? (
     <IconComponent
       size={iconSize}
-      color={isFocused ? Colors.theme : Colors.buttonNotFocused}
+    // color={isFocused ? Colors.theme : Colors.theme}
       onPress={onPress}
       onLongPress={onLongPress}
-      style={[styles.tabBarItem, isFocused && styles.focusedTab]}
+      style={[styles.tabBarItem, styles.focusedTab]}
     />
   ) : null
 };
@@ -57,10 +57,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     padding: 0,
     margin: 0,
-   // backgroundColor: 
   },
   focusedTab: {
-    // 필요한 경우 추가적인 스타일링을 여기에 작성.
+    
   },
 });
 

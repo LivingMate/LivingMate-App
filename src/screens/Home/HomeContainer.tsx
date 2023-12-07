@@ -9,16 +9,19 @@ interface HomeContainerProps {}
 
 const HomeContainer: React.FC<HomeContainerProps> = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [noticePosts, setNoticePosts] = useState<Post[]>([]);
-  const [otherPosts, setOtherPosts] = useState<Post[]>([]);
+  const [Posts, setPosts] = useState<Post[]>([]);
   const [scrollPosition, setScrollPosition] = useState<number>(0);
 
   useEffect(() => {
     // 데이터 초기화 로직을 외부 모듈로 이동
-    getInitialData().then(({ initialTodos, initialNoticePosts, initialOtherPosts }) => {
+    getInitialData().then(({ initialTodos, initialPosts }) => {
       setTodos(initialTodos);
-      setNoticePosts(initialNoticePosts);
-      setOtherPosts(initialOtherPosts);
+      
+      //최신순으로 정렬
+      initialPosts.reverse();
+
+      //onPin 기준으로 post setting.
+      setPosts(initialPosts.sort((a, b) => (b.onPin ? 1 : a.onPin ? -1 : 0)));
     });
   }, []);
 
@@ -36,20 +39,10 @@ const HomeContainer: React.FC<HomeContainerProps> = () => {
     <View>
       <HomeScreen
         todos={todos}
-        noticePosts={noticePosts}
+        Posts={Posts}
         onDeleteTodo={handleDeleteTodo}
       />
-      <FlatList
-        data={otherPosts}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({}) => (
-          <View>
-            <Text>"TEST"</Text>
-            {/* 나머지 otherPosts 아이템들 렌더링 */}
-          </View>
-        )}
-        onScroll={handleScroll}
-      />
+      
     </View>
   );
 };

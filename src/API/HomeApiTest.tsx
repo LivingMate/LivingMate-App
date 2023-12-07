@@ -3,8 +3,7 @@ import { Todo, Post } from '../../testData/HomeTest';
 
 interface InitialData {
   initialTodos: Todo[];
-  initialNoticePosts: Post[];
-  initialOtherPosts: Post[];
+  initialPosts: Post[];
 }
 
 // 초기 데이터를 가져오는 가상의 API 함수
@@ -15,20 +14,16 @@ export const getInitialData = async (): Promise<InitialData> => {
     { id: 2, content: '할 일 2' },
   ];
 
-  const initialNoticePosts: Post[] = [
-    { id: 1, content: '공지 포스트 1' },
-    { id: 2, content: '공지 포스트 2' },
-  ];
-
-  const initialOtherPosts: Post[] = [
-    { id: 1, content: '나머지 포스트 1' },
-    { id: 2, content: '나머지 포스트 2' },
+  const initialPosts: Post[] = [
+    { id: 1, content: '1: 공지 포스트', onPin: true },
+    { id: 2, content: '2: 포스트', onPin: false },
+    { id: 3, content: '3: 포스트', onPin: false },
+    { id: 4, content: '4: 공지 포스트', onPin: true },
   ];
 
   return {
     initialTodos,
-    initialNoticePosts,
-    initialOtherPosts,
+    initialPosts,
   };
 };
 

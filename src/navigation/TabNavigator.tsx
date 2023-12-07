@@ -19,9 +19,12 @@ interface TabNavigatorProps { }
 const TabNavigator: React.FC<TabNavigatorProps> = ({}) => {
   return (
     <Tab.Navigator
-      shifting={false}
+      initialRouteName = "Mypage"
+      shifting = {false}
+      activeColor = {Colors.theme}
+      inactiveColor = {Colors.buttonLabel}
       barStyle={{
-        backgroundColor: Colors.background,
+        backgroundColor: Colors.white,
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
         overflow: 'hidden',
@@ -30,7 +33,7 @@ const TabNavigator: React.FC<TabNavigatorProps> = ({}) => {
         tabBarIcon: ({ focused }) => (
           <TabBarIcon
             routeName={route.name}
-            isFocused={focused}
+          //  isFocused={focused}
             onPress={() => console.log(`${route.name} tab pressed`)}
             onLongPress={() => console.log(`${route.name} tab long pressed`)}
           />
@@ -65,40 +68,6 @@ const TabNavigator: React.FC<TabNavigatorProps> = ({}) => {
     </Tab.Navigator>
   );
 };
-
-const styles = StyleSheet.create({
-  tabBarContainer: {
-    flexDirection: 'row',
-    backgroundColor: Colors.background,
-    overflow: 'hidden',
-    marginBottom: 0,
-    ...Platform.select({
-      android: {
-        elevation: 2,
-      },
-      ios: {
-        shadowColor: '#111',
-        shadowOffset: {
-          width: 0,
-          height: -1,
-        },
-        shadowOpacity: 0.1,
-        shadowRadius: 100,
-      },
-    }),
-  },
-  tabBar: {
-    backgroundColor: Colors.background,
-  },
-  tabBarItem: {
-    flex: 1,
-    textAlign: 'center',
-    padding: 0,
-  },
-  focusedTab: {
-
-  },
-});
 
 export default TabNavigator;
 
