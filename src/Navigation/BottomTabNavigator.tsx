@@ -1,9 +1,9 @@
 
-// TabNavigator.tsx
+//  BottomTabNavigator.tsx
 import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { StyleSheet, Platform } from 'react-native';
-import TabBarIcon from './TabBarIcon';
+import NavigationIcons from './NavigationIcons';
 import { Colors } from '../Components/Colors';
 
 import ExpenseScreen from '../Screens/Expense/ExpenseScreen';
@@ -16,13 +16,13 @@ const Tab = createMaterialBottomTabNavigator();
 
 interface TabNavigatorProps { }
 
-const TabNavigator: React.FC<TabNavigatorProps> = ({}) => {
+const  BottomTabNavigator: React.FC<TabNavigatorProps> = ({}) => {
   return (
     <Tab.Navigator
       initialRouteName = "Mypage"
       shifting = {false}
       activeColor = {Colors.theme}
-      inactiveColor = {Colors.buttonLabel}
+      inactiveColor = {Colors.button}
       barStyle={{
         backgroundColor: Colors.white,
         borderTopLeftRadius: 25,
@@ -31,9 +31,10 @@ const TabNavigator: React.FC<TabNavigatorProps> = ({}) => {
       }}
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => (
-          <TabBarIcon
+          <NavigationIcons
             routeName={route.name}
-          //  isFocused={focused}
+            isFocused={focused}
+            color={focused ? Colors.theme : Colors.button}
             onPress={() => console.log(`${route.name} tab pressed`)}
             onLongPress={() => console.log(`${route.name} tab long pressed`)}
           />
@@ -69,5 +70,5 @@ const TabNavigator: React.FC<TabNavigatorProps> = ({}) => {
   );
 };
 
-export default TabNavigator;
+export default BottomTabNavigator;
 

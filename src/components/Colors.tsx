@@ -5,6 +5,6 @@ export const Colors = {
     white: '#ffffff',
     black: '#000000',
     text: '#B5B5B5',
-    buttonLabel: '#B5B5B5',
+    button: '#B5B5B5',
 };
   

@@ -1,27 +1,18 @@
 // App.tsx
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import TabNavigator from './src/Navigation/TabNavigator';
+import BottomTabNavigator from './src/Navigation/BottomTabNavigator';
 import { View, StyleSheet, SafeAreaView } from 'react-native';
 import { Colors } from './src/Components/Colors';
+import InitialStackNavigator from './src/Navigation/InitialStackNavigator';
 
 const App: React.FC = () => {
   return (
-  <View style={styles.container}>
- 
       <NavigationContainer>
-        <TabNavigator />
+        <InitialStackNavigator /> 
+       {/* <BottomTabNavigator />*/}
       </NavigationContainer>
- 
-   </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex : 1,
-    backgroundColor: Colors.background, // 배경색 설정
-  },
-});
 
 export default App;

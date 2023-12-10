@@ -1,4 +1,4 @@
-// TabBarIcon.tsx
+// NavigationIcons.tsx
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Colors } from '../Components/Colors';
@@ -8,18 +8,20 @@ import ExpenseIcon from '../../assets/Icons/ExpenseIcon';
 import NoticificationIcon from '../../assets/Icons/NoticificationIcon';
 import MypageIcon from '../../assets/Icons/MypageIcon';
 
-interface TabBarIconProps {
+interface IconsProps {
   routeName: string;
- // isFocused: boolean;
+  isFocused: boolean;
+  color? : string;
   onPress: () => void;
   onLongPress: () => void;
 }
 
-const TabBarIcon: React.FC<TabBarIconProps> = ({ routeName, onPress, onLongPress }) => {
+const NavigationIcons: React.FC<IconsProps> = ({ routeName, color, onPress, onLongPress }) => {
   const iconSize = 24;
   let IconComponent: React.FC<{ 
     size: number; 
-   // color: string; 
+    color?: string; 
+    isFocused: boolean;
     onPress?: () => void; 
     onLongPress: () => void;
     style: {}[];
@@ -41,11 +43,11 @@ const TabBarIcon: React.FC<TabBarIconProps> = ({ routeName, onPress, onLongPress
   // 아이콘 컴포넌트가 있다면 렌더링하고, 아니면 null을 반환.
   return IconComponent ? (
     <IconComponent
-      size={iconSize}
-    // color={isFocused ? Colors.theme : Colors.theme}
-      onPress={onPress}
-      onLongPress={onLongPress}
-      style={[styles.tabBarItem, styles.focusedTab]}
+      size = {iconSize}
+      isFocused = {false}
+      onPress = {onPress}
+      onLongPress = {onLongPress}
+      style = {[styles.tabBarItem, styles.focusedTab]}
     />
   ) : null
 };
@@ -63,4 +65,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TabBarIcon;
+export default NavigationIcons;
