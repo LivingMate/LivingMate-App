@@ -5,9 +5,10 @@ import { Colors } from '../../Components/Colors';
 
 interface EntryGroupScreenProps {
   onEntry: () => void;
+  isLoggedIn: () => void;
 }
 
-const EntryGroupScreen: React.FC<EntryGroupScreenProps> = ({ onEntry }) => {
+const EntryGroupScreen: React.ComponentType<EntryGroupScreenProps> = ({ onEntry, isLoggedIn }) => {
   return (
       <View style={styles.container}>
         <Text style={styles.msgText}>함께 사는 메이트를 초대하고{'\n'}생활을 편리하게 관리해보세요!</Text>
@@ -17,7 +18,7 @@ const EntryGroupScreen: React.FC<EntryGroupScreenProps> = ({ onEntry }) => {
         <TouchableOpacity style={styles.invitedButton} onPress={onEntry}>
           <Text style={styles.invitiedText}>또는 초대코드로 참여하기</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={onEntry}>
+        <TouchableOpacity onPress={isLoggedIn}>
           <Text style={styles.LogoutText}>로그아웃</Text>
         </TouchableOpacity>
       </View>

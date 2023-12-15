@@ -1,0 +1,9 @@
+{
+    "isLoggedIn": false,
+    
+    "groups": [
+      { "id": 1, "name": "GroupA" },
+      { "id": 2, "name": "GroupB" }
+    ]
+}
+  

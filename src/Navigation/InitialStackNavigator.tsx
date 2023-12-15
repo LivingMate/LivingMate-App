@@ -1,29 +1,20 @@
 // InitialStackNavigator.tsx
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import LoginScreen from '../Screens/Login/LoginContainer';
-import EntryGroupScreen from '../Screens/EntryGroup/EntryGroupScreen';
+import LoginContainer from '../Screens/Login/LoginContainer';
+import BottomTabNavigator from './BottomTabNavigator';
+import EntryGroupContainer from '../Screens/EntryGroup/EntryGroupContainer';
 
-export type RootStackParamList = {
-  Login: undefined;
-  EntryGroup: undefined;
-};
+const Stack = createStackNavigator();
 
-const Stack = createStackNavigator<RootStackParamList>();
-
-const InitialStackNavigator = () => {
+const InitialStackNavigator: React.FC = () => {
   return (
-    <Stack.Navigator 
-    initialRouteName="Login"
-    screenOptions={{
-        headerShown: false, // 모든 스크린의 헤더를 숨김
-      }}
-    >
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="EntryGroup" component={EntryGroupScreen} />
-      {/* 추가적인 Stack.Screen들을 필요에 따라 정의 */}
+    <Stack.Navigator initialRouteName="Login">
+      <Stack.Screen name="Login" component={LoginContainer} />
+      <Stack.Screen name="EntryGroup" component={EntryGroupContainer} />
+      <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} />
     </Stack.Navigator>
   );
-};
+}
 
 export default InitialStackNavigator;

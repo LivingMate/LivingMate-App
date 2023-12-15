@@ -4,6 +4,7 @@ import { ScrollView, View, Text, FlatList } from 'react-native';
 import { Post, Todo } from '../../../testData/HomeTest';
 import { getInitialData, deleteTodo } from '../../API/HomeApiTest'; // 가상의 API 호출 및 데이터 로직을 수행하는 모듈
 import HomeScreen from './HomeScreen';
+import BottomTabNavigator from '../../Navigation/BottomTabNavigator';
 
 interface HomeContainerProps {}
 
@@ -42,7 +43,6 @@ const HomeContainer: React.FC<HomeContainerProps> = () => {
         Posts={Posts}
         onDeleteTodo={handleDeleteTodo}
       />
-      
     </View>
   );
 };
