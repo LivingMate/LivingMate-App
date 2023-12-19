@@ -1,43 +1,103 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { Post, Todo } from '../../../testData/HomeTest';
+import React, { useEffect, useState } from 'react';
+import { View, SafeAreaView, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Colors } from '../../Components/Colors';
+import CommonStyles from '../../Components/CommonStyles';
+import PlusIcon from '../../../assets/Icons/PlusIcon';
 import TodoList from './TodoList';
 import PostList from './PostList';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Mystyles } from '../../Components/MyStyles';
-import { Colors } from '../../Components/Colors';
 
-// 뷰 컴포넌트
-interface HomeScreenProps {
-  todos: Todo[];
-  Posts: Post[];
-  onDeleteTodo: (id: number) => void;
+const HomeScreen = () => {
+ 
+  const [roundBoxHeight, setRoundBoxHeight] = useState<number>(0);
+
+  //round box 길이 변경 함수
+  useEffect(() => {
+      console.log("roundBoxHeight: ", roundBoxHeight);
+  }, [roundBoxHeight]); // roundBoxHeight가 변경될 때마다 실행됨
+
+  //게시글 추가 버튼 함수
+  const PlusButtonPress = (title: string) => {
+    console.log(`${title} 버튼이 클릭되었습니다.`);
+  };
+
+  return (
+    <View style={CommonStyles.container}>
+      <SafeAreaView style={CommonStyles.safearea}>
+
+      {/* 이번주 할일 */}
+      <View style={[CommonStyles.section, {marginTop: 40}]}>
+        <Text style={[styles.title, { color: 'white'}]}>이번주 할 일</Text>
+       {/* <TodoList /> */}
+      </View>
+
+      {/* 피드 */}
+      <View 
+        style={[CommonStyles.section]}
+        onLayout={(event) => {
+          const { y } = event.nativeEvent.layout;
+          console.log('y of Feed: ', y);
+          const calculatedHeight = y * 4 / 5;
+          setRoundBoxHeight(calculatedHeight);
+        }}
+      >
+      <Text style={[styles.title, { color: 'black' }]}>피드</Text>
+        { /*<PostList /> */}
+      </View>
+
+      {/* roundBox */}
+      <View style={[styles.roundBox, {height: roundBoxHeight}]}></View>
+    </SafeAreaView>
+    
+      {/* plus button */}
+    <View style={styles.plusButtonCotainer}>
+      <TouchableOpacity 
+          onPress={() => PlusButtonPress("post plus button")}
+      >
+        <View style={styles.plusButton}>
+          <PlusIcon />
+        </View>
+      </TouchableOpacity>
+    </View>
+
+  </View>
+  );
 }
 
-const HomeScreen: React.FC<HomeScreenProps> = ({ todos, Posts, onDeleteTodo }) => (
- // <View style={[Mystyles.container, { backgroundColor: Colors.background }]}>
-  <SafeAreaView>
-  <View>
-    <Text>이번주할일</Text>
-    <TodoList todos={todos} onDeleteTodo={onDeleteTodo} />
-    <Text>피드</Text>
-    <PostList posts={Posts} title=""/>
-    {/* 무한 스크롤을 통해 추가적인 포스트를 불러올 수 있는 컴포넌트 */}
-  </View>
-  </SafeAreaView>
-);
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
+  roundBox: {
+    zIndex: 1, // 낮은 zIndex로 맨 뒤에 위치
+    backgroundColor: Colors.theme,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
+    position: 'absolute',
+    width: '100%', // 너비 
   },
-  header: {
-    fontSize: 20,
+
+  title:{
+    fontSize: 24,
     fontWeight: 'bold',
-    marginVertical: 8,
+    alignItems: 'flex-start',
+    marginVertical: 15,
+    marginHorizontal: '5%',
   },
+
+  plusButtonCotainer:{
+    zIndex: 3, // 가장 앞에 위치
+    position: 'absolute',
+    bottom: 70,
+    width: '95%',
+    alignItems: 'flex-end',
+  },
+
+  plusButton:{
+    backgroundColor: Colors.theme,
+    borderRadius: 100,
+    width: 56,  
+    height: 56,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  
 });
 
 export default HomeScreen;
-

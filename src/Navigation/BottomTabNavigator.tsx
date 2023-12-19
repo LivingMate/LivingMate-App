@@ -11,6 +11,8 @@ import CalenderScreen from '../Screens/Calender/CalenderScreen';
 import MypageScreen from '../Screens/Mypage/MypageScreen';
 import NoticificationScreen from '../Screens/Noticification/NoticificationScreen';
 import HomeContainer from '../Screens/Home/HomeContainer';
+import { Shadow } from '../Components/Shadow';
+import HomeScreen from '../Screens/Home/HomeScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -28,6 +30,11 @@ const  BottomTabNavigator: React.FC<TabNavigatorProps> = ({}) => {
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
         overflow: 'hidden',
+        shadowOffset: { width: Shadow.width, height: Shadow.height },
+        shadowOpacity: Shadow.shadowOpacity,
+        shadowRadius: Shadow.shadowRadius,
+        shadowColor: Shadow.color,
+        elevation: Shadow.elevation,
       }}
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => (
@@ -51,7 +58,7 @@ const  BottomTabNavigator: React.FC<TabNavigatorProps> = ({}) => {
           tabBarLabel: "캘린더"
         }}
       />
-      <Tab.Screen name="Home" component={HomeContainer} 
+      <Tab.Screen name="Home" component={HomeScreen} 
          options={{
           tabBarLabel: "홈"
         }}

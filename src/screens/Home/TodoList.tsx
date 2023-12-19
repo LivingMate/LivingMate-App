@@ -13,7 +13,6 @@ interface TodoListProps {
 }
 
 const TodoList: React.FC<TodoListProps> = ({ todos, onDeleteTodo }) => (
-  <ScrollView>
   <View>
     {todos && todos.length > 0 ? (
       todos.map(todo => (
@@ -28,7 +27,6 @@ const TodoList: React.FC<TodoListProps> = ({ todos, onDeleteTodo }) => (
       <Text>No todos available</Text>
     )}
   </View>
-  </ScrollView>
 );
 
 export default TodoList;

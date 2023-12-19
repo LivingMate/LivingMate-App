@@ -15,13 +15,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.LivingMateApp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#2F747B"
-      }
+      },
+      "package": "com.anonymous.LivingMateApp"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

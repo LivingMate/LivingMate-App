@@ -4,14 +4,12 @@ import { ScrollView, View, Text, FlatList } from 'react-native';
 import { Post, Todo } from '../../../testData/HomeTest';
 import { getInitialData, deleteTodo } from '../../API/HomeApiTest'; // 가상의 API 호출 및 데이터 로직을 수행하는 모듈
 import HomeScreen from './HomeScreen';
-import BottomTabNavigator from '../../Navigation/BottomTabNavigator';
 
 interface HomeContainerProps {}
 
 const HomeContainer: React.FC<HomeContainerProps> = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [Posts, setPosts] = useState<Post[]>([]);
-  const [scrollPosition, setScrollPosition] = useState<number>(0);
 
   useEffect(() => {
     // 데이터 초기화 로직을 외부 모듈로 이동
@@ -30,10 +28,6 @@ const HomeContainer: React.FC<HomeContainerProps> = () => {
     // 할 일 삭제 로직을 외부 모듈로 이동
     const updatedTodos = deleteTodo(todos, id);
     setTodos(updatedTodos);
-  };
-
-  const handleScroll = (event: any) => {
-    setScrollPosition(event.nativeEvent.contentOffset.y);
   };
 
   return (
