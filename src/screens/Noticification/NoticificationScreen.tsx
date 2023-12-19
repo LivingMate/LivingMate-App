@@ -22,6 +22,7 @@ const NoticificationScreen = () => {
         <View style={[styles.paymentBox]}>
           <Text style={[styles.text, { marginVertical: 15 }]}>
             미정산내역이 없습니다.
+            hvjgvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
           </Text>
         </View>
       </View>
@@ -39,7 +40,8 @@ const NoticificationScreen = () => {
           <Text style={[styles.title, { color: 'black' }]}>일반 알림</Text>
           <ScrollView>
                 <View style={styles.alertBox}>
-                <Text style={[styles.text, { marginVertical: 15 }]}>알림이 없습니다.</Text>
+                  <Text style={[styles.text, { marginVertical: 15 }]}>알림이 없습니다.
+                </Text>
                 </View>
           </ScrollView>
       </View>

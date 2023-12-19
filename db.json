@@ -1,9 +1,13 @@
 {
     "isLoggedIn": true,
-    
-    "groups": [
-      { "id": 1, "name": "GroupA" },
-      { "id": 2, "name": "GroupB" }
+    "id": "000000",
+    "name": "윤민지",
+    "color": "#CD6363",
+    "groupId": "001001",
+    "groupName": "청파메이트",
+    "groupMates": [
+        { "id": "1", "name": "최지현", "color": "#C96D00" },
+        { "id": "2", "name": "박영희", "color": "blue" }
     ]
 }
   

@@ -5,8 +5,18 @@ import CommonStyles from '../../Components/CommonStyles';
 import SendInvitedCode from './SendInvitedCode';
 import NoticificationIcon from '../../../assets/Icons/NoticificationIcon';
 import Profile from './Profile';
-import db from '../../../db.json';
-import MyGroup from './MyGroup';
+
+const testUser = {
+  id: '000000',
+  name: '윤민지',
+  color: 'blue',
+  groupId: '001001',
+  groupName: '청파메이트',
+  groupMembers: [
+    { name: '최지현', color: '#3f0f30'},
+    { name: "박영희", color: '#fff000'},
+  ],
+}
 
 interface User {
   id: string;
@@ -14,24 +24,45 @@ interface User {
   color: string;
   groupId: string;
   groupName: string;
-  groupMates: Array<{ id: string, name: string, color: string;}>;
+  groupMembers: Array<{ name: string, color: string;}>;
 }
 
 const MypageScreen: React.FC = () => {
-  const [user, setUser] = useState<User>(db);
+  const [user, setUser] = useState<User>(testUser);
 
-  // 사용자 이름과 색상만 업데이트하는 함수
-  const updateUserNameAndColor = (newName: string, newColor: string) => {
-    // API 요청 대신 로컬 상태를 직접 업데이트
-    const updatedUser = { ...user, name: newName, color: newColor };
-    setUser(updatedUser);
-  };
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        // API 호출을 통한 user 데이터 로딩
+        const response = await fetch('https://example.com/api/user');
+        const data = await response.json();
+        setUser(data);
+      } catch (error) {
+        console.error('Failed to load user data', error);
+      }
+    };
+    fetchUserData();
+  }, []);
 
-  // 그룹 이름만 업데이트하는 함수
-  const updateGroupName = (newGroupName: string) => {
-    // API 요청 대신 로컬 상태를 직접 업데이트
-    const updatedUser = { ...user, name: newGroupName};
-    setUser(updatedUser);
+   // 사용자 이름과 색상만 업데이트하는 함수
+   const updateUserNameAndColor = async (newName: string, newColor: string) => {
+    if (!user) return;
+
+    try {
+      const updatedUser = { ...user, name: newName, color: newColor };
+      const response = await fetch('https://example.com/api/user', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedUser),
+      });
+      if (response.ok) {
+        setUser(updatedUser); // 로컬 상태 업데이트
+      }
+    } catch (error) {
+      console.error('Failed to update user data', error);
+    }
   };
 
   return (
@@ -51,11 +82,7 @@ const MypageScreen: React.FC = () => {
 
               {/* 그룹 정보, 메이트들 */}
               <View style={styles.generalBox}>
-                  <MyGroup 
-                    groupName={user.groupName}
-                    groupMates={user.groupMates}
-                    updateGroupName={updateGroupName}
-                  />
+                  <MyGroup />
               </View>
 
               {/* 그룹 관리 */}
@@ -74,6 +101,16 @@ const MypageScreen: React.FC = () => {
             {/* roundBox */}
             <View style={[styles.roundBox, {height: 250}]}></View>
       </SafeAreaView>
+    </View>
+  );
+}
+
+const MyGroup = () => {
+  return (
+    <View>
+      <Text style={styles.title}>청파메이트</Text>
+      <Text style={styles.text}>최지현</Text>
+      <Text style={styles.text}>박영희</Text>
     </View>
   );
 }
