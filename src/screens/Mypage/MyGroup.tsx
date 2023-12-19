@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import PenIcon from '../../../assets/Icons/PenIcon';
 import MsgBalloon from '../../../assets/Icons/MsgBalloon';
-
-interface MyGroupProps {
-    groupName: string;
-    groupMates: Array<{ name: string, color: string;}>;
-    updateGroupName: (groupName: string) => void;
-}
+import CommonStyles from '../../Components/CommonStyles';
 
 interface MateProps {
   name: string;
   color: string;
+}
+
+interface MyGroupProps {
+  groupName: string;
+  groupMates: Array<{ name: string, color: string;}>;
+  updateGroupName: (groupName: string) => void;
 }
 
 const Mate: React.FC<MateProps> = ({ name, color }) => {
@@ -23,12 +24,10 @@ const Mate: React.FC<MateProps> = ({ name, color }) => {
   return (
     <View style={styles.contentAndButoonContainer}>
     <View style={[styles.contentContainer, {marginLeft: 4}]}>
-        <View style = {{
-              backgroundColor: color,
-              borderRadius: 8,
-              margin: 5,
-        }}>
-        <Text style={styles.text}>{name}</Text>
+        <View style = {[styles.mateStyle, {
+              backgroundColor: color,}]}
+        >
+        <Text style={styles.mateText}>{name}</Text>
         </View>
     </View>
     <View style={styles.buttonContainer}>
@@ -111,13 +110,17 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
 
-  text: {
+  mateStyle:{
+    borderRadius: 8,
+    margin: 5,
+  },
+
+  mateText: {
     fontSize: 12,
     color: '#ffffff',
     fontWeight: 'bold',
     margin: 6,
   },
-
 });
 
 export default MyGroup;

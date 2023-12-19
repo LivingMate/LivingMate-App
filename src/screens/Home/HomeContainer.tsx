@@ -1,7 +1,6 @@
 // containers/HomeScreenContainer.tsx
 import React, { useState, useEffect } from 'react';
 import { ScrollView, View, Text, FlatList } from 'react-native';
-import { Post, Todo } from '../../../testData/HomeTest';
 import { getInitialData, deleteTodo } from '../../API/HomeApiTest'; // 가상의 API 호출 및 데이터 로직을 수행하는 모듈
 import HomeScreen from './HomeScreen';
 
@@ -13,7 +12,7 @@ const HomeContainer: React.FC<HomeContainerProps> = () => {
 
   useEffect(() => {
     // 데이터 초기화 로직을 외부 모듈로 이동
-    getInitialData().then(({ initialTodos, initialPosts }) => {
+      getInitialData().then(({ initialTodos, initialPosts }) => {
       setTodos(initialTodos);
       
       //최신순으로 정렬

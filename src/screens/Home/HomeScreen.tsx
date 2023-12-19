@@ -3,8 +3,10 @@ import { View, SafeAreaView, Text, StyleSheet, TouchableOpacity } from 'react-na
 import { Colors } from '../../Components/Colors';
 import CommonStyles from '../../Components/CommonStyles';
 import PlusIcon from '../../../assets/Icons/PlusIcon';
+import db from '../../../db.json';
 import TodoList from './TodoList';
-import PostList from './PostList';
+import Feed from './Feed';
+import Post from './Post'
 
 const HomeScreen = () => {
  
@@ -16,7 +18,7 @@ const HomeScreen = () => {
   }, [roundBoxHeight]); // roundBoxHeight가 변경될 때마다 실행됨
 
   //게시글 추가 버튼 함수
-  const PlusButtonPress = (title: string) => {
+  const buttonPress = (title: string) => {
     console.log(`${title} 버튼이 클릭되었습니다.`);
   };
 
@@ -27,7 +29,7 @@ const HomeScreen = () => {
       {/* 이번주 할일 */}
       <View style={[CommonStyles.section, {marginTop: 40}]}>
         <Text style={[styles.title, { color: 'white'}]}>이번주 할 일</Text>
-       {/* <TodoList /> */}
+            <TodoList text={null}/>
       </View>
 
       {/* 피드 */}
@@ -41,7 +43,8 @@ const HomeScreen = () => {
         }}
       >
       <Text style={[styles.title, { color: 'black' }]}>피드</Text>
-        { /*<PostList /> */}
+          <Feed />
+       {/* <Post content='내용' isPinned={true} authorName='윤민지' authorColor='#CD6363' date='2023-12-20'/> */}
       </View>
 
       {/* roundBox */}
@@ -51,7 +54,7 @@ const HomeScreen = () => {
       {/* plus button */}
     <View style={styles.plusButtonCotainer}>
       <TouchableOpacity 
-          onPress={() => PlusButtonPress("post plus button")}
+          onPress={() =>buttonPress("post plus button")}
       >
         <View style={styles.plusButton}>
           <PlusIcon />
@@ -84,7 +87,7 @@ const styles = StyleSheet.create({
   plusButtonCotainer:{
     zIndex: 3, // 가장 앞에 위치
     position: 'absolute',
-    bottom: 70,
+    bottom: 15,
     width: '95%',
     alignItems: 'flex-end',
   },

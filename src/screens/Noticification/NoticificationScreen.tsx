@@ -22,7 +22,6 @@ const NoticificationScreen = () => {
         <View style={[styles.paymentBox]}>
           <Text style={[styles.text, { marginVertical: 15 }]}>
             미정산내역이 없습니다.
-            hvjgvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
           </Text>
         </View>
       </View>

@@ -3,10 +3,10 @@ import { View, SafeAreaView, Text, StyleSheet, ScrollView, Platform, TouchableOp
 import { Colors } from '../../Components/Colors';
 import CommonStyles from '../../Components/CommonStyles';
 import SendInvitedCode from './SendInvitedCode';
-import NoticificationIcon from '../../../assets/Icons/NoticificationIcon';
-import Profile from './Profile';
 import db from '../../../db.json';
+import Profile from './Profile';
 import MyGroup from './MyGroup';
+import { Shadow } from '../../Components/Shadow';
 
 interface User {
   id: string;
@@ -41,7 +41,7 @@ const MypageScreen: React.FC = () => {
               <ScrollView>
 
               {/* 프로필 */}
-              <View style={[styles.generalBox, {marginTop: 50}]}>
+              <View style={[CommonStyles.generalBox, {marginTop: 50}]}>
                   <Profile 
                     name={user.name} 
                     color={user.color} 
@@ -50,7 +50,7 @@ const MypageScreen: React.FC = () => {
               </View>
 
               {/* 그룹 정보, 메이트들 */}
-              <View style={styles.generalBox}>
+              <View style={CommonStyles.generalBox}>
                   <MyGroup 
                     groupName={user.groupName}
                     groupMates={user.groupMates}
@@ -59,11 +59,11 @@ const MypageScreen: React.FC = () => {
               </View>
 
               {/* 그룹 관리 */}
-              <View style={styles.generalBox}>
+              <View style={CommonStyles.generalBox}>
                   <GroupManaging />
               </View>
               {/* 이용안내 */}
-              <View style={styles.generalBox}>
+              <View style={CommonStyles.generalBox}>
                   <Guidelines />
               </View>
                 {/* logout */}
@@ -124,14 +124,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     marginVertical: 10,
     marginHorizontal: 10,
-  },
-
-  generalBox: {
-    backgroundColor: Colors.white,
-    marginHorizontal: '5%',
-    marginBottom: 10,
-    borderRadius: 12,
-    padding: 10,
   },
 
   text: {

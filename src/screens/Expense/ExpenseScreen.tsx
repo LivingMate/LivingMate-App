@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, SafeAreaView, Text, StyleSheet, ScrollView, Platform, Button } from 'react-native';
+import { View, SafeAreaView, Text, StyleSheet, ScrollView, Platform, Button, TouchableOpacity } from 'react-native';
 import { Colors } from '../../Components/Colors';
 import CategoryButton from './CategoryButton';
 import CommonStyles from '../../Components/CommonStyles'
 import { Shadow } from '../../Components/Shadow';
+import PlusIcon from '../../../assets/Icons/PlusIcon';
 
 const ExpenseScreen = () => {
  
@@ -15,6 +16,11 @@ const ExpenseScreen = () => {
 
   //카테고리 버튼 함수
   const handlePress = (title: string) => {
+    console.log(`${title} 버튼이 클릭되었습니다.`);
+  };
+
+  //게시글 추가 버튼 함수
+  const buttonPress = (title: string) => {
     console.log(`${title} 버튼이 클릭되었습니다.`);
   };
 
@@ -76,8 +82,18 @@ const ExpenseScreen = () => {
 
       {/* roundBox */}
       <View style={[styles.roundBox, {height: roundBoxHeight}]}></View> 
-
       </SafeAreaView>
+
+      {/* plus button */}
+      <View style={styles.plusButtonCotainer}>
+        <TouchableOpacity 
+          onPress={() =>buttonPress("post plus button")}
+        >
+            <View style={styles.plusButton}>
+              <PlusIcon />
+            </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -137,6 +153,23 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 18,
     alignItems: 'flex-start',
+  },
+
+  plusButtonCotainer:{
+    zIndex: 3, // 가장 앞에 위치
+    position: 'absolute',
+    bottom: 15,
+    width: '95%',
+    alignItems: 'flex-end',
+  },
+
+  plusButton:{
+    backgroundColor: Colors.theme,
+    borderRadius: 100,
+    width: 56,  
+    height: 56,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
 
 });

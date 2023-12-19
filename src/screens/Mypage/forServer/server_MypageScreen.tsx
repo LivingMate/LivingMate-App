@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, SafeAreaView, Text, StyleSheet, ScrollView, Platform, TouchableOpacity } from 'react-native';
-import { Colors } from '../../Components/Colors';
-import CommonStyles from '../../Components/CommonStyles';
-import SendInvitedCode from './SendInvitedCode';
-import NoticificationIcon from '../../../assets/Icons/NoticificationIcon';
-import Profile from './Profile';
+import { Colors } from '../../../Components/Colors';
+import CommonStyles from '../../../Components/CommonStyles';
+import SendInvitedCode from '../SendInvitedCode';
+import NoticificationIcon from '../../../../assets/Icons/NoticificationIcon';
+import Profile from '../Profile';
 
 const testUser = {
   id: '000000',
