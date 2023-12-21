@@ -34,7 +34,7 @@ const HomeScreen = () => {
 
       {/* 피드 */}
       <View 
-        style={[CommonStyles.section]}
+        style={[CommonStyles.section, {minHeight: 600}]}
         onLayout={(event) => {
           const { y } = event.nativeEvent.layout;
           console.log('y of Feed: ', y);
@@ -43,8 +43,10 @@ const HomeScreen = () => {
         }}
       >
       <Text style={[styles.title, { color: 'black' }]}>피드</Text>
-          <Feed />
-       {/* <Post content='내용' isPinned={true} authorName='윤민지' authorColor='#CD6363' date='2023-12-20'/> */}
+      <Feed />
+      {/*
+       <Post content='오늘 같이 삼겹살 먹을 사람?' isPinned={true} authorName='윤민지' authorColor='#CD6363' date='2023-12-20'/>
+      */} 
       </View>
 
       {/* roundBox */}

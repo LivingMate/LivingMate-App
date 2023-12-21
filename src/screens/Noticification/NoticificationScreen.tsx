@@ -19,16 +19,17 @@ const NoticificationScreen = () => {
       {/* 정산 알림 */}
       <View style={[CommonStyles.section, {marginTop: 10}]}>
         <Text style={[styles.title, { color: 'white', marginTop: 40}]}>정산 알림</Text>
+        <View style ={CommonStyles.generalBox}>
         <View style={[styles.paymentBox]}>
           <Text style={[styles.text, { marginVertical: 15 }]}>
             미정산내역이 없습니다.
           </Text>
-        </View>
+        </View></View>
       </View>
 
       {/* 일반 알림 */}
       <View 
-        style={CommonStyles.section}
+        style={[CommonStyles.section, {minHeight: 540}]}
         onLayout={(event) => {
           const { y } = event.nativeEvent.layout;
           console.log('y:', y);
@@ -38,10 +39,11 @@ const NoticificationScreen = () => {
       >
           <Text style={[styles.title, { color: 'black' }]}>일반 알림</Text>
           <ScrollView>
+                <View style ={CommonStyles.generalBox}>
                 <View style={styles.alertBox}>
                   <Text style={[styles.text, { marginVertical: 15 }]}>알림이 없습니다.
                 </Text>
-                </View>
+                </View></View>
           </ScrollView>
       </View>
       
@@ -72,20 +74,11 @@ const styles = StyleSheet.create({
   },
 
   paymentBox: {
-    backgroundColor: Colors.white,
-    marginBottom: 10,
-    marginHorizontal: '5%',
-    borderRadius: 12,
-    padding: 10,
-    justifyContent: 'center',
+    //나중에 추가 디테일 필요할때.
   },
 
   alertBox: {
-    backgroundColor: Colors.white,
-    marginHorizontal: '5%',
-    marginBottom: 10,
-    borderRadius: 12,
-    padding: 10,
+    //나중에 추가 디테일 필요할때.
   },
 
   text: {

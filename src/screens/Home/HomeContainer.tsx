@@ -1,4 +1,4 @@
-// containers/HomeScreenContainer.tsx
+/* containers/HomeScreenContainer.tsx
 import React, { useState, useEffect } from 'react';
 import { ScrollView, View, Text, FlatList } from 'react-native';
 import { getInitialData, deleteTodo } from '../../API/HomeApiTest'; // 가상의 API 호출 및 데이터 로직을 수행하는 모듈
@@ -41,3 +41,4 @@ const HomeContainer: React.FC<HomeContainerProps> = () => {
 };
 
 export default HomeContainer;
+*/

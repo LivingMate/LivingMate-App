@@ -5,6 +5,8 @@ import CategoryButton from './CategoryButton';
 import CommonStyles from '../../Components/CommonStyles'
 import { Shadow } from '../../Components/Shadow';
 import PlusIcon from '../../../assets/Icons/PlusIcon';
+import MagnifyingGlassIcon from '../../../assets/Icons/MagnifyingGlassIcon';
+import BudgetList from './BudgetList';
 
 const ExpenseScreen = () => {
  
@@ -14,15 +16,17 @@ const ExpenseScreen = () => {
       console.log("roundBoxHeight: ", roundBoxHeight);
   }, [roundBoxHeight]); // roundBoxHeight가 변경될 때마다 실행됨
 
-  //카테고리 버튼 함수
+  // 버튼 함수
   const handlePress = (title: string) => {
     console.log(`${title} 버튼이 클릭되었습니다.`);
   };
 
-  //게시글 추가 버튼 함수
+  // 버튼 press 함수
   const buttonPress = (title: string) => {
     console.log(`${title} 버튼이 클릭되었습니다.`);
   };
+
+  //공과금 utilities 식비 food 비품 supplies 기타 others
 
   return (
     <View style={CommonStyles.container}>
@@ -32,9 +36,16 @@ const ExpenseScreen = () => {
       <View style={[CommonStyles.section, {marginTop: 40}]}>
         <Text style={[styles.title, { color: 'white'}]}>현재 지출 현황</Text>
         <View style={[styles.currentExpenses]}>
-          <Text style={[styles.text, { marginVertical: 15}]} >
-            등록된 지출 내역이 없습니다.
+          <Text style={[styles.text, { margin: 15, fontSize: 20, flex: 5}]} >
+            총 84000원
           </Text>
+          <View style={{ justifyContent: 'center', borderRadius: 4, marginVertical: 12, marginRight: 12, backgroundColor: Colors.theme}}>
+              <TouchableOpacity 
+              onPress={() =>buttonPress("post plus button")}
+              >
+                <Text style={{color: '#ffffff'}}>정산하기</Text>
+              </TouchableOpacity>
+          </View>
         </View>
       </View>
 
@@ -48,36 +59,26 @@ const ExpenseScreen = () => {
           setRoundBoxHeight(calculatedHeight);
         }}
         >
-        <View style={CommonStyles.section}>
-        <View style={[styles.catagories]}>
-          <Text> 아이콘 넣기 </Text>
+        
+        <View style={[styles.searchContainer]}>
+          <MagnifyingGlassIcon />
         </View>
-        <View style={[styles.catagories, { borderTopColor: 'black', borderTopWidth: 1 }]}>
-          <CategoryButton title="전체" onPress={() => handlePress("전체")}/>
-          <CategoryButton title="공과금" onPress={() => handlePress("공과금")} />
-          <CategoryButton title="식비" onPress={() => handlePress("식비")}  />
-          <CategoryButton title="비품" onPress={() => handlePress("비품")} />
-          <CategoryButton title="기타" onPress={() => handlePress("기타")} />
+
+        <View style={[styles.categories, { borderTopColor: 'black', borderTopWidth: 1 }]}>
+          <CategoryButton title="전체" focused={true} onPress={() => handlePress("전체")}/>
+          <CategoryButton title="공과금" focused={false} onPress={() => handlePress("공과금")} />
+          <CategoryButton title="식비" focused={false} onPress={() => handlePress("식비")}  />
+          <CategoryButton title="비품" focused={false}  onPress={() => handlePress("비품")} />
+          <CategoryButton title="기타" focused={false} onPress={() => handlePress("기타")} />
         </View>
-        </View>
+        
       </View>
 
       {/* 지출 내역 리스트 */}
-      <View style={[CommonStyles.section]}>
+      <View style={[CommonStyles.section, {minHeight: 460}]}>
           <ScrollView>
-              <View style={styles.expenseItem}>
-                <Text style={styles.text}>이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다</Text>
-              </View>
-              <View style={styles.expenseItem}>
-                <Text style={styles.text}>이 텍스트는 앞에 있습니다</Text>
-              </View>
-              <View style={styles.expenseItem}>
-                <Text style={styles.text}>이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다</Text>
-              </View>
-              <View style={styles.expenseItem}>
-                <Text style={styles.text}>이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다이 텍스트는 앞에 있습니다</Text>
-              </View>
-            </ScrollView>
+              <BudgetList />
+          </ScrollView>
         </View>
 
       {/* roundBox */}
@@ -122,15 +123,23 @@ const styles = StyleSheet.create({
     marginHorizontal: '5%',
     borderRadius: 12,
     padding: 10,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     shadowOffset: { width: Shadow.width, height: Shadow.height },
     shadowOpacity: Shadow.shadowOpacity,
     shadowRadius: Shadow.shadowRadius,
     shadowColor: Shadow.color,
     elevation: Shadow.elevation,
+    flexDirection: 'row',
   },
 
-  catagories: {
+  searchContainer : {
+    flexDirection: 'row',  // 가로 방향으로 정렬
+    marginHorizontal: '5%',
+    paddingBottom: 5,
+    justifyContent: 'flex-end',
+  },
+
+  categories: {
     marginBottom: 10,
     marginHorizontal: '5%',
     alignItems: 'flex-start',

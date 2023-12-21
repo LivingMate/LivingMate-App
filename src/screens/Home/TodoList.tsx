@@ -10,11 +10,11 @@ interface TodoListProps {
 const TodoList: React.FC<TodoListProps> = ({ text }) => {
   const hasText = !!text;
   const content = hasText ? text : "이번주 할 일이 없습니다.";
-  const paddingSize = hasText ? 0 : 20;
+  const paddingSize = hasText ? 0 : 25;
   const fontSize = hasText ? 16 : 18;
 
   return(
-  <View style={[CommonStyles.generalBox, {padding: paddingSize}]}>
+  <View style={[CommonStyles.generalBox, {paddingVertical: paddingSize}]}>
     <Text style={{fontSize: fontSize}}>{content}</Text>
   </View>
   );

@@ -5,10 +5,13 @@ import { Colors } from '../../Components/Colors';
 import PinIcon from '../../../assets/Icons/PinIcon';
 import ThreeDotsIcon from '../../../assets/Icons/ThreeDotsIcon';
 import { Shadow } from '../../Components/Shadow';
+import NoticificationIcon from '../../../assets/Icons/NoticificationIcon';
 
-interface PostProps {
+interface BudgetProps {
+  amount: number;
+  category: string;
+  //subCategory: string;
   content: string;
-  isPinned: boolean;
   authorName: string;
   authorColor: string;
   date: string;
@@ -16,32 +19,34 @@ interface PostProps {
  //onPin: (isPinned: boolean) => void
 }
 
-const Post: React.FC<PostProps> = ({ content, isPinned, authorName, authorColor, date }) => {
+const Budget: React.FC<BudgetProps> = ({ amount ,content, category, authorName, authorColor, date }) => {
   return(
   <View style={styles.generalBox}>
-    <View style={styles.contentAndButtonContainer}>
-      <View style={[styles.contentContainer, {marginLeft: 4}]}>
-        <Text style={styles.text}>{content}</Text>
+    {/* 날짜, 버튼 */}
+    <View style={styles.dateAndButtonContainer}>
+      <View style = {styles.dateContainer}>
+        <Text style = {{color: Colors.text, marginLeft: 8, marginTop: 5}}>{date}</Text>
       </View>
-  
       <View style={styles.buttonContainer}>
-        <View style={{marginTop: 10}}>
         <TouchableOpacity>
           <ThreeDotsIcon />
-        </TouchableOpacity>
-        </View>
-        <TouchableOpacity
-          style={{marginLeft: 10}}
-        >
-          <PinIcon />
         </TouchableOpacity>
       </View>
     </View>
     
-    <View style={styles.authorAndDateContainer}>
-      <View style={styles.dateContainer}>
-        <Text style = {{color: Colors.text}}> {date}</Text>
+    {/* 카테고리, 내용 */}
+    <View style={styles.categoryAndContentContainer}>
+      <View style = {styles.categoryContainer}>
+        <Text style={{fontSize: 35, color: '#b9b9b9'}}>?</Text>
       </View>
+      <View style={[styles.contentContainer, {marginLeft: 4}]}>
+        <Text style={[styles.text, {marginLeft: 4}]}>{content}</Text>
+      </View>
+    </View>
+
+    {/* 금액, 작성자 */}
+    <View style={styles.amountAndAuthorContainer}>
+      <Text style={styles.amountText}>{amount}원</Text>
       <View style={styles.authorContainer}>
         <View style = {[styles.mateStyle, {
               backgroundColor: authorColor,}]}>
@@ -67,38 +72,59 @@ const styles = StyleSheet.create({
     elevation: Shadow.elevation,
   },
 
-  contentAndButtonContainer: {
+  dateAndButtonContainer: {
     flexDirection: 'row',
     marginBottom: 5,
-  },
-
-  contentContainer:{
-    alignItems: 'flex-start',
-    marginVertical: 5,
-    flex: 8,
-  },
-
-  buttonContainer: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-  },
-
-  authorAndDateContainer : {
-    flexDirection: 'row',
-    alignItems: 'center',
   },
 
   dateContainer : {
     flex: 8,
   },
 
-  authorContainer : {
+  buttonContainer: {
+    flexDirection: 'row',
     alignItems: 'flex-start',
+    justifyContent: 'center',
+    margin: 10,
+  },
+
+  categoryAndContentContainer:{
+    flexDirection: 'row',
+  },
+
+  categoryContainer:{
+    width: 50,
+    height: 50,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#b9b9b9',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 5,
+  },
+
+  contentContainer:{
+    alignItems: 'flex-start',
+    marginVertical: 5,
+  },
+
+  amountAndAuthorContainer : {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+
+  authorContainer : {
+    alignItems: 'flex-end',
+    marginHorizontal: 10,
   },
 
   text: {
     fontSize: 16,
     color: '#000000',
+  },
+
+  amountText: {
+    fontSize: 22,
   },
 
   mateStyle:{
@@ -114,5 +140,5 @@ const styles = StyleSheet.create({
 
 });
 
-export default Post;
+export default Budget;
 

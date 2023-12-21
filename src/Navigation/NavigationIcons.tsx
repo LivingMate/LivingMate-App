@@ -47,7 +47,7 @@ const NavigationIcons: React.FC<IconsProps> = ({ routeName, color, onPress, onLo
       isFocused = {false}
       onPress = {onPress}
       onLongPress = {onLongPress}
-      style = {[styles.tabBarItem, styles.focusedTab]}
+      style = {[styles.tabBarItem]}
     />
   ) : null
 };
@@ -57,12 +57,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     textAlign: 'center',
-    padding: 0,
+    padding: 10,
     margin: 0,
+    backgroundColor: '#ffffff',
   },
-  focusedTab: {
-    
-  },
+  
 });
 
 export default NavigationIcons;

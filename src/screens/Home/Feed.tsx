@@ -1,8 +1,9 @@
-import React from 'react';
-import { View } from 'react-native';
-import Post from './Post'; // Post 컴포넌트의 경로에 맞게 조정하세요.
+import React, { useState, useEffect } from 'react';
+import { View, ScrollView } from 'react-native';
+import Post from './Post';
+import postsData from './TestData';
 
-interface PostItem {
+interface PostData {
   id: number;
   content: string;
   isPinned: boolean;
@@ -11,33 +12,35 @@ interface PostItem {
   date: string;
 }
 
-interface FeedProps {
-  postlist: PostItem[];
-}
+const Feed: React.FC = () => {
+  const [posts, setPosts] = useState<PostData[]>([]);
 
-const Feed: React.FC<FeedProps> = ({ postlist }) => {
-  // isPinned가 false인 항목들을 내림차순으로 정렬
-  const unpinnedPosts = postlist.filter(item => !item.isPinned).sort((a, b) => b.id - a.id);
+  useEffect(() => {
+    // isPinned가 true인 포스트를 상단으로 정렬합니다.
+    const sortedPosts = postsData.sort((a, b) => {
+      const aValue = a.isPinned ? 1 : 0;
+      const bValue = b.isPinned ? 1 : 0;
+      return bValue - aValue;
+    });
 
-  // isPinned가 true인 항목들을 내림차순으로 정렬
-  const pinnedPosts = postlist.filter(item => item.isPinned).sort((a, b) => b.id - a.id);
-
-  // 두 배열을 결합
-  const sortedPosts = [...unpinnedPosts, ...pinnedPosts];
+    setPosts(sortedPosts);
+  }, []);
 
   return (
-    <View>
-      {sortedPosts.map((post) => (
-        <Post 
-          key={post.id}
-          content={post.content}
-          isPinned={post.isPinned}
-          authorName={post.authorName}
-          authorColor={post.authorColor}
-          date={post.date}
-        />
-      ))}
-    </View>
+    <ScrollView>
+      <View>
+        {posts.map((post) => (
+          <Post
+            key={post.id}
+            content={post.content}
+            isPinned={post.isPinned}
+            authorName={post.authorName}
+            authorColor={post.authorColor}
+            date={post.date}
+          />
+        ))}
+      </View>
+    </ScrollView>
   );
 };
 

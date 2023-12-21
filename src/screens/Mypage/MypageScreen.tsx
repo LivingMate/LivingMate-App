@@ -37,7 +37,9 @@ const MypageScreen: React.FC = () => {
   return (
     <View style={CommonStyles.container}>
       <SafeAreaView style={CommonStyles.safearea}>
-          <View style={CommonStyles.section}>
+          <View 
+            style={[CommonStyles.section, {minHeight: 700}]}
+          >
               <ScrollView>
 
               {/* 프로필 */}

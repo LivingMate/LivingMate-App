@@ -6,14 +6,17 @@ import { Shadow } from '../../Components/Shadow';
 // Props 타입 정의
 interface catagoriesButtonProps {
   title: string;
+  focused: boolean,
   onPress: () => void;
 }
 
 // CustomButton 컴포넌트 정의
-const categoryButton: React.FC<catagoriesButtonProps> = ({ title, onPress }) => {
+const categoryButton: React.FC<catagoriesButtonProps> = ({ title, focused, onPress }) => {
+  const backgroundColor = focused ? Colors.theme : Colors.white;
+  const textColor = focused ? '#FFFFFF':'#000000' ;
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.text}>{title}</Text>
+    <TouchableOpacity style={[styles.button,{backgroundColor: backgroundColor}]} onPress={onPress}>
+      <Text style={[styles.text, {color: textColor}]}>{title}</Text>
     </TouchableOpacity>
   );
 };
@@ -21,8 +24,6 @@ const categoryButton: React.FC<catagoriesButtonProps> = ({ title, onPress }) => 
 // 스타일 정의
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: Colors.white,
-    onPressedBackgroundColor: Colors.theme,
     borderRadius: 8,
     alignItems: 'center',
     margin: 5,
