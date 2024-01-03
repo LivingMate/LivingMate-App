@@ -43,7 +43,7 @@ const MypageScreen: React.FC = () => {
               <ScrollView>
 
               {/* 프로필 */}
-              <View style={[CommonStyles.generalBox, {marginTop: 50}]}>
+              <View style={[CommonStyles.generalBox, {marginTop: 30}]}>
                   <Profile 
                     name={user.name} 
                     color={user.color} 
