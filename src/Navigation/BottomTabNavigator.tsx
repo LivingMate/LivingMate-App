@@ -10,8 +10,8 @@ import CalenderScreen from '../Screens/Calender/CalenderScreen';
 import MypageScreen from '../Screens/Mypage/MypageScreen';
 import NoticificationScreen from '../Screens/Noticification/NoticificationScreen';
 
-import { Shadow } from '../Components/Shadow';
 import HomeScreen from '../Screens/Home/HomeScreen';
+import CommonStyles from '../Components/CommonStyles';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -27,11 +27,7 @@ const  BottomTabNavigator = ({}) => {
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
         overflow: 'hidden',
-        shadowOffset: { width: Shadow.width, height: Shadow.height },
-        shadowOpacity: Shadow.shadowOpacity,
-        shadowRadius: Shadow.shadowRadius,
-        shadowColor: Shadow.color,
-        elevation: Shadow.elevation,
+        ...CommonStyles.shadow,
       }}
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => (

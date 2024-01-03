@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
 import { Colors } from '../../Components/Colors';
-import { Shadow } from '../../Components/Shadow';
+import CommonStyles from '../../Components/CommonStyles';
 
 // Props 타입 정의
 interface catagoriesButtonProps {
@@ -30,15 +30,10 @@ const styles = StyleSheet.create({
     width: 47,
     height: 22,
     justifyContent: 'center',
-    shadowOffset: { width: Shadow.width, height: Shadow.height },
-    shadowOpacity: Shadow.shadowOpacity,
-    shadowRadius: Shadow.shadowRadius,
-    shadowColor: Shadow.color,
-    elevation: Shadow.elevation,
+    ...CommonStyles.shadow,
   },
   text: {
     color: Colors.black,
-    onPressedColor: Colors.white,
     fontSize: 14,
   },
 });

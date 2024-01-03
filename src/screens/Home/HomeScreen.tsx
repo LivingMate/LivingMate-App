@@ -23,7 +23,7 @@ const HomeScreen = () => {
   };
 
   return (
-    <View style={CommonStyles.container}>
+      <View>
       <SafeAreaView style={CommonStyles.safearea}>
 
       {/* 이번주 할일 */}
@@ -54,17 +54,16 @@ const HomeScreen = () => {
     </SafeAreaView>
     
       {/* plus button */}
-    <View style={styles.plusButtonCotainer}>
+    <View style={CommonStyles.plusButtonCotainer}>
       <TouchableOpacity 
           onPress={() =>buttonPress("post plus button")}
       >
-        <View style={styles.plusButton}>
+        <View style={CommonStyles.plusButton}>
           <PlusIcon />
         </View>
       </TouchableOpacity>
     </View>
-
-  </View>
+    </View>
   );
 }
 
@@ -85,24 +84,6 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     marginHorizontal: '5%',
   },
-
-  plusButtonCotainer:{
-    zIndex: 3, // 가장 앞에 위치
-    position: 'absolute',
-    bottom: 15,
-    width: '95%',
-    alignItems: 'flex-end',
-  },
-
-  plusButton:{
-    backgroundColor: Colors.theme,
-    borderRadius: 100,
-    width: 56,  
-    height: 56,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  
 });
 
 export default HomeScreen;

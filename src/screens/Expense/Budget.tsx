@@ -4,8 +4,8 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Colors } from '../../Components/Colors';
 import PinIcon from '../../../assets/Icons/PinIcon';
 import ThreeDotsIcon from '../../../assets/Icons/ThreeDotsIcon';
-import { Shadow } from '../../Components/Shadow';
 import NoticificationIcon from '../../../assets/Icons/NoticificationIcon';
+import CommonStyles from '../../Components/CommonStyles';
 
 interface BudgetProps {
   amount: number;
@@ -65,11 +65,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 12,
     padding: 10,
-    shadowOffset: { width: Shadow.width, height: Shadow.height },
-    shadowOpacity: Shadow.shadowOpacity,
-    shadowRadius: Shadow.shadowRadius,
-    shadowColor: Shadow.color,
-    elevation: Shadow.elevation,
+    ...CommonStyles.shadow,
   },
 
   dateAndButtonContainer: {

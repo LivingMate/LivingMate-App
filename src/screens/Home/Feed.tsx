@@ -40,6 +40,7 @@ const Feed: React.FC = () => {
           />
         ))}
       </View>
+      <View style={{height:500}}></View>
     </ScrollView>
   );
 };

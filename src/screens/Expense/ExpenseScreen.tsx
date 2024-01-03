@@ -1,15 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, SafeAreaView, Text, StyleSheet, ScrollView, Platform, Button, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Platform, Button, TouchableOpacity } from 'react-native';
 import { Colors } from '../../Components/Colors';
 import CategoryButton from './CategoryButton';
 import CommonStyles from '../../Components/CommonStyles'
-import { Shadow } from '../../Components/Shadow';
 import PlusIcon from '../../../assets/Icons/PlusIcon';
 import MagnifyingGlassIcon from '../../../assets/Icons/MagnifyingGlassIcon';
 import BudgetList from './BudgetList';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const ExpenseScreen = () => {
- 
+  const insets = useSafeAreaInsets();
+
   const [roundBoxHeight, setRoundBoxHeight] = useState<number>(0);
 
   useEffect(() => {
@@ -29,23 +30,16 @@ const ExpenseScreen = () => {
   //공과금 utilities 식비 food 비품 supplies 기타 others
 
   return (
-    <View style={CommonStyles.container}>
+    <View>
       <SafeAreaView style={CommonStyles.safearea}>
 
       {/* 현재 지출 현황 */}
       <View style={[CommonStyles.section, {marginTop: 40}]}>
         <Text style={[styles.title, { color: 'white'}]}>현재 지출 현황</Text>
         <View style={[styles.currentExpenses]}>
-          <Text style={[styles.text, { margin: 15, fontSize: 20, flex: 5}]} >
+          <Text style={{fontSize: 18}}>
             총 84000원
           </Text>
-          <View style={{ justifyContent: 'center', borderRadius: 4, marginVertical: 12, marginRight: 12, backgroundColor: Colors.theme}}>
-              <TouchableOpacity 
-              onPress={() =>buttonPress("post plus button")}
-              >
-                <Text style={{color: '#ffffff'}}>정산하기</Text>
-              </TouchableOpacity>
-          </View>
         </View>
       </View>
 
@@ -75,7 +69,7 @@ const ExpenseScreen = () => {
       </View>
 
       {/* 지출 내역 리스트 */}
-      <View style={[CommonStyles.section, {minHeight: 460}]}>
+      <View style={[CommonStyles.section]}>
           <ScrollView>
               <BudgetList />
           </ScrollView>
@@ -86,15 +80,16 @@ const ExpenseScreen = () => {
       </SafeAreaView>
 
       {/* plus button */}
-      <View style={styles.plusButtonCotainer}>
+      <View style={CommonStyles.plusButtonCotainer}>
         <TouchableOpacity 
           onPress={() =>buttonPress("post plus button")}
         >
-            <View style={styles.plusButton}>
+            <View style={CommonStyles.plusButton}>
               <PlusIcon />
             </View>
         </TouchableOpacity>
       </View>
+
     </View>
   );
 }
@@ -122,14 +117,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginHorizontal: '5%',
     borderRadius: 12,
-    padding: 10,
+    padding: 20,
     justifyContent: 'flex-start',
-    shadowOffset: { width: Shadow.width, height: Shadow.height },
-    shadowOpacity: Shadow.shadowOpacity,
-    shadowRadius: Shadow.shadowRadius,
-    shadowColor: Shadow.color,
-    elevation: Shadow.elevation,
-    flexDirection: 'row',
+    ...CommonStyles.shadow,
   },
 
   searchContainer : {
@@ -152,35 +142,13 @@ const styles = StyleSheet.create({
     marginBottom:20, 
     borderRadius: 12,
     padding: 10,
-    shadowOffset: { width: Shadow.width, height: Shadow.height },
-    shadowOpacity: Shadow.shadowOpacity,
-    shadowRadius: Shadow.shadowRadius,
-    shadowColor: Shadow.color,
-    elevation: Shadow.elevation,
+    ...CommonStyles.shadow,
   },
 
   text: {
     fontSize: 18,
     alignItems: 'flex-start',
   },
-
-  plusButtonCotainer:{
-    zIndex: 3, // 가장 앞에 위치
-    position: 'absolute',
-    bottom: 15,
-    width: '95%',
-    alignItems: 'flex-end',
-  },
-
-  plusButton:{
-    backgroundColor: Colors.theme,
-    borderRadius: 100,
-    width: 56,  
-    height: 56,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-
 });
 
 export default ExpenseScreen;

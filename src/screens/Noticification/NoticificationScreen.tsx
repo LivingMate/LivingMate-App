@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, SafeAreaView, Text, StyleSheet, ScrollView, Platform } from 'react-native';
 import { Colors } from '../../Components/Colors';
-import CommonStyles from '../../Components/CommonStyles'
-import { Shadow } from '../../Components/Shadow';
+import CommonStyles from '../../Components/CommonStyles';
 
 const NoticificationScreen = () => {
 
@@ -14,7 +13,7 @@ const NoticificationScreen = () => {
   }, [roundBoxHeight]); // roundBoxHeight가 변경될 때마다 실행됨
     
   return (
-    <View style={CommonStyles.container}>
+    <View>
       <SafeAreaView style={CommonStyles.safearea}>
       {/* 정산 알림 */}
       <View style={[CommonStyles.section, {marginTop: 10}]}>

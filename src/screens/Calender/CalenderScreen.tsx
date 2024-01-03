@@ -5,7 +5,6 @@ import CommonStyles from '../../Components/CommonStyles'
 import PlusIcon from '../../../assets/Icons/PlusIcon';
 import { Calendar, DateData } from 'react-native-calendars'; //캘린더 달력 모양
 import { Agenda } from 'react-native-calendars'; //캘린더 아래에 일정 내용 펼쳐지는 거
-import { DayProps } from 'react-native-calendars/src/calendar/day';
 import { daysInWeek, weeksToDays } from 'date-fns';
 import { LocaleConfig } from 'react-native-calendars';
 
@@ -37,10 +36,9 @@ const CalenderScreen = () => {
   };
 
   return (
-    <View style={CommonStyles.container}>
+    <View>
       <SafeAreaView style={CommonStyles.safearea}>
-      
-      <View style={[CommonStyles.section, {minHeight: 710}]}>
+      <View style={[CommonStyles.section]}>
 
           {/* 캘린더 달력 표시 */}
           <View style={{ 
@@ -66,7 +64,6 @@ const CalenderScreen = () => {
               }}
               // 테마 변경
               theme={{
-
                 backgroundColor: '#ffffff',
                 calendarBackground: '#ffffff',
                 arrowColor: '#000000', // 월 이동 화살표 색깔
@@ -106,11 +103,11 @@ const CalenderScreen = () => {
       </SafeAreaView>
       
       {/* plus button */}
-      <View style={styles.plusButtonCotainer}>
+      <View style={CommonStyles.plusButtonCotainer}>
         <TouchableOpacity 
           onPress={() =>buttonPress("post plus button")}
         >
-            <View style={styles.plusButton}>
+            <View style={CommonStyles.plusButton}>
               <PlusIcon />
             </View>
         </TouchableOpacity>
@@ -151,24 +148,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     alignItems: 'flex-start',
   },
-
-  plusButtonCotainer:{
-    zIndex: 3, // 가장 앞에 위치
-    position: 'absolute',
-    bottom: 15,
-    width: '95%',
-    alignItems: 'flex-end',
-  },
-
-  plusButton:{
-    backgroundColor: Colors.theme,
-    borderRadius: 100,
-    width: 56,  
-    height: 56,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-
 });
 
 export default CalenderScreen;
