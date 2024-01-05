@@ -6,7 +6,6 @@ import SendInvitedCode from './SendInvitedCode';
 import db from '../../../db.json';
 import Profile from './Profile';
 import MyGroup from './MyGroup';
-import { Shadow } from '../../Components/Shadow';
 
 interface User {
   id: string;
@@ -41,7 +40,6 @@ const MypageScreen: React.FC = () => {
             style={[CommonStyles.section, {minHeight: 700}]}
           >
               <ScrollView>
-
               {/* 프로필 */}
               <View style={[CommonStyles.generalBox, {marginTop: 30}]}>
                   <Profile 
@@ -84,9 +82,15 @@ const GroupManaging = () => {
   return (
     <View>
       <Text style={styles.title}>그룹 관리</Text>
-      <Text style={styles.text}>초대 코드 보내기</Text>
-      <Text style={styles.text}>단체 알림 보내기</Text>
-      <Text style={styles.text}>그룹 탈퇴</Text>
+      <TouchableOpacity>
+        <Text style={styles.text}>초대 코드 보내기</Text>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <Text style={styles.text}>단체 알림 보내기</Text>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <Text style={styles.text}>그룹 탈퇴</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -95,9 +99,15 @@ const Guidelines = () => {
   return (
     <View>
       <Text style={styles.title}>이용 안내</Text>
-      <Text style={styles.text}>개인정보 처리방침</Text>
-      <Text style={styles.text}>서비스 이용약관</Text>
-      <Text style={styles.text}>오픈소스 라이브러리</Text>
+      <TouchableOpacity>
+        <Text style={styles.text}>개인정보 처리방침</Text>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <Text style={styles.text}>서비스 이용약관</Text>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <Text style={styles.text}>오픈소스 라이브러리</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -105,7 +115,9 @@ const Guidelines = () => {
 const Logout = () => {
   return (
     <View style={styles.LogoutBox}>
+      <TouchableOpacity>
       <Text style ={styles.LogoutText}>로그아웃</Text>
+      </TouchableOpacity>
     </View>
   );
 }

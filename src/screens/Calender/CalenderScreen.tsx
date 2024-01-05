@@ -7,6 +7,8 @@ import { Calendar, DateData } from 'react-native-calendars'; //캘린더 달력 
 import { Agenda } from 'react-native-calendars'; //캘린더 아래에 일정 내용 펼쳐지는 거
 import { daysInWeek, weeksToDays } from 'date-fns';
 import { LocaleConfig } from 'react-native-calendars';
+import { createStackNavigator } from '@react-navigation/stack';
+import MyModal from '../../Components/MyModal';
 
 LocaleConfig.locales['en'] = {
   today: 'Today',
@@ -25,14 +27,51 @@ LocaleConfig.locales['en'] = {
     'S', 'M', 'T', 'W', 'T', 'F', 'S'
   ],
 };
-
 LocaleConfig.defaultLocale = 'en';
+
+//const eventsData = require('./events.json');
+
+//JSON 데이터를 불러오는 함수
+const fetchEvents = async () => {
+  try {
+    // 로컬 파일 또는 원격 URL에서 JSON 데이터를 불러옵니다.
+    // 예를 들어, 로컬 파일 경로 또는 원격 서버 주소를 사용할 수 있습니다.
+    const response = await fetch('./events.json');
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching events:', error);
+    return {};
+  }
+};
 
 const CalenderScreen = () => {
 
-  // 버튼 press 함수
-  const buttonPress = (title: string) => {
-    console.log(`${title} 버튼이 클릭되었습니다.`);
+  const [selectedDate, setSelectedDate] = useState<string>('');
+  const [events, setEvents] = useState<{[key: string]: any}>({});
+
+  const [modalVisible, setModalVisible] = React.useState(false); // 모달의 표시 상태를 관리하는 state
+  const openModal = () => setModalVisible(true); // 모달을 여는 함수
+  const closeModal = () => setModalVisible(false); // 모달을 닫는 함수
+
+  useEffect(() => {
+    fetchEvents().then(data => setEvents(data));
+  }, []);
+
+  const onDayPress = (day: any) => {
+    setSelectedDate(day.dateString);
+  };
+
+  const getMarkedDates = () => {
+    const today = new Date().toISOString().split('T')[0];
+    let markedDates: {[key: string]: any} = {...events};
+    // 선택된 날짜 처리
+    if (markedDates[selectedDate]) {
+      markedDates[selectedDate] = { ...markedDates[selectedDate], selected: true, selectedColor: selectedDate === today ? Colors.theme : Colors.text };
+    } else {
+      markedDates[selectedDate] = { selected: true, selectedColor: selectedDate === today ? Colors.theme : Colors.text };
+    }
+    return markedDates;
   };
 
   return (
@@ -53,15 +92,9 @@ const CalenderScreen = () => {
             
           <Calendar
               dayFormet={{daysInWeek}}  
-              
-              
               hideExtraDays={true}
-              // 날짜에 마커 추가
-              markedDates={{
-              '2024-01-16': {marked: true},
-              '2024-01-17': {marked: true},
-              '2024-01-02': {selected: true}
-              }}
+              onDayPress={onDayPress}
+              markedDates={getMarkedDates()}
               // 테마 변경
               theme={{
                 backgroundColor: '#ffffff',
@@ -105,13 +138,16 @@ const CalenderScreen = () => {
       {/* plus button */}
       <View style={CommonStyles.plusButtonCotainer}>
         <TouchableOpacity 
-          onPress={() =>buttonPress("post plus button")}
+          onPress={openModal}
         >
-            <View style={CommonStyles.plusButton}>
-              <PlusIcon />
-            </View>
+          <View style={CommonStyles.plusButton}>
+            <PlusIcon />
+          </View>
         </TouchableOpacity>
       </View>
+
+      <MyModal visible={modalVisible} onClose={closeModal} />
+
     </View>
   );
 }
@@ -132,10 +168,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     marginVertical: 15,
     marginHorizontal: '5%',
-  },
-
-  planBookContainer: {
-
   },
 
   planContainer: {

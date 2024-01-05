@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import LogoIcon from '../../../assets/Icons/LogoIcon';
 import { Colors } from '../../Components/Colors';
-import { Shadow } from '../../Components/Shadow';
+import CommonStyles from '../../Components/CommonStyles';
 
 interface LoginScreenProps {
   onGoogleLogin: () => void;
@@ -34,11 +34,7 @@ const styles = StyleSheet.create({
       height: 35,
       borderRadius: 56,
       marginTop: 130,
-      shadowOffset: { width: Shadow.width, height: Shadow.height },
-      shadowOpacity: Shadow.shadowOpacity,
-      shadowRadius: Shadow.shadowRadius,
-      shadowColor: Shadow.color,
-      elevation: Shadow.elevation,
+      ...CommonStyles.shadow,
     },
     text: {
       color: Colors.black,

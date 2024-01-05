@@ -12,11 +12,10 @@ interface PostProps {
   authorName: string;
   authorColor: string;
   date: string;
- //onEdit: (content: string) => void;
- //onPin: (isPinned: boolean) => void
+  //onPin: (isPinned: boolean) => void;
 }
 
-const Post: React.FC<PostProps> = ({ content, isPinned, authorName, authorColor, date }) => {
+const Post: React.FC<PostProps> = ({ content, isPinned, authorName, authorColor, date}) => {
   return(
   <View style={styles.generalBox}>
     <View style={styles.contentAndButtonContainer}>
@@ -30,10 +29,8 @@ const Post: React.FC<PostProps> = ({ content, isPinned, authorName, authorColor,
           <ThreeDotsIcon />
         </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={{marginLeft: 10}}
-        >
-          <PinIcon />
+        <TouchableOpacity style={{marginLeft: 10}}>
+          <PinIcon color={isPinned ? Colors.theme : Colors.button} />
         </TouchableOpacity>
       </View>
     </View>
