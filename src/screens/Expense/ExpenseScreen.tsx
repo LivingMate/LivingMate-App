@@ -3,8 +3,8 @@ import { View, Text, StyleSheet, ScrollView, Platform, Button, TouchableOpacity 
 import { Colors } from '../../Components/Colors';
 import CategoryButton from './CategoryButton';
 import CommonStyles from '../../Components/CommonStyles'
-import PlusIcon from '../../../assets/Icons/PlusIcon';
-import MagnifyingGlassIcon from '../../../assets/Icons/MagnifyingGlassIcon';
+import PlusIcon from '../../Assets/Icons/PlusIcon';
+import MagnifyingGlassIcon from '../../Assets/Icons/MagnifyingGlassIcon';
 import BudgetList from './BudgetList';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 

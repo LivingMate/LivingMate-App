@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { View, SafeAreaView, Text, StyleSheet, ScrollView, Platform, TouchableOpacity } from 'react-native';
 import { Colors } from '../../Components/Colors';
 import CommonStyles from '../../Components/CommonStyles'
-import PlusIcon from '../../../assets/Icons/PlusIcon';
+import PlusIcon from '../../Assets/Icons/PlusIcon';
 import { Calendar, DateData } from 'react-native-calendars'; //캘린더 달력 모양
 import { Agenda } from 'react-native-calendars'; //캘린더 아래에 일정 내용 펼쳐지는 거
 import { daysInWeek, weeksToDays } from 'date-fns';
@@ -46,15 +46,17 @@ const fetchEvents = async () => {
 };
 
 const CalenderScreen = () => {
-
+  const today = new Date().toISOString().split('T')[0];
   const [selectedDate, setSelectedDate] = useState<string>('');
   const [events, setEvents] = useState<{[key: string]: any}>({});
 
   const [modalVisible, setModalVisible] = React.useState(false); // 모달의 표시 상태를 관리하는 state
   const openModal = () => setModalVisible(true); // 모달을 여는 함수
   const closeModal = () => setModalVisible(false); // 모달을 닫는 함수
+  
 
   useEffect(() => {
+    setSelectedDate(today); 
     fetchEvents().then(data => setEvents(data));
   }, []);
 
@@ -63,7 +65,6 @@ const CalenderScreen = () => {
   };
 
   const getMarkedDates = () => {
-    const today = new Date().toISOString().split('T')[0];
     let markedDates: {[key: string]: any} = {...events};
     // 선택된 날짜 처리
     if (markedDates[selectedDate]) {
@@ -97,21 +98,14 @@ const CalenderScreen = () => {
               markedDates={getMarkedDates()}
               // 테마 변경
               theme={{
-                backgroundColor: '#ffffff',
-                calendarBackground: '#ffffff',
                 arrowColor: '#000000', // 월 이동 화살표 색깔
-                textSectionTitleColor: '#b6c1cd',
-                textSectionTitleDisabledColor: '#d9e1e8',
                 selectedDayBackgroundColor: Colors.theme,
-                selectedDayTextColor: '#ffffff',
                 todayTextColor: Colors.theme,
                 dayTextColor: '#000000',
-                textDisabledColor: '#d9e1e8',
+                monthTextColor: '#000000',
+                todayButtonFontWeight: 'bold',
                 dotColor: Colors.text,
                 selectedDotColor: Colors.theme,
-                disabledArrowColor: '#d9e1e8',
-                monthTextColor: '#000000',
-                indicatorColor: '#000000',
                 textDayFontWeight: '300',
                 textMonthFontWeight: 'bold',
                 textDayHeaderFontWeight: '500',
@@ -123,12 +117,7 @@ const CalenderScreen = () => {
           </View>
 
           {/* 캘린더 선택된 일정 표출 */}
-          <ScrollView>
-                <View style ={styles.planContainer}>
-                  <Text style={[styles.text, { marginVertical: 15 }]}> 
-                </Text>
-                </View>
-          </ScrollView>
+          
       </View>
       {/* roundBox */}
       <View style={[styles.roundBox, {height: 250}]}></View> 

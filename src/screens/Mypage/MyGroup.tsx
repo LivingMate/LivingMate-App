@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import PenIcon from '../../../assets/Icons/PenIcon';
-import MsgBalloon from '../../../assets/Icons/MsgBalloon';
+import PenIcon from '../../Assets/Icons/PenIcon';
+import MsgBalloon from '../../Assets/Icons/MsgBalloon';
 import CommonStyles from '../../Components/CommonStyles';
 
 interface MateProps {

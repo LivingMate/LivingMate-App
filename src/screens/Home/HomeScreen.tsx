@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, SafeAreaView, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Colors } from '../../Components/Colors';
 import CommonStyles from '../../Components/CommonStyles';
-import PlusIcon from '../../../assets/Icons/PlusIcon';
+import PlusIcon from '../../Assets/Icons/PlusIcon';
 import db from '../../../db.json';
 import TodoList from './TodoList';
 import Feed from './Feed';

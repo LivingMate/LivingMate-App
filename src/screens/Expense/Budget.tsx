@@ -2,9 +2,9 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Colors } from '../../Components/Colors';
-import PinIcon from '../../../assets/Icons/PinIcon';
-import ThreeDotsIcon from '../../../assets/Icons/ThreeDotsIcon';
-import NoticificationIcon from '../../../assets/Icons/NoticificationIcon';
+import PinIcon from '../../Assets/Icons/PinIcon';
+import ThreeDotsIcon from '../../Assets/Icons/ThreeDotsIcon';
+import NoticificationIcon from '../../Assets/Icons/NoticificationIcon';
 import CommonStyles from '../../Components/CommonStyles';
 
 interface BudgetProps {

@@ -2,20 +2,31 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Colors } from '../../Components/Colors';
-import PinIcon from '../../../assets/Icons/PinIcon';
-import ThreeDotsIcon from '../../../assets/Icons/ThreeDotsIcon';
+import PinIcon from '../../Assets/Icons/PinIcon';
+import ThreeDotsIcon from '../../Assets/Icons/ThreeDotsIcon';
 import CommonStyles from '../../Components/CommonStyles';
+import { useSelector } from 'react-redux';
+import { RootState } from '@app/Store/store';
 
 interface PostProps {
   content: string;
   isPinned: boolean;
-  authorName: string;
-  authorColor: string;
+  userId: string,
   date: string;
   //onPin: (isPinned: boolean) => void;
 }
 
-const Post: React.FC<PostProps> = ({ content, isPinned, authorName, authorColor, date}) => {
+const Post: React.FC<PostProps> = ({ content, isPinned, userId, date}) => {
+  
+  // 각 Post의 userId에 해당하는 유저 정보를 스토어에서 가져옵니다.
+  const user = useSelector((state: RootState) => 
+    state.userGroup.users.find(u => u.id === userId)
+  );
+
+  if (!user) {
+    return null; // 또는 로딩 컴포넌트, 또는 유저 정보가 없음을 표시하는 컴포넌트
+  }
+  
   return(
   <View style={styles.generalBox}>
     <View style={styles.contentAndButtonContainer}>
@@ -41,8 +52,8 @@ const Post: React.FC<PostProps> = ({ content, isPinned, authorName, authorColor,
       </View>
       <View style={styles.authorContainer}>
         <View style = {[styles.mateStyle, {
-              backgroundColor: authorColor,}]}>
-          <Text style={styles.mateText}>{authorName}</Text>
+              backgroundColor: user.color,}]}>
+          <Text style={styles.mateText}>{user.name}</Text>
         </View>
       </View>
     </View>

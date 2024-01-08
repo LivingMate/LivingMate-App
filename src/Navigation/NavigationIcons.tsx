@@ -2,11 +2,11 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Colors } from '../Components/Colors';
-import HomeIcon from "../../assets/Icons/HomeIcon";
-import CalendarIcon from '../../assets/Icons/CalenderIcon';
-import ExpenseIcon from '../../assets/Icons/ExpenseIcon';
-import NoticificationIcon from '../../assets/Icons/NoticificationIcon';
-import MypageIcon from '../../assets/Icons/MypageIcon';
+import HomeIcon from "../Assets/Icons/HomeIcon";
+import CalendarIcon from '../Assets/Icons/CalenderIcon';
+import ExpenseIcon from '../Assets/Icons/ExpenseIcon';
+import NoticificationIcon from '../Assets/Icons/NoticificationIcon';
+import MypageIcon from '../Assets/Icons/MypageIcon';
 
 interface IconsProps {
   routeName: string;

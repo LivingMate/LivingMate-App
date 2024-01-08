@@ -1,16 +1,16 @@
 {
     "isLoggedIn": true,
-    "id": "000000",
-    "name": "윤민지",
-    "color": "#CD6363",
+    "userId": "000000",
     "groupId": "001001",
     "groupName": "청파메이트",
 
     "groupMates": [
-        { "id": "0", "name": "김예원", "color": "#C96D00" },
-        { "id": "1", "name": "박준유", "color": "blue" },
-        { "id": "2", "name": "박시온", "color": "#6CB50F" }
+        { "userId": "0", "userName": "윤민지", "userColor": "#CD6363" },
+        { "userId": "1", "userName": "김예원", "userColor": "#C96D00" },
+        { "userId": "2", "userName": "박준유", "userColor": "blue" },
+        { "userId": "3", "userName": "박시온", "userColor": "#6CB50F" }
     ],
+
     "posts" : [
         { "id": 0, "content": "집세 내는 날: 매달 10일.\n우리 1002-256-ffffff(윤민지)", 
             "isPinned": true, "authorName": "윤민지", "authorColor": "#CD6363", "date": "2023-12-20"},

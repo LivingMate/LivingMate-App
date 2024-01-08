@@ -3,7 +3,7 @@ import { View, SafeAreaView, Text, StyleSheet, ScrollView, Platform, TouchableOp
 import { Colors } from '../../../Components/Colors';
 import CommonStyles from '../../../Components/CommonStyles';
 import SendInvitedCode from '../SendInvitedCode';
-import NoticificationIcon from '../../../../assets/Icons/NoticificationIcon';
+import NoticificationIcon from '../../../Assets/Icons/NoticificationIcon';
 import Profile from '../Profile';
 
 const testUser = {

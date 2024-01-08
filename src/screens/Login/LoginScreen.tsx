@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet} from 'react-native';
-import LogoIcon from '../../../assets/Icons/LogoIcon';
+import LogoIcon from '../../Assets/Icons/LogoIcon';
 import { Colors } from '../../Components/Colors';
 import CommonStyles from '../../Components/CommonStyles';
 

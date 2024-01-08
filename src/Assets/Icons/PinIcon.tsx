@@ -1,5 +1,5 @@
 // 네비게이션 홈아이콘 컴포넌트
-import { Colors } from '../../src/Components/Colors';
+import { Colors } from '../../Components/Colors';
 import React from 'react';
 import Svg, { G, Path, Defs, ClipPath, Rect } from 'react-native-svg';
 
