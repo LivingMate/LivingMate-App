@@ -1,12 +1,13 @@
 // TestData.tsx
+// Feed.tsx 테스트할 데이터 이름: postsData
 
-export const postsData = []
+export const posts2Data = []
 
-export const posts2Data = [
+export const postsData = [
     // 예시:
     { 
         id: 0, 
-        content: "집세 내는 날: 매달 10일.\n우리 1002-256-ffffff(윤민지)", 
+        content: "집세: 매달 11일.\n우리 1002-256-ffffff(윤민지)", 
         isPinned: true, 
         userId: "001",
         date: "2023-12-20"
@@ -38,6 +39,12 @@ export const posts2Data = [
         isPinned: false, 
         userId: "001",
         date: "2023-12-24"
+    },
+    { 
+        id: 5, 
+        content: "탈퇴한 사용자 블록 예시", 
+        isPinned: false, 
+        date: "2023-12-26"
     }
 ];
 

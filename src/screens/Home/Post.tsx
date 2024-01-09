@@ -1,5 +1,5 @@
 // PostView.tsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Colors } from '../../Components/Colors';
 import PinIcon from '../../Assets/Icons/PinIcon';
@@ -11,7 +11,7 @@ import { RootState } from '../../Store/store';
 interface PostProps {
   content: string;
   isPinned: boolean;
-  userId: string,
+  userId?: string,
   date: string;
   handlePin?: () => void;
 }
@@ -27,8 +27,20 @@ const Post: React.FC<PostProps> = ({ content, isPinned, userId, date, handlePin}
     return null; // 또는 로딩 컴포넌트, 또는 유저 정보가 없음을 표시하는 컴포넌트
   }*/
 
-  const userName = '탈퇴';
-  const userColor = Colors.text;
+  const [userName, setUserName] = useState<string>('탈퇴');
+  const [userColor, setUserColor] = useState<string>(Colors.text);
+
+  useEffect(() => {
+    if (userId)  {
+      setUserName('테스트');
+      setUserColor('#000000');
+    } /*else {
+      setUserName('탈퇴');
+      setUserColor(Colors.text);
+    }*/
+  }, []); // dependency 배열에 추가  
+
+  
   
   return(
   <View style={styles.generalBox}>

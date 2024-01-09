@@ -9,7 +9,7 @@ interface PostData {
   id: number;
   content: string;
   isPinned: boolean;
-  userId: string;
+  userId?: string;
   date: string;
 }
 
@@ -18,21 +18,20 @@ const Feed: React.FC = () => {
 
   useEffect(() => {
     if (postsData.length > 0)  {
-      //가장 최근 게시글이 피드 상단에 오게 정렬
+      // 가장 최근 게시글이 피드 상단에 오게 정렬
       postsData.reverse();
-      //isPinned가 true인 포스트를 상단으로 정렬
+      // isPinned가 true인 포스트를 상단으로 정렬
       const sortedPosts = postsData.sort((a: PostData, b: PostData) => {
         const aValue = a.isPinned ? 1 : 0;
         const bValue = b.isPinned ? 1 : 0;
         return bValue - aValue;
       });
-      //정렬된 posts를 setting
+      // 정렬된 posts를 setting
       setPosts(sortedPosts);
     } else {
       // data가 빈 배열일 경우, 빈 배열 setting
       setPosts([]);
     }
-
   }, [postsData]); // postsData의 변경을 감지하기 위해 dependency 배열에 추가  
 
   /*const handlePin = (id: number) => {
