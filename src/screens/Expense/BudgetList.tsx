@@ -13,8 +13,7 @@ const BudgetList: React.FC = () => {
             amount={item.amount}
             content={item.content}
             category={item.category}
-            authorName={item.authorName}
-            authorColor={item.authorColor}
+            userId={item.userId}
             date={item.date}
           />
         ))}

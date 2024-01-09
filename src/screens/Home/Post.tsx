@@ -6,26 +6,29 @@ import PinIcon from '../../Assets/Icons/PinIcon';
 import ThreeDotsIcon from '../../Assets/Icons/ThreeDotsIcon';
 import CommonStyles from '../../Components/CommonStyles';
 import { useSelector } from 'react-redux';
-import { RootState } from '@app/Store/store';
+import { RootState } from '../../Store/store';
 
 interface PostProps {
   content: string;
   isPinned: boolean;
   userId: string,
   date: string;
-  //onPin: (isPinned: boolean) => void;
+  handlePin?: () => void;
 }
 
-const Post: React.FC<PostProps> = ({ content, isPinned, userId, date}) => {
+const Post: React.FC<PostProps> = ({ content, isPinned, userId, date, handlePin}) => {
   
-  // 각 Post의 userId에 해당하는 유저 정보를 스토어에서 가져옵니다.
+  /* 각 Post의 userId에 해당하는 유저 정보를 스토어에서 가져옵니다.
   const user = useSelector((state: RootState) => 
     state.userGroup.users.find(u => u.id === userId)
   );
 
   if (!user) {
     return null; // 또는 로딩 컴포넌트, 또는 유저 정보가 없음을 표시하는 컴포넌트
-  }
+  }*/
+
+  const userName = '탈퇴';
+  const userColor = Colors.text;
   
   return(
   <View style={styles.generalBox}>
@@ -40,8 +43,13 @@ const Post: React.FC<PostProps> = ({ content, isPinned, userId, date}) => {
           <ThreeDotsIcon />
         </TouchableOpacity>
         </View>
-        <TouchableOpacity style={{marginLeft: 10}}>
-          <PinIcon color={isPinned ? Colors.theme : Colors.button} />
+        <TouchableOpacity 
+          style={{marginLeft: 10}}
+          onPress={handlePin} 
+        >
+          <PinIcon 
+            color={isPinned ? Colors.theme : Colors.button} 
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -52,8 +60,8 @@ const Post: React.FC<PostProps> = ({ content, isPinned, userId, date}) => {
       </View>
       <View style={styles.authorContainer}>
         <View style = {[styles.mateStyle, {
-              backgroundColor: user.color,}]}>
-          <Text style={styles.mateText}>{user.name}</Text>
+              backgroundColor: userColor,}]}>
+          <Text style={styles.mateText}>{userName}</Text>
         </View>
       </View>
     </View>

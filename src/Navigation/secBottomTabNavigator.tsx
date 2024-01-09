@@ -12,13 +12,57 @@ import NoticificationScreen from '../Screens/Noticification/NoticificationScreen
 
 import HomeScreen from '../Screens/Home/HomeScreen';
 import CommonStyles from '../Components/CommonStyles';
-import { ImageBackground } from 'react-native';
-import NoticificationIcon from '@app/Assets/Icons/NoticificationIcon';
+import HomeIcon from "../Assets/Icons/HomeIcon";
+import CalendarIcon from '../Assets/Icons/CalenderIcon';
+import ExpenseIcon from '../Assets/Icons/ExpenseIcon';
+import NoticificationIcon from '../Assets/Icons/NoticificationIcon';
+import MypageIcon from '../Assets/Icons/MypageIcon';
+import PinIcon from '../Assets/Icons/PinIcon';
+import { getTime } from 'date-fns';
+
 
 const Tab = createMaterialBottomTabNavigator();
 
-const  BottomTabNavigator = ({}) => {
+const BottomTabNavigator = ({}) => {
   return (
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused }) => {
+            let iconName;
+            if (route.name === 'Home') {
+              iconName = focused ? HomeIcon : PinIcon;
+            } else if (route.name === 'Calender') {
+              iconName = focused ? CalendarIcon : PinIcon;
+            } else if (route.name === 'Expense') {
+              iconName = focused ? ExpenseIcon : PinIcon;
+            } else if (route.name === 'Noticification') {
+              iconName = focused ? NoticificationIcon : PinIcon;
+            } else if (route.name === 'Mypage') {
+              iconName = focused ? MypageIcon : PinIcon;
+            }
+            
+            return (
+              <NavigationIcons
+                routeName={route.name}
+                isFocused={focused} 
+                onPress={() => console.log(`${route.name} tab pressed`)}
+                onLongPress={() => console.log(`${route.name} tab long pressed`)}
+            />);
+            
+          },
+
+          tabBarActiveTintColor: 'tomato',
+          tabBarInactiveTintColor: 'gray',
+        })}
+      >
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Calender" component={CalenderScreen} />
+        <Tab.Screen name="Expense" component={ExpenseScreen} />
+        <Tab.Screen name="Noticification" component={NoticificationScreen} />
+        <Tab.Screen name="Mypage" component={MypageScreen} />
+      </Tab.Navigator>
+
+    /*
     <Tab.Navigator
       initialRouteName = "Home"
       shifting = {false}
@@ -36,6 +80,7 @@ const  BottomTabNavigator = ({}) => {
           <NavigationIcons
             routeName={route.name}
             isFocused={focused}
+            color={focused ? Colors.theme : Colors.button}
             onPress={() => console.log(`${route.name} tab pressed`)}
             onLongPress={() => console.log(`${route.name} tab long pressed`)}
           />
@@ -69,7 +114,8 @@ const  BottomTabNavigator = ({}) => {
           tabBarLabel: "마이페이지"
         }}
       />
-    </Tab.Navigator>
+      
+    </Tab.Navigator> */
   );
 };
 

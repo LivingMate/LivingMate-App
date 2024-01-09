@@ -12,14 +12,25 @@ interface BudgetProps {
   category: string;
   //subCategory: string;
   content: string;
-  authorName: string;
-  authorColor: string;
+  userId: string;
   date: string;
  //onEdit: (content: string) => void;
  //onPin: (isPinned: boolean) => void
 }
 
-const Budget: React.FC<BudgetProps> = ({ amount ,content, category, authorName, authorColor, date }) => {
+const Budget: React.FC<BudgetProps> = ({ amount ,content, category, userId, date }) => {
+  /* 각 Post의 userId에 해당하는 유저 정보를 스토어에서 가져옵니다.
+  const user = useSelector((state: RootState) => 
+    state.userGroup.users.find(u => u.id === userId)
+  );
+
+  if (!user) {
+    return null; // 또는 로딩 컴포넌트, 또는 유저 정보가 없음을 표시하는 컴포넌트
+  }*/
+
+  const userName = '탈퇴';
+  const userColor = Colors.text;
+  
   return(
   <View style={styles.generalBox}>
     {/* 날짜, 버튼 */}
@@ -49,8 +60,8 @@ const Budget: React.FC<BudgetProps> = ({ amount ,content, category, authorName, 
       <Text style={styles.amountText}>{amount}원</Text>
       <View style={styles.authorContainer}>
         <View style = {[styles.mateStyle, {
-              backgroundColor: authorColor,}]}>
-          <Text style={styles.mateText}>{authorName}</Text>
+              backgroundColor: userColor,}]}>
+          <Text style={styles.mateText}>{userName}</Text>
         </View>
       </View>
     </View>
