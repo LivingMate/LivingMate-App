@@ -24,13 +24,11 @@ const HomeScreen = () => {
 
   return (
     <View>
-      <ScrollView>
       <SafeAreaView style={CommonStyles.safearea}>
-
       {/* 이번주 할일 */}
-      <View style={[CommonStyles.section, {marginTop: 40}]}>
-        <Text style={[styles.title, { color: 'white'}]}>이번주 할 일</Text>
-        <View style={styles.generalBox}>
+      <View style={[CommonStyles.section, {marginTop: 20}]}>
+        <Text style={[styles.title, { color: 'white'}]}>이번주 할 일 (9)</Text>
+        <View style={[styles.generalBox, {maxHeight: 200}]}>
           <TodoList />
         </View>
       </View>
@@ -47,15 +45,11 @@ const HomeScreen = () => {
       >
       <Text style={[styles.title, { color: 'black' }]}>피드</Text>
       <Feed />
-      {/*
-       <Post content='오늘 같이 삼겹살 먹을 사람?' isPinned={true} authorName='윤민지' authorColor='#CD6363' date='2023-12-20'/>
-      */} 
       </View>
 
       {/* roundBox */}
       <View style={[styles.roundBox, {height: roundBoxHeight}]}></View>
     </SafeAreaView>
-    </ScrollView>
     
       {/* plus button */}
     <View style={CommonStyles.plusButtonCotainer}>

@@ -1,10 +1,9 @@
 // TodoList.tsx
 import PlaceholderMessage from '../../Components/PlaceholderMessage';
-import CommonStyles from '../../Components/CommonStyles';
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Button, ScrollView } from 'react-native';
-import Todo from './Todo';
+import { ScrollView } from 'react-native';
 import {todosData} from './TestData';
+import Todo from './Todo2';
 
 interface TodoData {
   id: number;
@@ -15,6 +14,7 @@ interface TodoData {
 
 const TodoList: React.FC = () => {
   const [thisWeekTodoList, setThisWeekTodoList] = useState<TodoData[]>([]);
+  const [thisWeekTodoListCount, setThisWeekTodoListCount] = useState<number>(0);
 
   useEffect(() => {
     if (todosData.length > 0)  {
@@ -23,6 +23,12 @@ const TodoList: React.FC = () => {
     } else {
       // data가 빈 배열일 경우, 빈 배열 setting
       setThisWeekTodoList([]);
+    }
+
+    if(todosData.length > 0) {
+      setThisWeekTodoListCount(todosData.length);
+    } else {
+      setThisWeekTodoListCount(0);
     }
   }, []); // dependency 배열에 추가  
   

@@ -21,7 +21,7 @@ const TodoParticipants: React.FC<TodoParticipantsListProps> = ({participants}) =
             <MateBox
                 key={index}
                 userId={participants[index]}
-                textSize={12}
+                textSize={10}
                 showOnlyFirstLetter={true}
             />
             ))}

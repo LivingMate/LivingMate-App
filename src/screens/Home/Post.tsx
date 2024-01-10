@@ -30,7 +30,7 @@ const Post: React.FC<PostProps> = ({ content, isPinned, userId, date, handlePin}
   const [userName, setUserName] = useState<string>();
   const [userColor, setUserColor] = useState<string>();
 
-  useEffect(() => {
+  useState(() => {
     if (userId)  {
       setUserName('연결중');
       setUserColor('#000000');
@@ -38,9 +38,7 @@ const Post: React.FC<PostProps> = ({ content, isPinned, userId, date, handlePin}
       setUserName('탈퇴');
       setUserColor(Colors.text);
     }
-  }, []); // dependency 배열에 추가  
-
-  
+  }); // dependency 배열에 추가  
   
   return(
   <View style={styles.generalBox}>

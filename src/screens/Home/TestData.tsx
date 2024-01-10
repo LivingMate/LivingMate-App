@@ -43,7 +43,7 @@ export const postsData = [
     { 
         id: 5, 
         content: "탈퇴한 사용자 블록 예시", 
-        isPinned: false, 
+        isPinned: true, 
         date: "2023-12-26"
     }
 ];
