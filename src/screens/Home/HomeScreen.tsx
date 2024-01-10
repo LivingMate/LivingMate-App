@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, SafeAreaView, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, SafeAreaView, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { Colors } from '../../Components/Colors';
 import CommonStyles from '../../Components/CommonStyles';
 import PlusIcon from '../../Assets/Icons/PlusIcon';
@@ -23,13 +23,16 @@ const HomeScreen = () => {
   };
 
   return (
-      <View>
+    <View>
+      <ScrollView>
       <SafeAreaView style={CommonStyles.safearea}>
 
       {/* 이번주 할일 */}
       <View style={[CommonStyles.section, {marginTop: 40}]}>
         <Text style={[styles.title, { color: 'white'}]}>이번주 할 일</Text>
-            <TodoList text={null}/>
+        <View style={styles.generalBox}>
+          <TodoList />
+        </View>
       </View>
 
       {/* 피드 */}
@@ -52,6 +55,7 @@ const HomeScreen = () => {
       {/* roundBox */}
       <View style={[styles.roundBox, {height: roundBoxHeight}]}></View>
     </SafeAreaView>
+    </ScrollView>
     
       {/* plus button */}
     <View style={CommonStyles.plusButtonCotainer}>
@@ -68,6 +72,15 @@ const HomeScreen = () => {
 }
 
 const styles = StyleSheet.create({
+  generalBox: {
+    backgroundColor: Colors.white,
+    marginHorizontal: '5%',
+    marginBottom: 10,
+    borderRadius: 12,
+    padding: 10,
+    ...CommonStyles.shadow,
+  },
+  
   roundBox: {
     zIndex: 1, // 낮은 zIndex로 맨 뒤에 위치
     backgroundColor: Colors.theme,

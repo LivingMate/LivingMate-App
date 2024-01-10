@@ -1,5 +1,5 @@
 // PostView.tsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Colors } from '../../Components/Colors';
 import PinIcon from '../../Assets/Icons/PinIcon';
@@ -12,7 +12,7 @@ interface BudgetProps {
   category: string;
   //subCategory: string;
   content: string;
-  userId: string;
+  userId?: string;
   date: string;
  //onEdit: (content: string) => void;
  //onPin: (isPinned: boolean) => void
@@ -28,8 +28,18 @@ const Budget: React.FC<BudgetProps> = ({ amount ,content, category, userId, date
     return null; // 또는 로딩 컴포넌트, 또는 유저 정보가 없음을 표시하는 컴포넌트
   }*/
 
-  const userName = '탈퇴';
-  const userColor = Colors.text;
+  const [userName, setUserName] = useState<string>();
+  const [userColor, setUserColor] = useState<string>();
+  
+  useEffect(() => {
+    if (userId)  {
+      setUserName('연결중');
+      setUserColor('#000000');
+    } else {
+      setUserName('탈퇴');
+      setUserColor(Colors.text);
+    }
+  }, []); // dependency 배열에 추가 
   
   return(
   <View style={styles.generalBox}>

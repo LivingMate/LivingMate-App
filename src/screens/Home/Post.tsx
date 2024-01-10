@@ -27,17 +27,17 @@ const Post: React.FC<PostProps> = ({ content, isPinned, userId, date, handlePin}
     return null; // 또는 로딩 컴포넌트, 또는 유저 정보가 없음을 표시하는 컴포넌트
   }*/
 
-  const [userName, setUserName] = useState<string>('탈퇴');
-  const [userColor, setUserColor] = useState<string>(Colors.text);
+  const [userName, setUserName] = useState<string>();
+  const [userColor, setUserColor] = useState<string>();
 
   useEffect(() => {
     if (userId)  {
-      setUserName('테스트');
+      setUserName('연결중');
       setUserColor('#000000');
-    } /*else {
+    } else {
       setUserName('탈퇴');
       setUserColor(Colors.text);
-    }*/
+    }
   }, []); // dependency 배열에 추가  
 
   

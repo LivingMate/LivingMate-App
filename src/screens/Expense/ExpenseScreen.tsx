@@ -7,6 +7,7 @@ import PlusIcon from '../../Assets/Icons/PlusIcon';
 import MagnifyingGlassIcon from '../../Assets/Icons/MagnifyingGlassIcon';
 import BudgetList from './BudgetList';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import CurrentExpense from './CurrentExpense';
 
 const ExpenseScreen = () => {
   const insets = useSafeAreaInsets();
@@ -33,14 +34,12 @@ const ExpenseScreen = () => {
     <View>
       <SafeAreaView style={CommonStyles.safearea}>
 
-      {/* 현재 지출 현황 */}
+      {/* 현재 지출 현황 */}           
       <View style={[CommonStyles.section, {marginTop: 40}]}>
         <Text style={[styles.title, { color: 'white'}]}>현재 지출 현황</Text>
-        <View style={[styles.currentExpenses]}>
-          <Text style={{fontSize: 18}}>
-            총 84000원
-          </Text>
-        </View>
+        
+        {/* 현재 지출 현황 박스 */}   
+        <CurrentExpense />
       </View>
 
       {/* 지출 카테고리 및 검색*/}

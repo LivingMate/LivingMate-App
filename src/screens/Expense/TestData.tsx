@@ -11,7 +11,7 @@ const budgetData = [
       amount: 15000,
       content: '전구 교체',
       category: '비품',
-      userId: "002",
+      //userId: "002",
       date: '2023-12-18'
     },
     {

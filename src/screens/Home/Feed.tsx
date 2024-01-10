@@ -43,7 +43,6 @@ const Feed: React.FC = () => {
   }; */
 
   return (
-    <ScrollView>
       <View style={{ marginBottom: 500 }}>
         {posts.length > 0 ? (
           posts.map((post) => (
@@ -60,7 +59,6 @@ const Feed: React.FC = () => {
           <PlaceholderMessage msg='등록된 게시물이 없습니다.' fontSize={18} />
         )}
       </View>
-    </ScrollView>
   );
 };
 

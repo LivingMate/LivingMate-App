@@ -6,8 +6,7 @@ interface PostItem {
   id: number;
   content: string;
   isPinned: boolean;
-  authorName: string;
-  authorColor: string;
+  userId: string;
   date: string;
 }
 
@@ -32,8 +31,7 @@ const Feed: React.FC<FeedProps> = ({ postlist }) => {
           key={post.id}
           content={post.content}
           isPinned={post.isPinned}
-          authorName={post.authorName}
-          authorColor={post.authorColor}
+          userId={post.userId}
           date={post.date}
         />
       ))}

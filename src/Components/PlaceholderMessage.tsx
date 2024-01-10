@@ -9,7 +9,7 @@ interface PlaceholderMessageProps {
 
 const PlaceholderMessage: React.FC<PlaceholderMessageProps> = ({ msg, fontSize }) => {
     return(
-        <View style={[CommonStyles.generalBox, {paddingVertical: 25}]}>
+        <View style={[CommonStyles.generalBox, {paddingVertical: 25, paddingHorizontal: 15}]}>
           <Text style={{fontSize: fontSize}}>{msg}</Text>
         </View>
     );
