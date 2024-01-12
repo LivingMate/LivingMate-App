@@ -1,9 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import Budget from './Budget';
-import budgetData from './TestData';
+
+interface PostData {
+  id: number;
+  content: string;
+  isPinned: boolean;
+  userId?: string;
+  groupId: string;
+  date: string;
+}
+
+interface BudgetData {
+  id: number;
+  content: string;
+  amount: number;
+  userId?: string;
+  category: string;
+  subCategory: string;
+  date: string;
+}
 
 const BudgetList: React.FC = () => {
+
+  const [budgetData, setBudgetData] = useState<BudgetData[]>([]);
+
   return (
     <ScrollView>
       <View>

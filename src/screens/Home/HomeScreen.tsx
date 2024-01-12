@@ -13,7 +13,7 @@ const HomeScreen = () => {
   const [todoCount, setTodoCount] = useState<number>(0);
   const [todolistBoxMaxHeight, setTodolistBoxMaxHeight] = useState<number>(200);
   const [todolistBoxMaxHeightButtonColor, setTodolistBoxMaxHeightButtonColor] = useState<string>(Colors.text);
-
+  const [todolistBoxPaddingBottom, setTodolistBoxPaddingBottom] = useState<number>(10);
   
 
   const handleTodoCountChange = (count: number) => {
@@ -29,9 +29,10 @@ const HomeScreen = () => {
     console.log(`${title} 버튼이 클릭되었습니다.`);
   };
 
-  const toggleTodolistBoxMaxHeight = () => {
+  const toggleTodolistBox = () => {
     setTodolistBoxMaxHeight(todolistBoxMaxHeight === 200 ? 590 : 200);
     setTodolistBoxMaxHeightButtonColor(todolistBoxMaxHeight === 200 ? Colors.theme : Colors.button)
+    setTodolistBoxPaddingBottom(todolistBoxMaxHeight === 200 ? 40 : 10);
   };
 
   return (
@@ -40,10 +41,10 @@ const HomeScreen = () => {
       {/* 이번주 할일 */}
       <View style={[CommonStyles.section, {marginTop: 20}]}>
         <Text style={[styles.title, { color: 'white'}]}> 이번주 할 일 ({todoCount})</Text>
-        <View style={[styles.generalBox, {maxHeight: todolistBoxMaxHeight}]}>
+        <View style={[styles.generalBox, {maxHeight: todolistBoxMaxHeight, paddingBottom: todolistBoxPaddingBottom}]}>
           <TouchableOpacity 
             style={{marginVertical: 10, alignItems: 'flex-end'}} 
-            onPress={toggleTodolistBoxMaxHeight}
+            onPress={toggleTodolistBox}
           >
              <View style={[styles.arrowDownIcon, {borderBottomColor:todolistBoxMaxHeightButtonColor}]}></View>
           </TouchableOpacity>
