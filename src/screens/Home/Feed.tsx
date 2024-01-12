@@ -34,17 +34,9 @@ const Feed: React.FC = () => {
     }
   }, [postsData]); // postsData의 변경을 감지하기 위해 dependency 배열에 추가  
 
-  /*const handlePin = (id: number) => {
-    setPosts((currentPosts) =>
-      currentPosts?.map(post =>
-        post.id === id ? { ...post, isPinned: !post.isPinned } : post
-      )
-    );
-  }; */
-
   return (
     <ScrollView>
-      <View style={{ marginBottom: 500 }}>
+      <View style={{ marginBottom: 1090 }}>
         {posts.length > 0 ? (
           posts.map((post) => (
             <Post
@@ -53,7 +45,7 @@ const Feed: React.FC = () => {
               isPinned={post.isPinned}
               userId={post.userId}
               date={post.date}
-             // handlePin={() => handlePin(post.id)}
+            //  onTogglePin={() => togglePin(post.id)}
             />
           ))
         ) : (

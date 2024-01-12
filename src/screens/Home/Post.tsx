@@ -7,39 +7,20 @@ import ThreeDotsIcon from '../../Assets/Icons/ThreeDotsIcon';
 import CommonStyles from '../../Components/CommonStyles';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../Store/store';
+import MateBox from '../../Components/MateBox';
 
 interface PostProps {
   content: string;
   isPinned: boolean;
   userId?: string,
   date: string;
-  handlePin?: () => void;
+  //onTogglePin: () => void;
 }
 
-const Post: React.FC<PostProps> = ({ content, isPinned, userId, date, handlePin}) => {
+const Post: React.FC<PostProps> = ({ content, isPinned, userId, date}) => {
   
-  /* 각 Post의 userId에 해당하는 유저 정보를 스토어에서 가져옵니다.
-  const user = useSelector((state: RootState) => 
-    state.userGroup.users.find(u => u.id === userId)
-  );
+  const [isFocused, setIsFocused] = useState(false);
 
-  if (!user) {
-    return null; // 또는 로딩 컴포넌트, 또는 유저 정보가 없음을 표시하는 컴포넌트
-  }*/
-
-  const [userName, setUserName] = useState<string>();
-  const [userColor, setUserColor] = useState<string>();
-
-  useState(() => {
-    if (userId)  {
-      setUserName('연결중');
-      setUserColor('#000000');
-    } else {
-      setUserName('탈퇴');
-      setUserColor(Colors.text);
-    }
-  }); // dependency 배열에 추가  
-  
   return(
   <View style={styles.generalBox}>
     <View style={styles.contentAndButtonContainer}>
@@ -47,15 +28,19 @@ const Post: React.FC<PostProps> = ({ content, isPinned, userId, date, handlePin}
         <Text style={styles.text}>{content}</Text>
       </View>
   
-      <View style={styles.buttonContainer}>
-        <View style={{marginTop: 10}}>
-        <TouchableOpacity>
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity
+          onPressIn={() => setIsFocused(true)}
+          onPressOut={() => setIsFocused(false)}
+          onPress={()=> {console.log("post threedots clicked");}}
+          style={[styles.buttonContainer, isFocused && styles.focused]}
+        >
           <ThreeDotsIcon />
         </TouchableOpacity>
-        </View>
+
         <TouchableOpacity 
-          style={{marginLeft: 10}}
-          onPress={handlePin} 
+          
+          //onPress={onTogglePin} 
         >
           <PinIcon 
             color={isPinned ? Colors.theme : Colors.button} 
@@ -68,12 +53,11 @@ const Post: React.FC<PostProps> = ({ content, isPinned, userId, date, handlePin}
       <View style={styles.dateContainer}>
         <Text style = {{color: Colors.text}}> {date}</Text>
       </View>
-      <View style={styles.authorContainer}>
-        <View style = {[styles.mateStyle, {
-              backgroundColor: userColor,}]}>
-          <Text style={styles.mateText}>{userName}</Text>
-        </View>
-      </View>
+      <MateBox
+          userId={userId}
+          textSize={12}
+          showOnlyFirstLetter={false}
+      />
     </View>
   </View>
   );
@@ -100,7 +84,7 @@ const styles = StyleSheet.create({
     flex: 8,
   },
 
-  buttonContainer: {
+  buttonsContainer: {
     flexDirection: 'row',
     alignItems: 'flex-start',
   },
@@ -114,27 +98,27 @@ const styles = StyleSheet.create({
     flex: 8,
   },
 
-  authorContainer : {
-    alignItems: 'flex-start',
-  },
-
   text: {
     fontSize: 16,
     color: '#000000',
   },
 
-  mateStyle:{
-    borderRadius: 8,
+  buttonContainer: {
+    paddingVertical: 12,
+    backgroundColor: 'white', // 기본 배경색
+    width: 20,
+    height: 20,
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 
-  mateText: {
-    fontSize: 12,
-    color: '#ffffff',
-    fontWeight: 'bold',
-    margin: 6,
+  focused: {
+    backgroundColor: 'rgba(181, 181, 181, 0.4)', //포커스 시 배경색
   },
 
 });
 
 export default Post;
+
 

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet} from 'react-native';
 import { Colors } from './Colors';
 
 interface MateProps {
-    userId: string;
+    userId?: string;
     textSize: number;
     showOnlyFirstLetter: boolean;
 }

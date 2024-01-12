@@ -2,10 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Colors } from '../../Components/Colors';
-import PinIcon from '../../Assets/Icons/PinIcon';
 import ThreeDotsIcon from '../../Assets/Icons/ThreeDotsIcon';
-import NoticificationIcon from '../../Assets/Icons/NoticificationIcon';
 import CommonStyles from '../../Components/CommonStyles';
+import MateBox from '../../Components/MateBox';
 
 interface BudgetProps {
   amount: number;
@@ -19,28 +18,6 @@ interface BudgetProps {
 }
 
 const Budget: React.FC<BudgetProps> = ({ amount ,content, category, userId, date }) => {
-  /* 각 Post의 userId에 해당하는 유저 정보를 스토어에서 가져옵니다.
-  const user = useSelector((state: RootState) => 
-    state.userGroup.users.find(u => u.id === userId)
-  );
-
-  if (!user) {
-    return null; // 또는 로딩 컴포넌트, 또는 유저 정보가 없음을 표시하는 컴포넌트
-  }*/
-
-  const [userName, setUserName] = useState<string>();
-  const [userColor, setUserColor] = useState<string>();
-  
-  useEffect(() => {
-    if (userId)  {
-      setUserName('연결중');
-      setUserColor('#000000');
-    } else {
-      setUserName('탈퇴');
-      setUserColor(Colors.text);
-    }
-  }, []); // dependency 배열에 추가 
-  
   return(
   <View style={styles.generalBox}>
     {/* 날짜, 버튼 */}
@@ -67,13 +44,12 @@ const Budget: React.FC<BudgetProps> = ({ amount ,content, category, userId, date
 
     {/* 금액, 작성자 */}
     <View style={styles.amountAndAuthorContainer}>
-      <Text style={styles.amountText}>{amount}원</Text>
-      <View style={styles.authorContainer}>
-        <View style = {[styles.mateStyle, {
-              backgroundColor: userColor,}]}>
-          <Text style={styles.mateText}>{userName}</Text>
-        </View>
-      </View>
+      <Text style={[styles.amountText, {marginRight: 7}]}>{amount}원</Text>
+      <MateBox
+          userId={userId}
+          textSize={12}
+          showOnlyFirstLetter={false}
+      />
     </View>
   </View>
   );
@@ -130,11 +106,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
 
-  authorContainer : {
-    alignItems: 'flex-end',
-    marginHorizontal: 10,
-  },
-
   text: {
     fontSize: 16,
     color: '#000000',
@@ -143,18 +114,6 @@ const styles = StyleSheet.create({
   amountText: {
     fontSize: 22,
   },
-
-  mateStyle:{
-    borderRadius: 8,
-  },
-
-  mateText: {
-    fontSize: 12,
-    color: '#ffffff',
-    fontWeight: 'bold',
-    margin: 6,
-  },
-
 });
 
 export default Budget;
