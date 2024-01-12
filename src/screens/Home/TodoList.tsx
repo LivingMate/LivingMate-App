@@ -3,7 +3,7 @@ import PlaceholderMessage from '../../Components/PlaceholderMessage';
 import React, { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native';
 import {todosData} from './TestData';
-import Todo from './Todo2';
+import Todo from './Todo';
 
 interface TodoData {
   id: number;
@@ -12,26 +12,25 @@ interface TodoData {
   participants: string[];
 }
 
-const TodoList: React.FC = () => {
+interface TodoListProps {
+  onTodoCountChange: (count: number) => void;
+}
+
+const TodoList: React.FC<TodoListProps> = ({ onTodoCountChange }) => {
   const [thisWeekTodoList, setThisWeekTodoList] = useState<TodoData[]>([]);
-  const [thisWeekTodoListCount, setThisWeekTodoListCount] = useState<number>(0);
 
   useEffect(() => {
     if (todosData.length > 0)  {
       // 정렬된 데이터를 setting
       setThisWeekTodoList(todosData);
+      onTodoCountChange(todosData.length); 
     } else {
       // data가 빈 배열일 경우, 빈 배열 setting
       setThisWeekTodoList([]);
-    }
-
-    if(todosData.length > 0) {
-      setThisWeekTodoListCount(todosData.length);
-    } else {
-      setThisWeekTodoListCount(0);
-    }
-  }, []); // dependency 배열에 추가  
+      onTodoCountChange(0);
+    }}, [todosData]); 
   
+
   return (
     <ScrollView>
         {thisWeekTodoList.length > 0 ? (

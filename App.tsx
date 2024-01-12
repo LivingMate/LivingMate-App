@@ -4,13 +4,16 @@ import BottomTabNavigator from './src/Navigation/BottomTabNavigator';
 import { NavigationContainer } from '@react-navigation/native';
 import { View, StyleSheet } from 'react-native';
 import { Colors } from './src/Components/Colors';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const App: React.FC = () => (
+  <GestureHandlerRootView style={{ flex: 1 }}>
     <NavigationContainer >  
       <View style={styles.container}>
         <BottomTabNavigator />
       </View>
     </NavigationContainer>
+    </GestureHandlerRootView>
 );
 
 const styles = StyleSheet.create({

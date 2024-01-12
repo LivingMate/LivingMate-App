@@ -29,7 +29,7 @@ const CommonStyles = StyleSheet.create({
   plusButtonCotainer:{
     zIndex: 3, // 가장 앞에 위치
     position: 'absolute',
-    top: 520,
+    top: 670,
     width: '95%',
     alignItems: 'flex-end',
   },

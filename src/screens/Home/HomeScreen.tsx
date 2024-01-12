@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, SafeAreaView, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, SafeAreaView, Text, StyleSheet, TouchableOpacity, ScrollView, Modal } from 'react-native';
 import { Colors } from '../../Components/Colors';
 import CommonStyles from '../../Components/CommonStyles';
 import PlusIcon from '../../Assets/Icons/PlusIcon';
@@ -9,9 +9,13 @@ import Feed from './Feed';
 import Post from './Post'
 
 const HomeScreen = () => {
- 
   const [roundBoxHeight, setRoundBoxHeight] = useState<number>(0);
+  const [todoCount, setTodoCount] = useState<number>(0);
+  const [todolistBoxMaxHeight, setTodolistBoxMaxHeight] = useState<number | null>(200);
 
+  const handleTodoCountChange = (count: number) => {
+    setTodoCount(count);
+  };
   //round box 길이 변경 함수
   useEffect(() => {
       console.log("roundBoxHeight: ", roundBoxHeight);
@@ -22,16 +26,24 @@ const HomeScreen = () => {
     console.log(`${title} 버튼이 클릭되었습니다.`);
   };
 
+  const toggleTodolistBoxMaxHeight = () => {
+    setTodolistBoxMaxHeight(todolistBoxMaxHeight === 200 ? null : 200);
+  };
+
   return (
     <View>
       <SafeAreaView style={CommonStyles.safearea}>
       {/* 이번주 할일 */}
       <View style={[CommonStyles.section, {marginTop: 20}]}>
-        <Text style={[styles.title, { color: 'white'}]}>이번주 할 일 (9)</Text>
-        <View style={[styles.generalBox, {maxHeight: 200}]}>
-          <TodoList />
+        <Text style={[styles.title, { color: 'white'}]}> 이번주 할 일 ({todoCount})</Text>
+        <View style={[styles.generalBox, {maxHeight: todolistBoxMaxHeight}]}>
+          <TodoList onTodoCountChange={handleTodoCountChange}/>
+          <TouchableOpacity style={{marginTop: 10, alignItems: 'flex-end'}} onPress={toggleTodolistBoxMaxHeight}>
+            <Text style={{fontSize: 12}}>더보기</Text>
+          </TouchableOpacity>
         </View>
       </View>
+
 
       {/* 피드 */}
       <View 

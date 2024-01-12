@@ -50,13 +50,6 @@ export const postsData = [
 
 export const todosData = [
     { 
-        id: 0,
-        content: "대청소. 범위는 거실, 각자 방, 화장실, 계단, 부엌, 냉장고, 등등등 다 함",
-        weekDays: '월,수,목,금,토,일',
-        participants: ['01', '02', '03', '04','05']
-      //  participants: [{userName: '김', userColor: 'black'}],
-    },
-    { 
         id: 1, 
         content: "설거지",
         weekDays: '주말',
@@ -75,6 +68,13 @@ export const todosData = [
         weekDays: '월,수,금',
         participants: ['01', '02']
        // participants: [{userName: '김', userColor: 'black'}, {userName: '이', userColor: 'red'}, {userName: '송', userColor: 'yellow'}, {userName: '이', userColor: 'red'}, {userName: '송', userColor: 'yellow'}],
+    },
+    { 
+        id: 4,
+        content: "대청소. 범위는 거실, 각자 방, 화장실, 계단, 부엌, 냉장고, 등등등 다 함",
+        weekDays: '월,수,목,금,토,일',
+        participants: ['01', '02', '03', '04','05']
+      //  participants: [{userName: '김', userColor: 'black'}],
     },
 ];
 
