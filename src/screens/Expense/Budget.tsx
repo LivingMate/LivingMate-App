@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   },
 
   amountText: {
-    fontSize: 22,
+    fontSize: 20,
   },
 });
 

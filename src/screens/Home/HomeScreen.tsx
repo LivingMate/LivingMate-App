@@ -11,7 +11,10 @@ import Post from './Post'
 const HomeScreen = () => {
   const [roundBoxHeight, setRoundBoxHeight] = useState<number>(0);
   const [todoCount, setTodoCount] = useState<number>(0);
-  const [todolistBoxMaxHeight, setTodolistBoxMaxHeight] = useState<number | null>(200);
+  const [todolistBoxMaxHeight, setTodolistBoxMaxHeight] = useState<number>(200);
+  const [todolistBoxMaxHeightButtonColor, setTodolistBoxMaxHeightButtonColor] = useState<string>(Colors.text);
+
+  
 
   const handleTodoCountChange = (count: number) => {
     setTodoCount(count);
@@ -27,7 +30,8 @@ const HomeScreen = () => {
   };
 
   const toggleTodolistBoxMaxHeight = () => {
-    setTodolistBoxMaxHeight(todolistBoxMaxHeight === 200 ? null : 200);
+    setTodolistBoxMaxHeight(todolistBoxMaxHeight === 200 ? 590 : 200);
+    setTodolistBoxMaxHeightButtonColor(todolistBoxMaxHeight === 200 ? Colors.theme : Colors.button)
   };
 
   return (
@@ -37,10 +41,13 @@ const HomeScreen = () => {
       <View style={[CommonStyles.section, {marginTop: 20}]}>
         <Text style={[styles.title, { color: 'white'}]}> 이번주 할 일 ({todoCount})</Text>
         <View style={[styles.generalBox, {maxHeight: todolistBoxMaxHeight}]}>
-          <TodoList onTodoCountChange={handleTodoCountChange}/>
-          <TouchableOpacity style={{marginTop: 10, alignItems: 'flex-end'}} onPress={toggleTodolistBoxMaxHeight}>
-            <Text style={{fontSize: 12}}>더보기</Text>
+          <TouchableOpacity 
+            style={{marginVertical: 10, alignItems: 'flex-end'}} 
+            onPress={toggleTodolistBoxMaxHeight}
+          >
+             <View style={[styles.arrowDownIcon, {borderBottomColor:todolistBoxMaxHeightButtonColor}]}></View>
           </TouchableOpacity>
+          <TodoList onTodoCountChange={handleTodoCountChange} />
         </View>
       </View>
 
@@ -102,6 +109,36 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     marginVertical: 15,
     marginHorizontal: '5%',
+  },
+
+  arrowUpIcon: {
+    width: 0,
+    height: 0,
+    backgroundColor: 'transparent', //투명
+    borderStyle: 'solid',
+    borderLeftWidth: 5,
+    borderRightWidth: 5,
+    borderTopWidth: 10,
+    borderLeftColor: 'transparent',
+    borderRightColor: 'transparent',
+    borderTopColor: Colors.button,
+    marginRight: 10,
+    alignItems: 'flex-end',
+  },
+  arrowDownIcon: {
+    width: 0,
+    height: 0,
+    backgroundColor: 'transparent',
+    borderStyle: 'solid',
+    borderLeftWidth: 5,
+    borderRightWidth: 5,
+    borderBottomWidth: 10,
+    borderLeftColor: 'transparent',
+    borderRightColor: 'transparent',
+   //borderBottomColor: Colors.text,
+    transform: [{ rotate: '180deg' }],
+    marginRight: 10,
+    alignItems: 'flex-end',
   },
 });
 

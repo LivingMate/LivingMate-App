@@ -5,24 +5,74 @@
     "groupName": "청파메이트",
 
     "groupMates": [
-        { "userId": "0", "userName": "윤민지", "userColor": "#CD6363" },
-        { "userId": "1", "userName": "김예원", "userColor": "#C96D00" },
-        { "userId": "2", "userName": "박준유", "userColor": "blue" },
-        { "userId": "3", "userName": "박시온", "userColor": "#6CB50F" }
+        { "userId": "001", "userName": "윤민지", "userColor": "#CD6363" },
+        { "userId": "002", "userName": "김예원", "userColor": "#C96D00" },
+        { "userId": "003", "userName": "박준유", "userColor": "blue" },
+        { "userId": "004", "userName": "박시온", "userColor": "#6CB50F" }
     ],
 
     "posts" : [
         { "id": 0, "content": "집세 내는 날: 매달 10일.\n우리 1002-256-ffffff(윤민지)", 
-            "isPinned": true, "authorName": "윤민지", "authorColor": "#CD6363", "date": "2023-12-20"},
+            "isPinned": true, "userId": "001", "date": "2023-12-20"},
         { "id": 1, "content": "청파메이트 규칙\n1. 재밌게 살자!\n2. 화장실청소 돌아가면서 하기", 
-            "isPinned": true, "authorName": "윤민지", "authorColor": "#CD6363", "date": "2023-12-20"},
+            "isPinned": true, "userId": "002",  "date": "2023-12-20"},
         { "id": 2, "content": "얘들아 미안 나 오늘 늦게 들어가!", 
-            "isPinned": false, "authorName": "윤민지", "authorColor": "#CD6363", "date": "2023-12-20"},
+            "isPinned": false, "userId": "002", "date": "2023-12-20"},
         { "id": 3, "content": "연말 파티 같이 할 사람~!~!~!~!", 
-            "isPinned": false, "authorName": "윤민지", "authorColor": "#CD6363", "date": "2023-12-20"},
+            "isPinned": false, "userId": "003" , "date": "2023-12-20"},
         { "id": 4, "content": "세제 구매 완료하였습니다!\n가계부에 지출내역 추가해둘게", 
-            "isPinned": false, "authorName": "윤민지", "authorColor": "#CD6363", "date": "2023-12-20"}
-    ]
+            "isPinned": false, "userId": "004", "date": "2023-12-20"}
+    ],
 
+    "todosData" : [
+        { 
+            "id": 1, 
+            "content": "설거지",
+            "weekDays": "주말",
+            "participants": ["001"]
+        },
+        { 
+            "id": 2, 
+            "content": "장보기",
+            "weekDays": "월, 수",
+            "participants": ["001", "002"]
+        },
+        
+        { 
+            "id": 1, 
+            "content": "대청소. 범위는 거실, 각자 방, 화장실, 계단, 부엌, 냉장고, 등등등 다 함",
+            "weekDays": "월,수,목,금,토,일",
+            "participants": ["001", "002", "003", "004"]
+        }
+    ],
+    "budgetData" : [
+        {
+          "amount": 12000,
+          "content": "세제 구매",
+          "category": "공과금",
+          "userId": "001",
+          "date": "2023-12-20"
+        },
+        {
+          "amount": 15000,
+          "content": "전구 교체",
+          "category": "비품",
+          "date": "2023-12-18"
+        },
+        {
+          "amount": 15000,
+          "content": "전구 교체",
+          "category": "비품",
+          "userId": "003",
+          "date": "2023-12-18"
+        },
+        {
+            "amount": 2000,
+            "content": "연필",
+            "category": "비품",
+            "userId": "002",
+            "date": "2023-12-18"
+          }
+      ]
 }
   

@@ -1,7 +1,7 @@
 // TodoList.tsx
 import PlaceholderMessage from '../../Components/PlaceholderMessage';
 import React, { useEffect, useState } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import {todosData} from './TestData';
 import Todo from './Todo';
 
