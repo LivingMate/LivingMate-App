@@ -8,7 +8,6 @@ interface TodoParticipantsListProps {
 }
 
 const TodoParticipants: React.FC<TodoParticipantsListProps> = ({participants}) => {
-
     return(
         <View 
             style={{

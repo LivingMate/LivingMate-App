@@ -11,14 +11,11 @@ import Post from './Post'
 const HomeScreen = () => {
   const [roundBoxHeight, setRoundBoxHeight] = useState<number>(0);
   const [todoCount, setTodoCount] = useState<number>(0);
-  const [todolistBoxMaxHeight, setTodolistBoxMaxHeight] = useState<number>(200);
-  const [todolistBoxMaxHeightButtonColor, setTodolistBoxMaxHeightButtonColor] = useState<string>(Colors.text);
-  const [todolistBoxPaddingBottom, setTodolistBoxPaddingBottom] = useState<number>(10);
-  
 
   const handleTodoCountChange = (count: number) => {
     setTodoCount(count);
   };
+  
   //round box 길이 변경 함수
   useEffect(() => {
       console.log("roundBoxHeight: ", roundBoxHeight);
@@ -29,29 +26,14 @@ const HomeScreen = () => {
     console.log(`${title} 버튼이 클릭되었습니다.`);
   };
 
-  const toggleTodolistBox = () => {
-    setTodolistBoxMaxHeight(todolistBoxMaxHeight === 200 ? 590 : 200);
-    setTodolistBoxMaxHeightButtonColor(todolistBoxMaxHeight === 200 ? Colors.theme : Colors.button)
-    setTodolistBoxPaddingBottom(todolistBoxMaxHeight === 200 ? 40 : 10);
-  };
-
   return (
     <View>
       <SafeAreaView style={CommonStyles.safearea}>
       {/* 이번주 할일 */}
       <View style={[CommonStyles.section, {marginTop: 20}]}>
         <Text style={[styles.title, { color: 'white'}]}> 이번주 할 일 ({todoCount})</Text>
-        <View style={[styles.generalBox, {maxHeight: todolistBoxMaxHeight, paddingBottom: todolistBoxPaddingBottom}]}>
-          <TouchableOpacity 
-            style={{marginVertical: 10, alignItems: 'flex-end'}} 
-            onPress={toggleTodolistBox}
-          >
-             <View style={[styles.arrowDownIcon, {borderBottomColor:todolistBoxMaxHeightButtonColor}]}></View>
-          </TouchableOpacity>
-          <TodoList onTodoCountChange={handleTodoCountChange} />
-        </View>
+        <TodoList onTodoCountChange={handleTodoCountChange} />
       </View>
-
 
       {/* 피드 */}
       <View 
@@ -63,8 +45,8 @@ const HomeScreen = () => {
           setRoundBoxHeight(calculatedHeight);
         }}
       >
-      <Text style={[styles.title, { color: 'black' }]}>피드</Text>
-      <Feed />
+        <Text style={[styles.title, { color: 'black' }]}>피드</Text>
+        <Feed />
       </View>
 
       {/* roundBox */}
@@ -86,15 +68,6 @@ const HomeScreen = () => {
 }
 
 const styles = StyleSheet.create({
-  generalBox: {
-    backgroundColor: Colors.white,
-    marginHorizontal: '5%',
-    marginBottom: 10,
-    borderRadius: 12,
-    padding: 10,
-    ...CommonStyles.shadow,
-  },
-  
   roundBox: {
     zIndex: 1, // 낮은 zIndex로 맨 뒤에 위치
     backgroundColor: Colors.theme,
@@ -110,36 +83,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     marginVertical: 15,
     marginHorizontal: '5%',
-  },
-
-  arrowUpIcon: {
-    width: 0,
-    height: 0,
-    backgroundColor: 'transparent', //투명
-    borderStyle: 'solid',
-    borderLeftWidth: 5,
-    borderRightWidth: 5,
-    borderTopWidth: 10,
-    borderLeftColor: 'transparent',
-    borderRightColor: 'transparent',
-    borderTopColor: Colors.button,
-    marginRight: 10,
-    alignItems: 'flex-end',
-  },
-  arrowDownIcon: {
-    width: 0,
-    height: 0,
-    backgroundColor: 'transparent',
-    borderStyle: 'solid',
-    borderLeftWidth: 5,
-    borderRightWidth: 5,
-    borderBottomWidth: 10,
-    borderLeftColor: 'transparent',
-    borderRightColor: 'transparent',
-   //borderBottomColor: Colors.text,
-    transform: [{ rotate: '180deg' }],
-    marginRight: 10,
-    alignItems: 'flex-end',
   },
 });
 

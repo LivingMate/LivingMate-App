@@ -66,7 +66,6 @@ const Todo: React.FC<TodoProps> = ({ content, participants, weekDays}) => {
 )};
   
 const styles = StyleSheet.create({
-    
     container : {
         marginHorizontal: 5,
     },
