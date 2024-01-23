@@ -10,6 +10,8 @@ import { RootState } from '../../Store/store';
 import MateBox from '../../Components/MateBox';
 
 interface PostProps {
+  id: number,
+  loggedInUserId: string,
   content: string;
   isPinned: boolean;
   userId?: string,
@@ -17,9 +19,12 @@ interface PostProps {
   //onTogglePin: () => void;
 }
 
-const Post: React.FC<PostProps> = ({ content, isPinned, userId, date}) => {
+const Post: React.FC<PostProps> = ({ id, content, isPinned, userId, date, loggedInUserId}) => {
   
   const [isFocused, setIsFocused] = useState(false);
+  // userId가 현재 로그인한 사용자의 userId와 일치하면 버튼을 표시하고 아니면 감춥니다.
+  const showButton = userId === loggedInUserId;
+  console.log('post id: ', id, ',showButton: ',showButton);
 
   return(
   <View style={styles.generalBox}>
@@ -27,8 +32,9 @@ const Post: React.FC<PostProps> = ({ content, isPinned, userId, date}) => {
       <View style={[styles.contentContainer, {marginLeft: 4}]}>
         <Text style={styles.text}>{content}</Text>
       </View>
-  
+      
       <View style={styles.buttonsContainer}>
+        {showButton && (
         <TouchableOpacity
           onPressIn={() => setIsFocused(true)}
           onPressOut={() => setIsFocused(false)}
@@ -37,6 +43,7 @@ const Post: React.FC<PostProps> = ({ content, isPinned, userId, date}) => {
         >
           <ThreeDotsIcon />
         </TouchableOpacity>
+        )}
 
         <TouchableOpacity 
           

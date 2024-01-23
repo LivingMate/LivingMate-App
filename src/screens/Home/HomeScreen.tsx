@@ -7,6 +7,9 @@ import db from '../../../db.json';
 import TodoList from './TodoList';
 import Feed from './Feed';
 import Post from './Post'
+import RoundPlusButton from '../../Components/RoundPlusButton';
+import ModalDialog from '../../Modals/ModalDialog';
+import ScreenA from '../../Modals/ex';
 
 const HomeScreen = () => {
   const [roundBoxHeight, setRoundBoxHeight] = useState<number>(0);
@@ -15,19 +18,18 @@ const HomeScreen = () => {
   const handleTodoCountChange = (count: number) => {
     setTodoCount(count);
   };
+
+  const [modalVisible, setModalVisible] = React.useState(false); // 모달의 표시 상태를 관리하는 state
+  const openModal = () => setModalVisible(true); // 모달을 여는 함수
+  const closeModal = () => setModalVisible(false); // 모달을 닫는 함수
   
   //round box 길이 변경 함수
   useEffect(() => {
       console.log("roundBoxHeight: ", roundBoxHeight);
   }, [roundBoxHeight]); // roundBoxHeight가 변경될 때마다 실행됨
 
-  //게시글 추가 버튼 함수
-  const buttonPress = (title: string) => {
-    console.log(`${title} 버튼이 클릭되었습니다.`);
-  };
-
   return (
-    <View>
+    <View style={CommonStyles.baseContainer}>
       <SafeAreaView style={CommonStyles.safearea}>
       {/* 이번주 할일 */}
       <View style={[CommonStyles.section, {marginTop: 20}]}>
@@ -53,16 +55,9 @@ const HomeScreen = () => {
       <View style={[styles.roundBox, {height: roundBoxHeight}]}></View>
     </SafeAreaView>
     
-      {/* plus button */}
-    <View style={CommonStyles.plusButtonCotainer}>
-      <TouchableOpacity 
-          onPress={() =>buttonPress("post plus button")}
-      >
-        <View style={CommonStyles.plusButton}>
-          <PlusIcon />
-        </View>
-      </TouchableOpacity>
-    </View>
+      {/* round plus button */}
+      <RoundPlusButton openModal={openModal}/>
+      <ModalDialog visible={modalVisible} onClose={closeModal} screenComponent={<ScreenA/>}/> 
     </View>
   );
 }

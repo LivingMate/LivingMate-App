@@ -88,9 +88,10 @@ const TodoList: React.FC<TodoListProps> = ({ onTodoCountChange }) => {
               {thisWeekTodoList.map((todo) => (
                 <Todo
                   key={todo.id}
+                  id={todo.id}
                   content={todo.content}
-                  weekDays={todo.weekDays} 
-                  participants={todo.participants}         
+                  weekDays={todo.weekDays}
+                  participants={todo.participants}        
                 />
               ))}
             </ScrollView>

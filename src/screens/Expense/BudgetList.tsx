@@ -1,15 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import Budget from './Budget';
-
-interface PostData {
-  id: number;
-  content: string;
-  isPinned: boolean;
-  userId?: string;
-  groupId: string;
-  date: string;
-}
+import { ApiEndpoints } from '../../API/ApiEndpoints';
+import PlaceholderMessage from '../../Components/PlaceholderMessage';
+import myId from '../../../testdata';
 
 interface BudgetData {
   id: number;
@@ -23,23 +17,58 @@ interface BudgetData {
 
 const BudgetList: React.FC = () => {
 
-  const [budgetData, setBudgetData] = useState<BudgetData[]>([]);
+  const [budgetList, setBudgetList] = useState<BudgetData[]>([]);
+
+  useEffect(() => {
+    console.log('myId: ', myId);
+    const fetchBudgetList = async (groupId: string) => {
+      try {
+       // const url = `${ApiEndpoints.BASE_URL}/budget/${groupId}`;
+        const url = 'http://54.180.100.242:3000/budget/aaaaaa';
+        const response = await fetch(url);
+        let data: BudgetData[] = await response.json();
+
+        // 서버 데이터를 클라이언트의 데이터 구조로 변환
+        data = data.map((item: any) => ({
+          id: item.id,
+          content: item.spendingName,
+          amount: item.spendings,
+          userId: item.userId,
+          category: item.category,
+          subCategory: item.subCategory,
+          date: item.createdAt.substring(0,10),
+        }));
+        console.log('data: ', data)
+        setBudgetList(data);
+
+      } catch (error) {
+        // data가 빈 배열일 경우, 빈 배열 setting
+        console.error('Failed to fetch Budgetlist:', error);
+        setBudgetList([]);
+      }
+    }
+    fetchBudgetList(ApiEndpoints.GroupId);
+  }, []); 
 
   return (
-    <ScrollView>
-      <View>
-        {budgetData.map((item, index) => (
-          <Budget
-            key={index}
-            amount={item.amount}
-            content={item.content}
-            category={item.category}
-            userId={item.userId}
-            date={item.date}
-          />
-        ))}
-      </View>
-    </ScrollView>
+    <View>
+      {budgetList && budgetList.length > 0 ? (
+          budgetList.map((budget) => (
+            <Budget
+              key={budget.id}
+              id={budget.id}
+              loggedInUserId={myId}
+              amount={budget.amount}
+              content={budget.content}
+              category={budget.category}
+              userId={budget.userId}
+              date={budget.date}
+            />
+          ))
+      ) : ( 
+          <PlaceholderMessage msg='등록된 지출이 없습니다.' fontSize={18} />
+      )}
+    </View>
   );
 };
 

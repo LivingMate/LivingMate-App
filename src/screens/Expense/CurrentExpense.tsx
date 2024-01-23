@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { View, ScrollView } from 'react-native';
 import PlaceholderMessage from '../../Components/PlaceholderMessage';
 
-import budgetData from './TestData';
-
 const CurrentExpense: React.FC = () => {
   const [currentBudgets, setCurrentBudgets] = useState<number>(0);
-
+/*
   useEffect(() => {
     if (budgetData.length > 0)  {
       setCurrentBudgets(54321)
@@ -15,7 +13,7 @@ const CurrentExpense: React.FC = () => {
       setCurrentBudgets(0)
     }
   }, []); // dependency 배열에 추가  
-
+*/
   return (
     <View>
         { currentBudgets > 0 ? (

@@ -8,11 +8,18 @@ import MagnifyingGlassIcon from '../../Assets/Icons/MagnifyingGlassIcon';
 import BudgetList from './BudgetList';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import CurrentExpense from './CurrentExpense';
+import RoundPlusButton from '../../Components/RoundPlusButton';
+import ModalDialog from '../../Modals/ModalDialog';
+import ScreenA from '../../Modals/ex';
 
 const ExpenseScreen = () => {
   const insets = useSafeAreaInsets();
-
   const [roundBoxHeight, setRoundBoxHeight] = useState<number>(0);
+  
+  const [modalVisible, setModalVisible] = React.useState(false); // 모달의 표시 상태를 관리하는 state
+  const openModal = () => setModalVisible(true); // 모달을 여는 함수
+  const closeModal = () => setModalVisible(false); // 모달을 닫는 함수
+
 
   useEffect(() => {
       console.log("roundBoxHeight: ", roundBoxHeight);
@@ -23,21 +30,13 @@ const ExpenseScreen = () => {
     console.log(`${title} 버튼이 클릭되었습니다.`);
   };
 
-  // 버튼 press 함수
-  const buttonPress = (title: string) => {
-    console.log(`${title} 버튼이 클릭되었습니다.`);
-  };
-
   //공과금 utilities 식비 food 비품 supplies 기타 others
-
   return (
-    <View>
-      <SafeAreaView style={CommonStyles.safearea}>
-
+    <View style={CommonStyles.baseContainer}>
+      <SafeAreaView style={[CommonStyles.safearea]}>
       {/* 현재 지출 현황 */}           
-      <View style={[CommonStyles.section, {marginTop: 40}]}>
+      <View style={[CommonStyles.section, {marginTop: 20}]}>
         <Text style={[styles.title, { color: 'white'}]}>현재 지출 현황</Text>
-        
         {/* 현재 지출 현황 박스 */}   
         <CurrentExpense />
       </View>
@@ -72,23 +71,15 @@ const ExpenseScreen = () => {
           <ScrollView>
               <BudgetList />
           </ScrollView>
-        </View>
+      </View>
 
       {/* roundBox */}
       <View style={[styles.roundBox, {height: roundBoxHeight}]}></View> 
       </SafeAreaView>
 
       {/* plus button */}
-      <View style={CommonStyles.plusButtonCotainer}>
-        <TouchableOpacity 
-          onPress={() =>buttonPress("post plus button")}
-        >
-            <View style={CommonStyles.plusButton}>
-              <PlusIcon />
-            </View>
-        </TouchableOpacity>
-      </View>
-
+      <RoundPlusButton openModal={openModal} />
+      <ModalDialog visible={modalVisible} onClose={closeModal} screenComponent={<ScreenA/>}/>
     </View>
   );
 }
@@ -124,12 +115,11 @@ const styles = StyleSheet.create({
   searchContainer : {
     flexDirection: 'row',  // 가로 방향으로 정렬
     marginHorizontal: '5%',
-    paddingBottom: 5,
     justifyContent: 'flex-end',
   },
 
   categories: {
-    marginBottom: 10,
+    marginBottom: 3,
     marginHorizontal: '5%',
     alignItems: 'flex-start',
     flexDirection: 'row',  // 가로 방향으로 정렬

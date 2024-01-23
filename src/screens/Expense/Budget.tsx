@@ -7,6 +7,8 @@ import CommonStyles from '../../Components/CommonStyles';
 import MateBox from '../../Components/MateBox';
 
 interface BudgetProps {
+  id?: number;
+  loggedInUserId: string;
   amount: number;
   category: string;
   //subCategory: string;
@@ -14,10 +16,15 @@ interface BudgetProps {
   userId?: string;
   date: string;
  //onEdit: (content: string) => void;
- //onPin: (isPinned: boolean) => void
+ //onPin: (isPinned: boolean) => void;
 }
 
-const Budget: React.FC<BudgetProps> = ({ amount ,content, category, userId, date }) => {
+const Budget: React.FC<BudgetProps> = ({loggedInUserId , amount,content, category, userId, date, id }) => {
+
+  // userId가 현재 로그인한 사용자의 userId와 일치하면 버튼을 표시하고 아니면 감춥니다.
+  const showButton = userId === loggedInUserId;
+  console.log('budget id: ', id, ',showButton: ',showButton);
+
   return(
   <View style={styles.generalBox}>
     {/* 날짜, 버튼 */}
@@ -25,11 +32,13 @@ const Budget: React.FC<BudgetProps> = ({ amount ,content, category, userId, date
       <View style = {styles.dateContainer}>
         <Text style = {{color: Colors.text, marginLeft: 8, marginTop: 5}}>{date}</Text>
       </View>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity>
-          <ThreeDotsIcon />
-        </TouchableOpacity>
-      </View>
+      {showButton && (
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity>
+              <ThreeDotsIcon />
+            </TouchableOpacity>
+          </View>
+      )}
     </View>
     
     {/* 카테고리, 내용 */}
@@ -112,7 +121,7 @@ const styles = StyleSheet.create({
   },
 
   amountText: {
-    fontSize: 20,
+    fontSize: 19,
   },
 });
 

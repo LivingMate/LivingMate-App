@@ -4,7 +4,6 @@ import { Colors } from '../../Components/Colors';
 import CommonStyles from '../../Components/CommonStyles';
 
 const NoticificationScreen = () => {
-
   //roundBox 동적 연동 구현
   const [roundBoxHeight, setRoundBoxHeight] = useState<number>(0);
 
@@ -13,11 +12,11 @@ const NoticificationScreen = () => {
   }, [roundBoxHeight]); // roundBoxHeight가 변경될 때마다 실행됨
     
   return (
-    <View>
+    <View style={CommonStyles.baseContainer}>
       <SafeAreaView style={CommonStyles.safearea}>
       {/* 정산 알림 */}
-      <View style={[CommonStyles.section, {marginTop: 10}]}>
-        <Text style={[styles.title, { color: 'white', marginTop: 40}]}>정산 알림</Text>
+      <View style={[CommonStyles.section, {marginTop: 20}]}>
+        <Text style={[styles.title, { color: 'white'}]}>정산 알림</Text>
         <View style ={CommonStyles.generalBox}>
         <View style={[styles.paymentBox]}>
           <Text style={[styles.text, { marginVertical: 15 }]}>

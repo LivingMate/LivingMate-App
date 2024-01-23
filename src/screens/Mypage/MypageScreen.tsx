@@ -34,7 +34,7 @@ const MypageScreen: React.FC = () => {
   };
 
   return (
-    <View>
+    <View style={CommonStyles.baseContainer}>
       <SafeAreaView style={CommonStyles.safearea}>
           <View 
             style={[CommonStyles.section, {minHeight: 700}]}

@@ -18,12 +18,12 @@ const MateBox: React.FC<MateProps> = ({ userId, textSize, showOnlyFirstLetter}) 
   let color = Colors.text;
 
   useEffect(() => {
-    if (userId!==null)  {
-      name = '연결중';
+    if (userId)  {
+      name = userId;
       color = '#000000';
     } 
     
-    if(showOnlyFirstLetter===true) {
+    if(showOnlyFirstLetter) {
       name = name.charAt(0);
     }
 

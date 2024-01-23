@@ -9,12 +9,13 @@ import MateBox from '../../Components/MateBox';
 import TodoParticipants from './TodoParticipants';
 
 interface TodoProps {
+    id: number;
     content: string;
     participants: string[];
     weekDays: string;
 }
 
-const Todo: React.FC<TodoProps> = ({ content, participants, weekDays}) => {
+const Todo: React.FC<TodoProps> = ({content, participants, weekDays}) => {
     
     const [isChecked, setChecked] = useState(false);
 

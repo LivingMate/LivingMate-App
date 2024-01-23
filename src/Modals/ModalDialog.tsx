@@ -1,14 +1,15 @@
 import React from 'react';
 import { Modal, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-// MyModalProps 인터페이스 정의: 모달의 visible 상태와 onClose 함수 타입을 정의합니다.
-interface MyModalProps {
+// ModalDialogProps 인터페이스 정의: 모달의 visible 상태와 onClose 함수 타입을 정의합니다.
+interface ModalDialogProps {
     visible: boolean;     // 모달의 표시 여부를 결정하는 boolean 값
     onClose: () => void;  // 모달을 닫는 함수
+    screenComponent: React.ReactNode; // Screen 컴포넌트를 받을 prop 추가
 }
 
-// MyModal 함수형 컴포넌트: MyModalProps 인터페이스를 props로 사용합니다.
-const MyModal: React.FC<MyModalProps> = ({ visible, onClose }) => {
+// ModalDialog 함수형 컴포넌트: ModalDialogProps 인터페이스를 props로 사용합니다.
+const ModalDialog: React.FC<ModalDialogProps> = ({ visible, onClose, screenComponent }) => {
     return (
         // Modal 컴포넌트: visible과 transparent 속성을 설정합니다.
         <Modal
@@ -22,10 +23,10 @@ const MyModal: React.FC<MyModalProps> = ({ visible, onClose }) => {
                 activeOpacity={1}           // 터치 시 투명도 변경 없음
                 onPressOut={onClose}        // 터치가 끝날 때 onClose 함수 실행
             >
-                
                 <View style={styles.modalView}>
-                    <Text>모달의 내용</Text> 
-                    {/* 여기에 모달의 다른 내용을 추가할 수 있습니다. */}
+                    <Text>
+                        <View>{screenComponent}</View> {/* 전달된 Screen 컴포넌트 렌더링 */}
+                    </Text>
                 </View>
             </TouchableOpacity>
         </Modal>
@@ -41,20 +42,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.5)', // 반투명 배경
     },
     modalView: {
-        margin: 20,
-        backgroundColor: 'white',
         borderRadius: 20,
-        padding: 35,
         alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
+        backgroundColor: 'white',
+        width: '80%',
+        height: '80%'
     },
 });
 
-export default MyModal;
+export default ModalDialog;

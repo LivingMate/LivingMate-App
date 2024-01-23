@@ -19,7 +19,7 @@ const App: React.FC = () => (
 const styles = StyleSheet.create({
   container: {
     flex: 1, // 이 부분은 뷰가 전체 화면을 채우도록 합니다.
-    backgroundColor: '#EBF1F1', // 여기에 원하는 배경색을 설정합니다.
+    backgroundColor: Colors.background, // 여기에 원하는 배경색을 설정합니다.
   },
 });
 

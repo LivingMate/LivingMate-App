@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, ScrollView } from 'react-native';
 import Post from './Post';
 import PlaceholderMessage from '../../Components/PlaceholderMessage';
-
-import {postsData} from './TestData';
+import myId from '../../../testdata';
 
 interface PostData {
   id: number;
@@ -13,15 +12,6 @@ interface PostData {
   groupId: string;
   date: string;
 }
-
-const formatDate = (dateString: string): string => {
-  const date = new Date(dateString);
-  return new Intl.DateTimeFormat('en-CA', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit'
-  }).format(date).replace(/\//g, '-');
-};
 
 const Feed: React.FC = () => {
   const [posts, setPosts] = useState<PostData[]>([]);
@@ -40,13 +30,11 @@ const Feed: React.FC = () => {
           isPinned: item.pin,
           userId: item.userId, // 서버의 'user_id'를 클라이언트의 'userId'로 변환
           groupId: item.groupId,
-          date: formatDate(item.createdAt),
+          date: item.createdAt.substring(0,10),
         }));
 
         if (data.length > 0) {
-          // 가장 최근 게시글이 피드 상단에 오게 정렬
-          data.reverse();
-
+          // 가장 최근 게시글이 피드 상단에 오게 정렬(자동으로 그렇게 옴)
           // isPinned가 true인 포스트를 상단으로 정렬
           const sortedPosts = data.sort((a, b) => {
             const aValue = a.isPinned ? 1 : 0;
@@ -66,33 +54,14 @@ const Feed: React.FC = () => {
     fetchPosts();
   }, []);
 
-  /* 프론트 임시 데이터 
-  useEffect(() => {
-    if (postsData.length > 0)  {
-      // 가장 최근 게시글이 피드 상단에 오게 정렬
-      postsData.reverse();
-      // isPinned가 true인 포스트를 상단으로 정렬
-      const sortedPosts = postsData.sort((a: PostData, b: PostData) => {
-        const aValue = a.isPinned ? 1 : 0;
-        const bValue = b.isPinned ? 1 : 0;
-        return bValue - aValue;
-      });
-      // 정렬된 posts를 setting
-      setPosts(sortedPosts);
-    } else {
-      // data가 빈 배열일 경우, 빈 배열 setting
-      setPosts([]);
-    }
-  }, [postsData]); // postsData의 변경을 감지하기 위해 dependency 배열에 추가  
-*/
-
   return (
     <ScrollView>
-      <View style={{ marginBottom: 1090 }}>
         {posts.length > 0 ? (
           posts.map((post) => (
             <Post
               key={post.id}
+              id={post.id}
+              loggedInUserId={myId}
               content={post.content}
               isPinned={post.isPinned}
               userId={post.userId}
@@ -103,7 +72,6 @@ const Feed: React.FC = () => {
         ) : (
           <PlaceholderMessage msg='등록된 게시물이 없습니다.' fontSize={18} />
         )}
-      </View>
       </ScrollView>
   );
 };
