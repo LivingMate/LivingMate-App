@@ -1,23 +1,32 @@
-// LoginContainer.tsx
-import React from 'react';
-import { useNavigation } from '@react-navigation/native';
-import LoginScreen from './LoginScreen';
+// components/Login.tsx
+import { RootState } from '../../Store/store';
+import { loginSuccess } from '../../Store/userAction';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-const LoginContainer: React.FC = () => {
-  const navigation = useNavigation();
 
-  const handleGoogleLogin = () => {
-    try {
-      // 구글 로그인 처리 코드 (예: react-native-google-signin 등을 사용)
-      // 로그인이 성공하면 EntryGroupScreen으로 이동
-      navigation.navigate('EntryGroup' as never);
-    } catch (error) {
-      // 로그인 실패 처리
-      console.error('Google 로그인 에러:', error);
-    }
+
+const Login: React.FC = () => {
+  const dispatch = useDispatch();
+  const [user, setUser] = useState<string>('');
+
+  const handleLogin = () => {
+    // 로그인 로직 처리 후 유저 정보를 저장
+    const userInfo: RootState['user']['user'] = { username: user, /* other user info */ };
+    dispatch(loginSuccess(userInfo));
   };
 
-  return <LoginScreen onGoogleLogin={handleGoogleLogin} />;
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Username"
+        value={user}
+        onChange={(e) => setUser(e.target.value)}
+      />
+      <button onClick={handleLogin}>Login</button>
+    </div>
+  );
 };
 
-export default LoginContainer;
+export default Login;

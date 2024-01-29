@@ -1,7 +1,7 @@
 {
     "isLoggedIn": true,
-    "userId": "000000",
-    "groupId": "001001",
+    "userId": "001",
+    "groupId": "aaaaaa",
     "groupName": "청파메이트",
 
     "groupMates": [
@@ -9,6 +9,13 @@
         { "userId": "002", "userName": "김예원", "userColor": "#C96D00" },
         { "userId": "003", "userName": "박준유", "userColor": "blue" },
         { "userId": "004", "userName": "박시온", "userColor": "#6CB50F" }
+    ],
+
+    "mates": [
+        { "userId": "001"},
+        { "userId": "002"},
+        { "userId": "003"},
+        { "userId": "004"}
     ],
 
     "posts" : [

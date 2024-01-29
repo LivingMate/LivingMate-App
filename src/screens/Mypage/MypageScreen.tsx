@@ -6,6 +6,7 @@ import SendInvitedCode from './SendInvitedCode';
 import db from '../../../db.json';
 import Profile from './Profile';
 import MyGroup from './MyGroup';
+import matesData from './TestData';
 
 interface User {
   id: string;
@@ -53,7 +54,7 @@ const MypageScreen: React.FC = () => {
               <View style={CommonStyles.generalBox}>
                   <MyGroup 
                     groupName={user.groupName}
-                    groupMates={user.groupMates}
+                    groupMates={matesData}
                     updateGroupName={updateGroupName}
                   />
               </View>

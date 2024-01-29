@@ -23,7 +23,7 @@ const ModalDialog: React.FC<ModalDialogProps> = ({ visible, onClose, screenCompo
                 activeOpacity={1}           // 터치 시 투명도 변경 없음
                 onPressOut={onClose}        // 터치가 끝날 때 onClose 함수 실행
             >
-                <View>
+                <View style={styles.modalView}>
                     <Text>
                         <View>{screenComponent}</View> {/* 전달된 Screen 컴포넌트 렌더링 */}
                     </Text>
@@ -40,6 +40,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgba(0, 0, 0, 0.5)', // 반투명 배경
+    },
+    modalView: {
+        borderRadius: 20,
+        alignItems: 'center',
+        backgroundColor: 'white',
+        width: '80%',
+        height: '80%'
     },
 });
 

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { View, ScrollView } from 'react-native';
 import Post from './Post';
 import PlaceholderMessage from '../../Components/PlaceholderMessage';
-import myId from '../../../testdata';
 
 interface PostData {
   id: number;
@@ -61,7 +60,6 @@ const Feed: React.FC = () => {
             <Post
               key={post.id}
               id={post.id}
-              loggedInUserId={myId}
               content={post.content}
               isPinned={post.isPinned}
               userId={post.userId}

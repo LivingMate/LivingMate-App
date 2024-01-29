@@ -3,12 +3,11 @@ import { View, Text, StyleSheet, ScrollView, Platform, Button, TouchableOpacity 
 import { Colors } from '../../Components/Colors';
 import CategoryButton from './CategoryButton';
 import CommonStyles from '../../Components/CommonStyles'
-import PlusIcon from '../../Assets/Icons/PlusIcon';
 import MagnifyingGlassIcon from '../../Assets/Icons/MagnifyingGlassIcon';
 import BudgetList from './BudgetList';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import CurrentExpense from './CurrentExpense';
-import RoundPlusButton from '../../Components/RoundPlusButton';
+import RoundPlusButtonView from '../../Components/RoundPlusButtonView';
 import ModalDialog from '../../Modals/ModalDialog';
 import ScreenA from '../../Modals/ex';
 
@@ -78,7 +77,9 @@ const ExpenseScreen = () => {
       </SafeAreaView>
 
       {/* plus button */}
-      <RoundPlusButton openModal={openModal} />
+      <TouchableOpacity >
+        <RoundPlusButtonView />
+      </TouchableOpacity>
       <ModalDialog visible={modalVisible} onClose={closeModal} screenComponent={<ScreenA/>}/>
     </View>
   );

@@ -3,7 +3,6 @@ import { View, ScrollView } from 'react-native';
 import Budget from './Budget';
 import { ApiEndpoints } from '../../API/ApiEndpoints';
 import PlaceholderMessage from '../../Components/PlaceholderMessage';
-import myId from '../../../testdata';
 
 interface BudgetData {
   id: number;
@@ -20,7 +19,6 @@ const BudgetList: React.FC = () => {
   const [budgetList, setBudgetList] = useState<BudgetData[]>([]);
 
   useEffect(() => {
-    console.log('myId: ', myId);
     const fetchBudgetList = async (groupId: string) => {
       try {
        // const url = `${ApiEndpoints.BASE_URL}/budget/${groupId}`;
@@ -57,7 +55,6 @@ const BudgetList: React.FC = () => {
             <Budget
               key={budget.id}
               id={budget.id}
-              loggedInUserId={myId}
               amount={budget.amount}
               content={budget.content}
               category={budget.category}

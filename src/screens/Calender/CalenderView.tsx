@@ -75,6 +75,11 @@ const CalenderView: React.FC<CalenderViewProps> = ({ markedDates, selectedDate, 
         hideExtraDays={true}
         onDayPress={handleDayPress}
         markedDates={dates}
+        enableSwipeMonths={true}
+        onMonthChange={month => {
+          console.log('month changed', month);
+        }}
+
         // 테마 변경
         theme={{
           arrowColor: '#000000', // 월 이동 화살표 색깔

@@ -8,7 +8,6 @@ import MateBox from '../../Components/MateBox';
 
 interface BudgetProps {
   id?: number;
-  loggedInUserId: string;
   amount: number;
   category: string;
   //subCategory: string;
@@ -19,11 +18,12 @@ interface BudgetProps {
  //onPin: (isPinned: boolean) => void;
 }
 
-const Budget: React.FC<BudgetProps> = ({loggedInUserId , amount,content, category, userId, date, id }) => {
-
+const Budget: React.FC<BudgetProps> = ({amount,content, category, userId, date, id }) => {
+  const loggedInUserId = "asdf125";
   // userId가 현재 로그인한 사용자의 userId와 일치하면 버튼을 표시하고 아니면 감춥니다.
   const showButton = userId === loggedInUserId;
-  console.log('budget id: ', id, ',showButton: ',showButton);
+  console.log('userId: ', userId, ' budget id: ', id, ',showButton: ',showButton);
+  const [isFocused, setIsFocused] = useState(false);
 
   return(
   <View style={styles.generalBox}>
@@ -32,13 +32,19 @@ const Budget: React.FC<BudgetProps> = ({loggedInUserId , amount,content, categor
       <View style = {styles.dateContainer}>
         <Text style = {{color: Colors.text, marginLeft: 8, marginTop: 5}}>{date}</Text>
       </View>
-      {showButton && (
+        {/* 버튼(threeDots, 수정/삭제) */}
+        {showButton && (
           <View style={styles.buttonContainer}>
-            <TouchableOpacity>
-              <ThreeDotsIcon />
-            </TouchableOpacity>
+              <TouchableOpacity
+              onPressIn={() => setIsFocused(true)}
+              onPressOut={() => setIsFocused(false)}
+              onPress={()=> {console.log("event threedots clicked");}}
+              style={[styles.buttonContainer, isFocused && styles.focused]}
+              >
+                  <ThreeDotsIcon />   
+              </TouchableOpacity>
           </View>
-      )}
+        )}
     </View>
     
     {/* 카테고리, 내용 */}
@@ -83,7 +89,7 @@ const styles = StyleSheet.create({
     flex: 8,
   },
 
-  buttonContainer: {
+  button2Container: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'center',
@@ -122,6 +128,19 @@ const styles = StyleSheet.create({
 
   amountText: {
     fontSize: 19,
+  },
+
+  buttonContainer: {
+    paddingVertical: 12,
+    width: 20,
+    height: 20,
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+  focused: {
+    backgroundColor: 'rgba(181, 181, 181, 0.4)', //포커스 시 배경색
   },
 });
 

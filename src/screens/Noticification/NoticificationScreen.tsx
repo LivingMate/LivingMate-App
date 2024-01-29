@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { View, SafeAreaView, Text, StyleSheet, ScrollView, Platform } from 'react-native';
 import { Colors } from '../../Components/Colors';
 import CommonStyles from '../../Components/CommonStyles';
+import AdjustedBudgetInNoticification from './AdjustedBudgetInNoticification';
+
 
 const NoticificationScreen = () => {
   //roundBox 동적 연동 구현
@@ -17,12 +19,7 @@ const NoticificationScreen = () => {
       {/* 정산 알림 */}
       <View style={[CommonStyles.section, {marginTop: 20}]}>
         <Text style={[styles.title, { color: 'white'}]}>정산 알림</Text>
-        <View style ={CommonStyles.generalBox}>
-        <View style={[styles.paymentBox]}>
-          <Text style={[styles.text, { marginVertical: 15 }]}>
-            미정산내역이 없습니다.
-          </Text>
-        </View></View>
+        <AdjustedBudgetInNoticification />
       </View>
 
       {/* 일반 알림 */}

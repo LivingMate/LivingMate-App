@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, SafeAreaView, Text, StyleSheet, TouchableOpacity, ScrollView, Modal } from 'react-native';
+import { View, SafeAreaView, Text, StyleSheet, TouchableOpacity,} from 'react-native';
 import { Colors } from '../../Components/Colors';
 import CommonStyles from '../../Components/CommonStyles';
-import PlusIcon from '../../Assets/Icons/PlusIcon';
-import db from '../../../db.json';
 import TodoList from './TodoList';
 import Feed from './Feed';
-import Post from './Post'
-import RoundPlusButton from '../../Components/RoundPlusButton';
-import ModalDialog from '../../Modals/ModalDialog';
-import ScreenA from '../../Modals/ex';
+import AddPostModal from './AddPostModal';
+import RoundPlusButtonView from '../../Components/RoundPlusButtonView';
 
 const HomeScreen = () => {
   const [roundBoxHeight, setRoundBoxHeight] = useState<number>(0);
@@ -50,14 +46,15 @@ const HomeScreen = () => {
         <Text style={[styles.title, { color: 'black' }]}>피드</Text>
         <Feed />
       </View>
-
       {/* roundBox */}
       <View style={[styles.roundBox, {height: roundBoxHeight}]}></View>
-    </SafeAreaView>
-    
+      </SafeAreaView>
+
       {/* round plus button */}
-      <RoundPlusButton openModal={openModal}/>
-      <ModalDialog visible={modalVisible} onClose={closeModal} screenComponent={<ScreenA/>}/> 
+      <TouchableOpacity onPress={openModal}>
+        <RoundPlusButtonView />
+      </TouchableOpacity>
+      <AddPostModal isVisible={modalVisible} onClose={closeModal} />
     </View>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, SafeAreaView, Text, StyleSheet, ScrollView, Platform, TouchableOpacity } from 'react-native';
+import { View, SafeAreaView, Text, StyleSheet, ScrollView, Platform, TouchableOpacity, Button } from 'react-native';
 import { Colors } from '../../Components/Colors';
 import CommonStyles from '../../Components/CommonStyles'
 import PlusIcon from '../../Assets/Icons/PlusIcon';
@@ -8,23 +8,32 @@ import { Agenda } from 'react-native-calendars'; //캘린더 아래에 일정 �
 import { daysInWeek, weeksToDays } from 'date-fns';
 import { LocaleConfig } from 'react-native-calendars';
 import { createStackNavigator } from '@react-navigation/stack';
-import RoundPlusButton from '../../Components/RoundPlusButton';
+import RoundPlusButtonView from '../../Components/RoundPlusButtonView';
 import ScreenA from '../../Modals/ex';
 import ModalDialog from '../../Modals/ModalDialog';
 import { ApiEndpoints } from '../../API/ApiEndpoints';
 import CalenderView from './CalenderView';
 import Event from './Event';
+import EditAndDeleteButton from '../../Components/EditAndDeleteButton';
+import EventRegisterAndSchedulingButton from './EventRegisterAndSchedulingButton';
+
+//import CalenderAgenda from './CalenderAgenda';
 
 interface EventData {
   id: number,
   userId: string,
   gruopId: string,
   title: string,
-  dateStart: string,
-  dateEnd: string,
+  startTime: string,
+  endTime: string,
   memo: string,
   term: number,
   participants: string[];
+}
+
+interface AgendaEntry {
+  date: string; // 날짜 문자열, 예: '2024-01-19'
+  items: EventData[]; // 해당 날짜에 대한 일정 항목 배열
 }
 
 const testmarkedDates = {
@@ -35,29 +44,42 @@ const testmarkedDates = {
 
 const CalenderScreen = () => {
   const today = new Date().toISOString().split('T')[0];
-  const [events, setEvents] = useState<EventData[]>([]);
+  const [events, setEvents] = useState<AgendaEntry[]>([]);
   const [markedDates, setMarkedDates] = useState<{ [key: string]: any }>({});
   const [selectedEvent, setSelectedEvent] = useState<string>(today);
 
-  const [modalVisible, setModalVisible] = React.useState(false); // 모달의 표시 상태를 관리하는 state
-  const openModal = () => setModalVisible(true); // 모달을 여는 함수
-  const closeModal = () => setModalVisible(false); // 모달을 닫는 함수
-  
+  const [eventRegisterAndSchedulingButtonVisible, setEventRegisterAndSchedulingButtonVisible] = useState<boolean>(false);
+
   useEffect(() => {
     const fetchEvents = async (groupId: string) => {
       try {
         const url = 'http://54.180.100.242:3000/calendar/aaaaaa';
         const response = await fetch(url);
         let data: EventData[] = await response.json();
-        setEvents(data); //이벤트 상태 업데이트
+
+        /*서버 데이터를 클라이언트의 데이터 구조로 변환
+        data = data.map((item: any) => ({
+          id: item.id,
+          userId: item.userId,
+          groupId: item.gruopId,
+          startTime: item.dateStart,
+          endTime: item.dateEnd,
+          title: item.title,
+          memo: item.memo,
+          term: item.term,
+          participants: item.participants,
+        })); */
+  
+      //  setEvents(data); // 이벤트 상태 업데이트
+  
       } catch (error) {
         console.error('Failed to fetch events:', error);
-        setEvents([]);
+      //  setEvents([]);
       }
-      console.log(events);
     };
     fetchEvents(ApiEndpoints.GroupId);
   }, []);
+  
   /*
   useEffect(() => {
     
@@ -89,8 +111,21 @@ const CalenderScreen = () => {
   const handleDayPress = (day: any) => {
     const selectedEvent = day.dateString;
     // 선택한 날짜에 해당하는 이벤트를 찾아 selectedEvent 상태로 설정
-    const event = events.find((event) => event.dateStart === selectedEvent);
+    const event = events.find((event) => event.date === selectedEvent);
     setSelectedEvent('2024-01-19');
+  };
+
+  const handleEventRegisterPress = () => {
+    // 수정 버튼을 눌렀을 때 할 작업을 여기에 작성합니다.
+    // 예: 수정 화면을 표시하는 네비게이션 이동 등
+    // navigation.navigate('EditScreen');
+    console.log("handleEventRegisterPress clicked");
+   // handleEventRegisterAndSchedulingButton(false);
+  };
+
+  const handleEventSchedulingPress = () => {
+    console.log("handleEventSchedulingPress clicked");
+  //  handleEventRegisterAndSchedulingButton(false);
   };
 
   return (
@@ -102,7 +137,11 @@ const CalenderScreen = () => {
 
         {/* 캘린더 선택된 일정 표출 */}
         <View style={[CommonStyles.section, {marginTop: 10}]}>
-        <ScrollView>
+        
+          {/*
+          <CalenderAgenda />
+          <Agenda
+          items={{events}}
         { events.length > 0 ? (
           events.map((event) => (
             <Event 
@@ -110,27 +149,24 @@ const CalenderScreen = () => {
                 userIds={event.participants}
                 title={event.title}
                 memo={event.memo}
-             //   date={event.date} 
-                startTime={event.dateStart}
-                endTime={event.dateEnd} 
+                date={event.date} 
+                startTime={event.startTime}
+                endTime={event.endTime} 
                 term={event.term}
-              />
+          /> 
           ))
         ) : 
-        <View>
+        <View>*/}
         <Event 
                 id={0} 
                 userIds={["박시온", "김예원", "박준유"]}
                 title={"event 예시"}
                 memo={"메모"}
-             //   date={event.date} 
-                startTime={"2024-01-23T09:17:07.655Z"}
-                endTime={"2024-01-23T11:17:07.655Z"} 
+                date={"2024-01-23"} 
+                startTime={"09:17"}
+                endTime={"11:17"} 
                 term={1}
               />
-        </View>
-        }
-      </ScrollView>
         </View>
 
         {/* roundBox */}
@@ -138,8 +174,15 @@ const CalenderScreen = () => {
       </SafeAreaView>
       
       {/* plus button */}
-      <RoundPlusButton openModal={openModal}/>
-      <ModalDialog visible={modalVisible} onClose={closeModal} screenComponent={<ScreenA/>}/>
+      <TouchableOpacity >
+        <RoundPlusButtonView /> 
+      </TouchableOpacity>
+
+      {eventRegisterAndSchedulingButtonVisible && (
+      <EventRegisterAndSchedulingButton
+        setVisible={()=>setEventRegisterAndSchedulingButtonVisible(false)}
+      /> )}
+      
     </View>
   );
 }
@@ -165,6 +208,39 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 18,
     alignItems: 'flex-start',
+  },
+
+  postRegisterAndSchedulingButtonContainer:{
+    zIndex: 3, // 가장 앞에 위치
+    position: 'absolute',
+    bottom: '4%',
+    right: '14%',
+    borderRadius: 10,
+    backgroundColor: '#ffffff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    ...CommonStyles.shadow,
+  },
+
+  eventRegisterButton:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRightColor: Colors.text,
+    borderBottomWidth: 1,
+    padding: 10,
+    flex: 1,
+  },
+
+  eventSchedulingButton:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+    flex: 1,
+  },
+
+  postRegisterAndSchedulingButtonText: {
+    fontSize: 14,
+    color: '#000000',
   },
 });
 

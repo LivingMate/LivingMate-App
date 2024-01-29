@@ -6,5 +6,6 @@ export const Colors = {
     black: '#000000',
     text: '#B5B5B5',
     button: '#B5B5B5',
+    textInputField: '#F5F5F5',
 };
   

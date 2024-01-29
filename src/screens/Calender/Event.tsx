@@ -6,6 +6,8 @@ import ThreeDotsIcon from '../../Assets/Icons/ThreeDotsIcon';
 import MateBox from '../../Components/MateBox';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../Store/store';
+import EditAndDeleteButton from '../../Components/EditAndDeleteButton';
+import ThreeDotsButton from '../../Components/ThreeDotsButton';
 
 interface EventProps {
   id: number,
@@ -19,13 +21,9 @@ interface EventProps {
   //onTogglePin: () => void;
 }
 
-const Event: React.FC<EventProps> = ({ id,  userIds, title, memo, term, startTime, endTime }) => {
+const Event: React.FC<EventProps> = ({ id,  userIds, title, memo, term, startTime, endTime}) => {
   
-    const [isFocused, setIsFocused] = useState(false);
-    /*  userId가 현재 로그인한 사용자의 userId와 일치하면 버튼을 표시하고 아니면 감춥니다.
-        const showButton = userId === loggedInUserId;
-        console.log('post id: ', id, ',showButton: ',showButton);
-    */
+  const [editButtonVisible, setEditButtonVisible] = useState(false);
 
   return(
   <View style={styles.generalBox}>
@@ -43,30 +41,26 @@ const Event: React.FC<EventProps> = ({ id,  userIds, title, memo, term, startTim
                 </View>
             ))}
         </View>
-
+            
         {/* 버튼(threeDots, 수정/삭제) */}
-        <View style={styles.buttonContainer}>
-            <TouchableOpacity
-            onPressIn={() => setIsFocused(true)}
-            onPressOut={() => setIsFocused(false)}
-            onPress={()=> {console.log("event threedots clicked");}}
-            style={[styles.buttonContainer, isFocused && styles.focused]}
-            >
-                <ThreeDotsIcon />   
-            </TouchableOpacity>
+        <View>
+            <ThreeDotsButton setEditButtonVisible={() => setEditButtonVisible(true)}/>
+            {editButtonVisible && (
+            <EditAndDeleteButton setEditButtonVisible={()=> setEditButtonVisible(false)}/>
+            )}
         </View>
     </View>
 
         {/* 일정 시간, 루틴 여부 */}    
         <View style={styles.timeContainer}>
             {/* 일정 시작시간~종료시간 */}    
-            <Text style={[styles.text, {fontSize: 16, marginVertical: 3}]}> {startTime.substring(11,16)} ~ {endTime.substring(11,16)}</Text>
+            <Text style={[styles.text, {fontSize: 16, marginVertical: 3}]}> {startTime} ~ {endTime}</Text>
             {/* 루틴 여부 표시. term > 0 일 경우만 노출 */}    
-            { term > 0 ? (
+            { term > 0 && (
             <View style={styles.routineContainer}> 
                 <Text style={[styles.text]}>루틴</Text>
             </View>
-            ) : <View />}
+            )}
         </View>
 
         {/* 일정 내용 */}    
@@ -93,15 +87,18 @@ const styles = StyleSheet.create({
   },
 
   PICsContainer: {
-    flex: 9,
+    flex: 8,
     flexDirection:'row',
     alignItems: 'flex-start',
   },
 
   buttonContainer: {
-    flex: 1,
-    alignItems: 'flex-end',
+    alignItems: 'center',
     justifyContent: 'center',
+    paddingVertical: 12,
+    width: 20,
+    height: 20,
+    borderRadius: 50,
   },
 
   timeContainer : {
@@ -142,11 +139,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#000000',
   },
-
-  focused: {
-    backgroundColor: 'rgba(181, 181, 181, 0.4)', //포커스 시 배경색
-  },
-
 });
 
 export default Event;

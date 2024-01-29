@@ -5,7 +5,7 @@ import { Colors } from './Colors';
 interface MateProps {
     userId?: string;
     textSize: number;
-    showOnlyFirstLetter: boolean;
+    showOnlyFirstLetter?: boolean;
 }
 
 const MateBox: React.FC<MateProps> = ({ userId, textSize, showOnlyFirstLetter}) => {
@@ -45,12 +45,13 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       borderRadius: 8,
       margin: 1,
-      padding: 5,
+      alignSelf: 'flex-start', // 내부 View가 Text 크기에 맞춰 왼쪽 정렬
     },
   
     text: {
       color: '#ffffff',
       fontWeight: 'bold',
+      padding: 5,
     },
   });
   

@@ -39,14 +39,17 @@ const TodoList: React.FC<TodoListProps> = ({ onTodoCountChange }) => {
         
         let data: TodoData[] = await response.json();
 
+        console.log("data:", data);
+
         // 서버 데이터를 클라이언트의 데이터 구조로 변환
         data = data.map((item: any) => ({
           id: item.id,
           content: item.title,
           groupId: item.groupId,
-          weekDays: item.daysOfWeek,
+          weekDays: item.daysOfWeek.join(''),
           participants: item.participants,
         }));
+        console.log("after data:", data);
 
         setThisWeekTodoList(data);
         onTodoCountChange(data.length); 

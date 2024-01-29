@@ -15,6 +15,14 @@ interface TodoProps {
     weekDays: string;
 }
 
+const renderWeekDays = (days: string) => {
+    let newDays = days;
+    if(newDays === '월화수목금토일') newDays = '매일';
+    else if(newDays === '토일') newDays = '주말';
+    else if(newDays === '월화수목금') newDays = '평일';
+    return newDays;
+}
+
 const Todo: React.FC<TodoProps> = ({content, participants, weekDays}) => {
     
     const [isChecked, setChecked] = useState(false);
@@ -29,7 +37,7 @@ const Todo: React.FC<TodoProps> = ({content, participants, weekDays}) => {
             {/* weekDays 요일 */}
             <View style={[styles.weekDaysContainer]}>
                 <View style={[styles.weekDaysBox]}>
-                    <Text style={{fontSize:12}}>{weekDays}</Text>
+                    <Text style={{fontSize:12}}>{renderWeekDays(weekDays)}</Text>
                 </View>
             </View>
         </View>

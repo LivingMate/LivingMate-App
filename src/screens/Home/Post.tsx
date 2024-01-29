@@ -11,7 +11,6 @@ import MateBox from '../../Components/MateBox';
 
 interface PostProps {
   id: number,
-  loggedInUserId: string,
   content: string;
   isPinned: boolean;
   userId?: string,
@@ -19,12 +18,12 @@ interface PostProps {
   //onTogglePin: () => void;
 }
 
-const Post: React.FC<PostProps> = ({ id, content, isPinned, userId, date, loggedInUserId}) => {
-  
+const Post: React.FC<PostProps> = ({ id, content, isPinned, userId, date}) => {
+  const loggedInUserId = "asdf125";
   const [isFocused, setIsFocused] = useState(false);
   // userId가 현재 로그인한 사용자의 userId와 일치하면 버튼을 표시하고 아니면 감춥니다.
-  const showButton = userId === loggedInUserId;
-  console.log('post id: ', id, ',showButton: ',showButton);
+  const showButton = loggedInUserId === userId;
+  console.log('userId: ',userId,'post id: ', id, ',showButton: ',showButton);
 
   return(
   <View style={styles.generalBox}>
@@ -112,7 +111,6 @@ const styles = StyleSheet.create({
 
   buttonContainer: {
     paddingVertical: 12,
-    backgroundColor: 'white', // 기본 배경색
     width: 20,
     height: 20,
     borderRadius: 50,

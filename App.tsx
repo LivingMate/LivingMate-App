@@ -5,6 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { View, StyleSheet } from 'react-native';
 import { Colors } from './src/Components/Colors';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Provider } from 'react-redux';
+import { store } from './src/Store/store';
 
 const App: React.FC = () => (
   <GestureHandlerRootView style={{ flex: 1 }}>
