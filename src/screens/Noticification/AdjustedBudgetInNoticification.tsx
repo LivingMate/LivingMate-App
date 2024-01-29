@@ -46,14 +46,23 @@ const ReceiverAdjustedResult: React.FC<AdjustedResultProps> = ({minusUserId, cha
 
 const AdjustedBudgetInNoticification: React.FC = () => {
     
+    const [lastCalculatedDate, setLastCalculatedDate] = useState<string>('');
     const [adjustedBudgetData, setAdjustedBudgetData] = useState<AdjustedResultProps[]>([]);
     const loggedUser = "박시온";
 
-    const renderResults = (results: AdjustedResultProps[]) => {
+    const formetDate = (date: string) => {
+        const newdate = new Date(date);
+        const year = newdate.getFullYear();
+        const month = newdate.getMonth() + 1;
+        const day = newdate.getDate();
+        return `${year}년 ${month}월 ${day}일`;
+    }
+
+    const renderResults = () => {
         const adjustedResults: JSX.Element[] = [];
         const receiverAdjustedResults: JSX.Element[] = [];
       
-        results.map((item) => {
+        adjustedBudgetData.map((item) => {
           adjustedResults.push(
             <AdjustedResult
               plusUserId={item.plusUserId}
@@ -85,6 +94,7 @@ const AdjustedBudgetInNoticification: React.FC = () => {
 
     useEffect(() => {
         // 초기 데이터 설정
+        setLastCalculatedDate(formetDate('2024-01-14T18:15:22.311Z'));
         setAdjustedBudgetData([
             {
                 "plusUserId": "박시온",
@@ -100,17 +110,17 @@ const AdjustedBudgetInNoticification: React.FC = () => {
     }, []); // 빈 배열을 전달하여 초기 렌더링 시에만 실행
 
     return (
-    <View>
-        {adjustedBudgetData.length > 0 ? (
-            <View style={[CommonStyles.generalBox, {paddingVertical: 20, paddingHorizontal: 25}]}>
-                <Text style={styles.title}>9월 20일까지의 정산 내역입니다.</Text>
-                {renderResults(adjustedBudgetData)}
-            </View>
-        ) : (
-            <PlaceholderMessage msg='미정산 내역이 없습니다.' fontSize={18} />
-        )}
-    </View>
-  );
+        <View>
+            {adjustedBudgetData.length > 0 ? (
+                <View style={[CommonStyles.generalBox, {paddingVertical: 20, paddingHorizontal: 25}]}>
+                    <Text style={styles.title}>{lastCalculatedDate}까지의 정산 내역입니다.</Text>
+                    {renderResults()}
+                </View>
+            ) : (
+                <PlaceholderMessage msg='미정산 내역이 없습니다.' fontSize={18} />
+            )}
+        </View>
+    );
 };
 
 // StyleSheet.create를 사용하여 스타일 정의

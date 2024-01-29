@@ -11,7 +11,7 @@ interface MateSpendingProps {
 }
 
 // ModalDialogProps 인터페이스 정의: 모달의 visible 상태와 onClose 함수 타입을 정의
-interface BalancedBudgetInExpenseModalProps {
+interface AdjustedBudgetInExpenseModalProps {
     visible: boolean;     // 모달의 표시 여부를 결정하는 boolean 값
     onClose: () => void;  // 모달을 닫는 함수
     mateSpendings: MateSpendingProps[];
@@ -43,7 +43,7 @@ const MateSpeding: React.FC<MateSpendingProps> = ({user, spendingNet, spendingsO
 }
 
 // ModalDialog 함수형 컴포넌트: ModalDialogProps 인터페이스를 props로 사용합니다.
-const BalancedBudgetInExpenseModal: React.FC<BalancedBudgetInExpenseModalProps> = ({ visible, onClose, mateSpendings, groupSum, groupAvg}) => {
+const AdjustedBudgetInExpenseModal: React.FC<AdjustedBudgetInExpenseModalProps> = ({ visible, onClose, mateSpendings, groupSum, groupAvg}) => {
     return (
         // Modal 컴포넌트: visible과 transparent 속성을 설정합니다.
         <Modal
@@ -161,4 +161,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default BalancedBudgetInExpenseModal;
+export default AdjustedBudgetInExpenseModal;
