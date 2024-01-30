@@ -1,12 +1,13 @@
 // TodoList.tsx
 import PlaceholderMessage from '../../Components/PlaceholderMessage';
 import React, { useEffect, useState } from 'react';
-import { ScrollView, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { ScrollView, TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import {todosData} from './TestData';
 import Todo from './Todo';
 import { Colors } from '../../Components/Colors';
 import CommonStyles from '../../Components/CommonStyles';
 import { ApiEndpoints } from '../../API/ApiEndpoints';
+import ArrowUpAndDownIcon from '../../Assets/Icons/ArrowUpAndDownIcon';
 
 interface TodoData {
   id: number;
@@ -21,14 +22,15 @@ interface TodoListProps {
 
 const TodoList: React.FC<TodoListProps> = ({ onTodoCountChange }) => {
   const [thisWeekTodoList, setThisWeekTodoList] = useState<TodoData[]>([]);
-  const [todolistBoxMaxHeight, setTodolistBoxMaxHeight] = useState<number>(200);
-  const [todolistBoxMaxHeightButtonColor, setTodolistBoxMaxHeightButtonColor] = useState<string>(Colors.text);
-  const [todolistBoxPaddingBottom, setTodolistBoxPaddingBottom] = useState<number>(10);
-  
-  const toggleTodolistBox = () => {
-    setTodolistBoxMaxHeight(todolistBoxMaxHeight === 200 ? 590 : 200);
-    setTodolistBoxMaxHeightButtonColor(todolistBoxMaxHeight === 200 ? Colors.theme : Colors.button)
-    setTodolistBoxPaddingBottom(todolistBoxMaxHeight === 200 ? 40 : 10);
+  const [boxMaxHeight, setBoxMaxHeight] = useState<number | null>(200);
+  const [boxMaxHeightButtonFocused, setBoxMaxHeightButtonFocused] = useState<boolean>(false);
+  const [boxMaxHeightButtonColor, setBoxMaxHeightButtonColor] = useState<string>(Colors.button);
+  const [boxPadding, setBoxPadding] = useState<number>(10);
+
+  const toggleBoxHeight = () => {
+    setBoxMaxHeight(boxMaxHeightButtonFocused ? 200 : 630);
+    setBoxMaxHeightButtonFocused(boxMaxHeightButtonFocused ? false: true)
+    setBoxMaxHeightButtonColor(boxMaxHeightButtonFocused ? Colors.button : Colors.theme)
   };
 
   useEffect(() => {
@@ -80,13 +82,7 @@ const TodoList: React.FC<TodoListProps> = ({ onTodoCountChange }) => {
     return (
       <View>
         {thisWeekTodoList && thisWeekTodoList.length > 0 ? (
-          <View style={[styles.generalBox, {maxHeight: todolistBoxMaxHeight, paddingBottom: todolistBoxPaddingBottom}]}>
-            <TouchableOpacity 
-              style={{marginVertical: 10, alignItems: 'flex-end'}} 
-              onPress={toggleTodolistBox}
-            >
-              <View style={[styles.arrowDownIcon, {borderBottomColor: todolistBoxMaxHeightButtonColor}]}></View>
-            </TouchableOpacity>
+          <View style={[styles.generalBox, {maxHeight: boxMaxHeight}]}>
             <ScrollView>
               {thisWeekTodoList.map((todo) => (
                 <Todo
@@ -98,6 +94,12 @@ const TodoList: React.FC<TodoListProps> = ({ onTodoCountChange }) => {
                 />
               ))}
             </ScrollView>
+            <TouchableOpacity 
+              style={{alignItems: 'flex-start', marginLeft: 12}} 
+              onPress={toggleBoxHeight}
+            >
+              <ArrowUpAndDownIcon focused={boxMaxHeightButtonFocused} color={boxMaxHeightButtonColor}/>      
+            </TouchableOpacity>
           </View>
         ) : (
           <PlaceholderMessage msg='이번주 할 일이 없습니다.' fontSize={18} />

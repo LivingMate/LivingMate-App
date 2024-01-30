@@ -9,18 +9,22 @@ import MyGroup from './MyGroup';
 import matesData from './TestData';
 
 interface User {
-  id: string;
+  //id: string;
   name: string;
   color: string;
   groupId: string;
   groupName: string;
-  groupMates: Array<{ id: string, name: string, color: string;}>;
+  groupMates: Array<{ id?: string, name: string, color: string;}>;
 }
 
 const MypageScreen: React.FC = () => {
-  const [user, setUser] = useState<User>(db);
+  const [user, setUser] = useState<User>();
 
-  // 사용자 이름과 색상만 업데이트하는 함수
+  const mates = [
+    {name: '박준유', color: 'yellow'},
+    {name: '김예원', color: 'pink'},
+  ]
+  /* 사용자 이름과 색상만 업데이트하는 함수
   const updateUserNameAndColor = (newName: string, newColor: string) => {
     // API 요청 대신 로컬 상태를 직접 업데이트
     const updatedUser = { ...user, name: newName, color: newColor };
@@ -32,7 +36,7 @@ const MypageScreen: React.FC = () => {
     // API 요청 대신 로컬 상태를 직접 업데이트
     const updatedUser = { ...user, name: newGroupName};
     setUser(updatedUser);
-  };
+  }; */
 
   return (
     <View style={CommonStyles.baseContainer}>
@@ -44,18 +48,17 @@ const MypageScreen: React.FC = () => {
               {/* 프로필 */}
               <View style={[CommonStyles.generalBox, {marginTop: 30}]}>
                   <Profile 
-                    name={user.name} 
-                    color={user.color} 
-                    updateUserNameAndColor={updateUserNameAndColor}
+                    name='박시온' 
+                    color='blue' 
+                    
                   />
               </View>
 
               {/* 그룹 정보, 메이트들 */}
               <View style={CommonStyles.generalBox}>
                   <MyGroup 
-                    groupName={user.groupName}
-                    groupMates={matesData}
-                    updateGroupName={updateGroupName}
+                    groupName='청파메이트'
+                    groupMates={mates}
                   />
               </View>
 

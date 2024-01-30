@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, DimensionValue } from 'react-native';
 import PlaceholderMessage from '../../Components/PlaceholderMessage';
 
 import CommonStyles from '../../Components/CommonStyles';
 import MateBox from '../../Components/MateBox';
 import RightArrowIcon from '../../Assets/Icons/RightArrowIcon';
 import { Colors } from '../../Components/Colors';
+import ArrowUpAndDownIcon from '../../Assets/Icons/ArrowUpAndDownIcon';
 
 interface AdjustedResultProps {
     plusUserId?: string,
@@ -49,6 +50,16 @@ const AdjustedBudgetInNoticification: React.FC = () => {
     const [lastCalculatedDate, setLastCalculatedDate] = useState<string>('');
     const [adjustedBudgetData, setAdjustedBudgetData] = useState<AdjustedResultProps[]>([]);
     const loggedUser = "박시온";
+
+    const [boxMaxHeightButtonFocused, setBoxMaxHeightButtonFocused] = useState<boolean>(false);
+    const [boxMaxHeight, setBoxMaxHeight] = useState<number>(200);
+    const [boxMaxHeightButtonColor, setBoxMaxHeightButtonColor] = useState<string>(Colors.button);
+    
+    const toggleBoxHeight = () => {
+      setBoxMaxHeight(boxMaxHeightButtonFocused ? 200 : 630);
+      setBoxMaxHeightButtonFocused(boxMaxHeightButtonFocused ? false: true)
+      setBoxMaxHeightButtonColor(boxMaxHeightButtonFocused ? Colors.button : Colors.theme)
+    };
 
     const formetDate = (date: string) => {
         const newdate = new Date(date);
@@ -112,10 +123,19 @@ const AdjustedBudgetInNoticification: React.FC = () => {
     return (
         <View>
             {adjustedBudgetData.length > 0 ? (
-                <View style={[CommonStyles.generalBox, {paddingVertical: 20, paddingHorizontal: 25}]}>
+                
+                <View style={[CommonStyles.generalBox, {maxHeight: boxMaxHeight, paddingHorizontal: 15}]}>
                     <Text style={styles.title}>{lastCalculatedDate}까지의 정산 내역입니다.</Text>
+                    <ScrollView>
                     {renderResults()}
+                    </ScrollView>
+                    <TouchableOpacity 
+                        style={{alignItems: 'flex-start'}} 
+                        onPress={toggleBoxHeight}>
+                        <ArrowUpAndDownIcon focused={boxMaxHeightButtonFocused} color={boxMaxHeightButtonColor}/>      
+                    </TouchableOpacity>
                 </View>
+                
             ) : (
                 <PlaceholderMessage msg='미정산 내역이 없습니다.' fontSize={18} />
             )}
@@ -136,7 +156,7 @@ const styles = StyleSheet.create({
    
     title: {
         fontSize: 16,
-        marginBottom: 7,
+        marginVertical: 7,
     },
 
     content: {

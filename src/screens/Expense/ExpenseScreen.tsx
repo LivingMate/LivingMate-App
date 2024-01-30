@@ -76,10 +76,12 @@ const ExpenseScreen = () => {
       <View style={[styles.roundBox, {height: roundBoxHeight}]}></View> 
       </SafeAreaView>
 
-      {/* plus button */}
-      <TouchableOpacity >
+      {/* round plus button */}
+      <View style={{alignItems: 'flex-end', paddingHorizontal: '4%'}}>
+      <TouchableOpacity onPress={openModal} style={{width: 50}}>
         <RoundPlusButtonView />
       </TouchableOpacity>
+      </View>
       <ModalDialog visible={modalVisible} onClose={closeModal} screenComponent={<ScreenA/>}/>
     </View>
   );

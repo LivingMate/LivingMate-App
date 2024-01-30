@@ -20,6 +20,7 @@ interface AdjustedBudgetInExpenseModalProps {
 }
 
 const MateSpeding: React.FC<MateSpendingProps> = ({user, spendingNet, spendingsOnAvg}) => {
+    
     const renderMateSpendingsOnAvg = () => {
         let moneyWithSign = spendingsOnAvg.toLocaleString();
         if(moneyWithSign[0]!='-') moneyWithSign = '+'+moneyWithSign;
@@ -44,6 +45,7 @@ const MateSpeding: React.FC<MateSpendingProps> = ({user, spendingNet, spendingsO
 
 // ModalDialog 함수형 컴포넌트: ModalDialogProps 인터페이스를 props로 사용합니다.
 const AdjustedBudgetInExpenseModal: React.FC<AdjustedBudgetInExpenseModalProps> = ({ visible, onClose, mateSpendings, groupSum, groupAvg}) => {
+    
     return (
         // Modal 컴포넌트: visible과 transparent 속성을 설정합니다.
         <Modal

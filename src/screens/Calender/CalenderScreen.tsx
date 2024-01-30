@@ -174,9 +174,12 @@ const CalenderScreen = () => {
       </SafeAreaView>
       
       {/* plus button */}
-      <TouchableOpacity >
-        <RoundPlusButtonView /> 
+      {/* round plus button */}
+      <View style={{alignItems: 'flex-end', paddingHorizontal: '4%'}}>
+      <TouchableOpacity style={{width: 50}}>
+        <RoundPlusButtonView />
       </TouchableOpacity>
+      </View>
 
       {eventRegisterAndSchedulingButtonVisible && (
       <EventRegisterAndSchedulingButton

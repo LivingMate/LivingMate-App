@@ -51,9 +51,11 @@ const HomeScreen = () => {
       </SafeAreaView>
 
       {/* round plus button */}
-      <TouchableOpacity onPress={openModal}>
+      <View style={{alignItems: 'flex-end', paddingHorizontal: '4%'}}>
+      <TouchableOpacity onPress={openModal} style={{width: 50}}>
         <RoundPlusButtonView />
       </TouchableOpacity>
+      </View>
       <AddPostModal isVisible={modalVisible} onClose={closeModal} />
     </View>
   );

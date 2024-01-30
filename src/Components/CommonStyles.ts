@@ -11,7 +11,7 @@ const CommonStyles = StyleSheet.create({
   safearea: {
     alignItems: 'center',
     flex: 1,
-    paddingBottom: 177,
+    //paddingBottom: 177,
   },
 
   section: {
@@ -30,6 +30,7 @@ const CommonStyles = StyleSheet.create({
     shadowRadius: 5,
     shadowColor: '#000000',
     elevation: 8,
+    maxHeight: '91%',
   },
 
   shadow: {

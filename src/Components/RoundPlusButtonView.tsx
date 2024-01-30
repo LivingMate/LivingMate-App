@@ -15,10 +15,10 @@ const RoundPlusButton: React.FC = () => {
 }
 
 const styles = StyleSheet.create({
-    plusButtonCotainer:{
+      plusButtonCotainer:{
         zIndex: 3, // 가장 앞에 위치
         position: 'absolute',
-        bottom: 5,
+        bottom: 90,
         width: '95%',
         alignItems: 'flex-end',
       },

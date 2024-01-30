@@ -1,8 +1,9 @@
 // 네비게이션 홈아이콘 컴포넌트
 import React from 'react';
 import Svg, { Path } from 'react-native-svg';
+import IconProps from '../IconProps';
 
-const HomeIcon: React.FC<{focused: boolean, color: string}> = ({focused, color}) =>  {
+const HomeIcon: React.FC<IconProps> = ({focused, color}) =>  {
   return (
     <>
     { focused ? (
