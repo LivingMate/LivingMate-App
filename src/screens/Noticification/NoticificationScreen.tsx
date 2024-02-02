@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { View, SafeAreaView, Text, StyleSheet, ScrollView, Platform } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, SafeAreaView, Text, StyleSheet, ScrollView } from 'react-native';
 import { Colors } from '../../Components/Colors';
 import CommonStyles from '../../Components/CommonStyles';
 import AdjustedBudgetInNoticification from './AdjustedBudgetInNoticification';
-
+import AppNoticifications from './AppNoticification';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const NoticificationScreen = () => {
   //roundBox 동적 연동 구현
@@ -15,10 +16,12 @@ const NoticificationScreen = () => {
     
   return (
     <View style={CommonStyles.baseContainer}>
-      <SafeAreaView style={CommonStyles.safearea}>
+      <SafeAreaView style={[CommonStyles.safearea]}>
       {/* 정산 알림 */}
       <View style={[CommonStyles.section, {marginTop: 20}]}>
-        <Text style={[styles.title, { color: 'white'}]}>정산 알림</Text>
+        <View style={styles.textAndButtonContainer}>
+          <Text style={[styles.title, { color: 'white'}]}>정산 알림</Text>
+        </View>
         <AdjustedBudgetInNoticification />
       </View>
 
@@ -32,14 +35,15 @@ const NoticificationScreen = () => {
           setRoundBoxHeight(calculatedHeight);
         }}
       >
-          <Text style={[styles.title, { color: 'black' }]}>일반 알림</Text>
-          <ScrollView>
-                <View style ={CommonStyles.generalBox}>
-                <View style={styles.alertBox}>
-                  <Text style={[styles.text, { marginVertical: 15 }]}>알림이 없습니다.
-                </Text>
-                </View></View>
-          </ScrollView>
+          <View style={styles.textAndButtonContainer}>
+            <View style={{flex: 2}}>
+              <Text style={[styles.title, {color: 'black'}]}>일반 알림</Text>
+            </View>
+            <TouchableOpacity style={{flex: 1, backgroundColor: 'red', justifyContent: 'center'}}>
+              <Text style={[styles.text]}>삭제</Text>
+            </TouchableOpacity>
+          </View>
+          <AppNoticifications /> 
       </View>
       
       {/* roundBox */}
@@ -60,25 +64,24 @@ const styles = StyleSheet.create({
     width: '100%', // 너비 
   },
   
+  textAndButtonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: '5%',
+    paddingVertical: 15,
+  },
+
   title:{
     fontSize: 24,
     fontWeight: 'bold',
     alignItems: 'flex-start',
-    marginVertical: 15,
-    marginHorizontal: '5%',
-  },
-
-  paymentBox: {
-    //나중에 추가 디테일 필요할때.
-  },
-
-  alertBox: {
-    //나중에 추가 디테일 필요할때.
   },
 
   text: {
     fontSize: 18,
-    alignItems: 'flex-start',
+    color: Colors.text,
+    alignItems: 'flex-end',
+    marginRight: 5,
   },
 
 });

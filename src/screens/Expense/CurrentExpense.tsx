@@ -20,7 +20,7 @@ const CurrentExpense: React.FC = () => {
          <View style={[CommonStyles.generalBox, {alignItems: 'center', paddingVertical: 25, paddingHorizontal: 15, flexDirection: 'row'}]}>
             {/* 총액 표출 */}
             <View style={styles.groupSumConatiner}>
-              <Text style={styles.groupSumText}>총 470,440원</Text>
+              <Text style={styles.groupSumText}>총 440,000원</Text>
             </View>
 
             {/* 가계부 정산결과 모달 버튼*/}
@@ -34,13 +34,15 @@ const CurrentExpense: React.FC = () => {
               visible={modalVisible} 
               onClose={closeModal}  
               
-              mateSpendings={[ {user: '박시온', spendingNet: 140150, spendingsOnAvg: 16650},
-                {user: '박준유', spendingNet: 200750, spendingsOnAvg: -43950},
-                {user: '김예원', spendingNet: 129500, spendingsOnAvg: 27300}
+              mateSpendings={[ 
+                {user: '카리나', userColor: 'red', spendingNet: 200000, spendingsOnAvg: 90000},
+                {user: '윈터', userColor: 'orange', spendingNet: 160000, spendingsOnAvg: 50000},
+                {user: '닝닝', userColor: 'blue', spendingNet: 80000, spendingsOnAvg: -30000},
+                {user: '지젤', userColor: 'pink', spendingNet: 0, spendingsOnAvg: -110000}
               ]}
         
-              groupAvg={156800}
-              groupSum={470440}
+              groupAvg={110000}
+              groupSum={440000}
             />
         </View>
         </View>

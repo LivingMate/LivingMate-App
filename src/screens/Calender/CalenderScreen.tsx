@@ -38,8 +38,7 @@ interface AgendaEntry {
 
 const testmarkedDates = {
   '2024-01-19': { marked: true },
-  '2024-01-27': { marked: true },
-  '2024-01-28': { marked: true }
+  '2024-01-21': { marked: true,  },
 }
 
 const CalenderScreen = () => {
@@ -159,7 +158,7 @@ const CalenderScreen = () => {
         <View>*/}
         <Event 
                 id={0} 
-                userIds={["박시온", "김예원", "박준유"]}
+                userIds={["윤민지", "박영희"]}
                 title={"event 예시"}
                 memo={"메모"}
                 date={"2024-01-23"} 

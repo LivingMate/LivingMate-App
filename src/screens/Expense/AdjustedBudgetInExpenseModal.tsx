@@ -6,6 +6,7 @@ import MateBox from '../../Components/MateBox';
 
 interface MateSpendingProps {
     user: string;
+    userColor: string;
     spendingNet: number;
     spendingsOnAvg: number;
 }
@@ -19,7 +20,7 @@ interface AdjustedBudgetInExpenseModalProps {
     groupAvg: number;
 }
 
-const MateSpeding: React.FC<MateSpendingProps> = ({user, spendingNet, spendingsOnAvg}) => {
+const MateSpeding: React.FC<MateSpendingProps> = ({user, userColor, spendingNet, spendingsOnAvg}) => {
     
     const renderMateSpendingsOnAvg = () => {
         let moneyWithSign = spendingsOnAvg.toLocaleString();
@@ -31,7 +32,7 @@ const MateSpeding: React.FC<MateSpendingProps> = ({user, spendingNet, spendingsO
     return (
         <View style={{flexDirection: 'row'}}>
             <View style={{width: '20%', justifyContent: 'center', paddingLeft: 4}}>
-                <MateBox userId={user} textSize={13} />
+                <MateBox userId={user} textSize={13} userColor={userColor}/>
             </View>
             <View style={styles.moneyContainer}>
                 <Text style={styles.moneyText}>{spendingNet.toLocaleString()+'원'}</Text>
@@ -65,6 +66,7 @@ const AdjustedBudgetInExpenseModal: React.FC<AdjustedBudgetInExpenseModalProps> 
                         { mateSpendings.map((mateSpending) => (
                             <MateSpeding 
                                 user={mateSpending.user}
+                                userColor={mateSpending.userColor}
                                 spendingNet={mateSpending.spendingNet}
                                 spendingsOnAvg={mateSpending.spendingsOnAvg}
                             />

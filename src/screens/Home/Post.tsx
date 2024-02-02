@@ -19,7 +19,7 @@ interface PostProps {
 }
 
 const Post: React.FC<PostProps> = ({ id, content, isPinned, userId, date}) => {
-  const loggedInUserId = "asdf125";
+  const loggedInUserId = "asdf124";
   const [isFocused, setIsFocused] = useState(false);
   // userId가 현재 로그인한 사용자의 userId와 일치하면 버튼을 표시하고 아니면 감춥니다.
   const showButton = loggedInUserId === userId;

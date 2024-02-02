@@ -19,20 +19,24 @@ const AddPostModal: React.FC<AddPostModalProps> = ({ isVisible, onClose}) => {
     if (text !== '') {
     // JSON 데이터 생성
     const postData = {
-        feedcontent: text,
-        userId: 'asdf124', // 사용자 ID 값을 여기에 대체
-        groupId: 'aaaaaa', // 그룹 ID 값을 여기에 대체
+        content: text,
+        //userId: 'asdf124', // 사용자 ID 값을 여기에 대체
+        //groupId: 'aaaaaa' // 그룹 ID 값을 여기에 대체
     };
     console.log('postData will be sended: ', postData);
 
-    fetch('http://54.180.100.242:3000/feed/aaaaaa', {
+    fetch('http://54.180.100.242:3000/feed/aaaaaa/asdf124', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(postData), // JSON 데이터를 서버로 보냅니다.
     })
-      .then((response) => response.json())
+      .then((response) => {
+        console.log('HTTP 응답:', response);
+        response.json()
+      }
+      )
       .then((data) => {
         // 서버로부터의 응답을 처리하거나 필요한 작업을 수행합니다.
         console.log('서버 응답:', data);
@@ -42,6 +46,7 @@ const AddPostModal: React.FC<AddPostModalProps> = ({ isVisible, onClose}) => {
       })
       .catch((error) => {
         console.error('AddPostModal 서버 요청 실패:', error);
+        console.log('서버 응답:', error);
       });
     } else { 
         Alert.alert(

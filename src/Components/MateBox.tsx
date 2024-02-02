@@ -5,22 +5,23 @@ import { Colors } from './Colors';
 interface MateProps {
     userId?: string;
     textSize: number;
+    userColor?: string;
     showOnlyFirstLetter?: boolean;
 }
 
-const MateBox: React.FC<MateProps> = ({ userId, textSize, showOnlyFirstLetter}) => {
+const MateBox: React.FC<MateProps> = ({ userId, textSize, showOnlyFirstLetter, userColor}) => {
     
   const [userName, setUserName] = useState<string>();
-  const [userColor, setUserColor] = useState<string>();
+  const [user_Color, setUserColor] = useState<string>();
 
   //let firstChar = str.charAt(0); 
   let name = '탈퇴';
-  let color = Colors.text;
+  let color = (userColor) ? userColor : Colors.text;
 
   useEffect(() => {
     if (userId)  {
       name = userId;
-      color = '#000000';
+      color = color;
     } 
     
     if(showOnlyFirstLetter) {
@@ -33,7 +34,7 @@ const MateBox: React.FC<MateProps> = ({ userId, textSize, showOnlyFirstLetter}) 
   }, []); // dependency 배열에 추가  
   
   return (
-        <View style = {[styles.container, {backgroundColor: userColor,}]}>
+        <View style = {[styles.container, {backgroundColor: user_Color,}]}>
           <Text style={[styles.text, {fontSize: textSize}]}>{userName}</Text>
         </View>
     );

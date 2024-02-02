@@ -10,23 +10,25 @@ import ArrowUpAndDownIcon from '../../Assets/Icons/ArrowUpAndDownIcon';
 
 interface AdjustedResultProps {
     plusUserId?: string,
+    plusUserColor?: string,
     minusUserId: string;
+    minusUserColor?: string; 
     change: number;
 }
 
-const AdjustedResult: React.FC<AdjustedResultProps> = ({plusUserId, minusUserId, change}) => {
+const AdjustedResult: React.FC<AdjustedResultProps> = ({plusUserId, plusUserColor, minusUserId, minusUserColor, change}) => {
     return (
         <View style={{flexDirection: 'row', marginVertical: 5}}>
             {/* plusUser */}
             <View style={{justifyContent: 'center'}}>
-                <MateBox userId={plusUserId} textSize={13} />
+                <MateBox userId={plusUserId} textSize={13} userColor={plusUserColor}/>
             </View>
             <View style={{justifyContent: 'center', paddingVertical: 2, marginHorizontal: 15}}>
                 <RightArrowIcon />
             </View>
             {/* minusUser */}
             <View style={{justifyContent: 'center', paddingLeft: 4}}>
-                <MateBox userId={minusUserId} textSize={12} />
+                <MateBox userId={minusUserId} textSize={12} userColor={minusUserColor}/>
             </View>
             <View style={styles.moneyContainer}>
                 <Text style={styles.moneyText}>{'('+change.toLocaleString()+'원)'}</Text>
@@ -35,11 +37,11 @@ const AdjustedResult: React.FC<AdjustedResultProps> = ({plusUserId, minusUserId,
     )
 }
 
-const ReceiverAdjustedResult: React.FC<AdjustedResultProps> = ({minusUserId, change}) => {
+const ReceiverAdjustedResult: React.FC<AdjustedResultProps> = ({minusUserId, minusUserColor, change}) => {
     return (
         <View style={{flexDirection: 'row', marginVertical: 5, alignItems: 'center'}}>
             {/* minusUser */}
-            <MateBox userId={minusUserId} textSize={12} />
+            <MateBox userId={minusUserId} textSize={12} userColor={minusUserColor}/>
             <Text style={{marginLeft: 5, fontSize: 16}}>님께 {change.toLocaleString()}원 이체하세요</Text>
         </View>
     )
@@ -49,7 +51,7 @@ const AdjustedBudgetInNoticification: React.FC = () => {
     
     const [lastCalculatedDate, setLastCalculatedDate] = useState<string>('');
     const [adjustedBudgetData, setAdjustedBudgetData] = useState<AdjustedResultProps[]>([]);
-    const loggedUser = "박시온";
+    const loggedUser = "지젤";
 
     const [boxMaxHeightButtonFocused, setBoxMaxHeightButtonFocused] = useState<boolean>(false);
     const [boxMaxHeight, setBoxMaxHeight] = useState<number>(200);
@@ -78,6 +80,8 @@ const AdjustedBudgetInNoticification: React.FC = () => {
             <AdjustedResult
               plusUserId={item.plusUserId}
               minusUserId={item.minusUserId}
+              plusUserColor={item.plusUserColor}
+              minusUserColor={item.minusUserColor}
               change={item.change}
             />
           );
@@ -87,6 +91,7 @@ const AdjustedBudgetInNoticification: React.FC = () => {
             receiverAdjustedResults.push(
               <ReceiverAdjustedResult
                 minusUserId={item.minusUserId}
+                minusUserColor={item.minusUserColor}
                 change={item.change}
               />
             );
@@ -108,14 +113,25 @@ const AdjustedBudgetInNoticification: React.FC = () => {
         setLastCalculatedDate(formetDate('2024-01-14T18:15:22.311Z'));
         setAdjustedBudgetData([
             {
-                "plusUserId": "박시온",
-                "minusUserId": "박준유",
-                "change": 26000
+                "plusUserId": "닝닝",
+                "minusUserId": "카리나",
+                "plusUserColor": 'blue',
+                "minusUserColor": 'red',
+                "change": 30000
             },
             {
-                "plusUserId": "박시온",
-                "minusUserId": "김예원",
-                "change": 46000
+                "plusUserId": "지젤",
+                "minusUserId": "카리나",
+                "plusUserColor": 'pink',
+                "minusUserColor": 'red',
+                "change": 60000
+            },
+            {
+                "plusUserId": "지젤",
+                "minusUserId": "윈터",
+                "plusUserColor": 'pink',
+                "minusUserColor": 'orange',
+                "change": 50000
             },
         ]);
     }, []); // 빈 배열을 전달하여 초기 렌더링 시에만 실행

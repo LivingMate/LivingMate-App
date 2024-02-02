@@ -21,8 +21,8 @@ const MypageScreen: React.FC = () => {
   const [user, setUser] = useState<User>();
 
   const mates = [
-    {name: '박준유', color: 'yellow'},
-    {name: '김예원', color: 'pink'},
+    {name: '최지현', color: '#c96d00'},
+    {name: '박영희', color: '#1e64eb'},
   ]
   /* 사용자 이름과 색상만 업데이트하는 함수
   const updateUserNameAndColor = (newName: string, newColor: string) => {
@@ -48,8 +48,8 @@ const MypageScreen: React.FC = () => {
               {/* 프로필 */}
               <View style={[CommonStyles.generalBox, {marginTop: 30}]}>
                   <Profile 
-                    name='박시온' 
-                    color='blue' 
+                    name='윤민지' 
+                    color='#cd6363' 
                     
                   />
               </View>
