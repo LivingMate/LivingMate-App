@@ -1,13 +1,13 @@
 // PostView.tsx
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Colors } from '../../Components/Colors';
-import PinIcon from '../../Assets/Icons/PinIcon';
-import ThreeDotsIcon from '../../Assets/Icons/ThreeDotsIcon';
-import CommonStyles from '../../Components/CommonStyles';
+import { Colors } from '../../components/Colors';
+import PinIcon from '../../assets/Icons/PinIcon';
+import ThreeDotsIcon from '../../assets/Icons/ThreeDotsIcon';
+import CommonStyles from '../../components/CommonStyles';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../Store/store';
-import MateBox from '../../Components/MateBox';
+import { RootState } from '../../store/store';
+import MateBox from '../../components/MateBox';
 
 interface PostProps {
   id: number,

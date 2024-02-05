@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { View, SafeAreaView, Text, StyleSheet, TouchableOpacity,} from 'react-native';
-import { Colors } from '../../Components/Colors';
-import CommonStyles from '../../Components/CommonStyles';
+import { Colors } from '../../components/Colors';
+import CommonStyles from '../../components/CommonStyles';
 import TodoList from './TodoList';
 import Feed from './Feed';
 import AddPostModal from './AddPostModal';
-import RoundPlusButtonView from '../../Components/RoundPlusButtonView';
+import RoundPlusButtonView from '../../components/RoundPlusButtonView';
 
 const HomeScreen = () => {
   const [roundBoxHeight, setRoundBoxHeight] = useState<number>(0);

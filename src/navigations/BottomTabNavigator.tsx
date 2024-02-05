@@ -4,20 +4,20 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, StyleSheet } from 'react-native';
 
-import { Colors } from '../Components/Colors';
-import CommonStyles from '../Components/CommonStyles';
+import { Colors } from '../components/Colors';
+import CommonStyles from '../components/CommonStyles';
 
-import ExpenseScreen from '../Screens/Expense/ExpenseScreen';
-import CalenderScreen from '../Screens/Calender/CalenderScreen';
-import MypageScreen from '../Screens/Mypage/MypageScreen';
-import NoticificationScreen from '../Screens/Noticification/NoticificationScreen';
-import HomeScreen from '../Screens/Home/HomeScreen';
+import ExpenseScreen from '../screens/expense/ExpenseScreen';
+import CalenderScreen from '../screens/calender/CalenderScreen';
+import MypageScreen from '../screens/mypage/MypageScreen';
+import NoticificationScreen from '../screens/noticification/NoticificationScreen';
+import HomeScreen from '../screens/home/HomeScreen';
 
-import ExpenseIcon from '../Assets/Icons/Navigaton/ExpenseIcon';
-import HomeIcon from '../Assets/Icons/Navigaton/HomeIcon';
-import CalenderIcon from '../Assets/Icons/Navigaton/CalenderIcon';
-import NoticificationIcon from '../Assets/Icons/Navigaton/NoticificationIcon';
-import MypageIcon from '../Assets/Icons/Navigaton/MypageIcon';
+import ExpenseIcon from '../assets/Icons/Navigaton/ExpenseIcon';
+import HomeIcon from '../assets/Icons/Navigaton/HomeIcon';
+import CalenderIcon from '../assets/Icons/Navigaton/CalenderIcon';
+import NoticificationIcon from '../assets/Icons/Navigaton/NoticificationIcon';
+import MypageIcon from '../assets/Icons/Navigaton/MypageIcon';
 
 const Tab = createBottomTabNavigator();
 

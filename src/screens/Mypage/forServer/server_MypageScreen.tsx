@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, SafeAreaView, Text, StyleSheet, ScrollView, Platform, TouchableOpacity } from 'react-native';
-import { Colors } from '../../../Components/Colors';
-import CommonStyles from '../../../Components/CommonStyles';
+import { Colors } from '../../../components/Colors';
+import CommonStyles from '../../../components/CommonStyles';
 import SendInvitedCode from '../SendInvitedCode';
-import NoticificationIcon from '../../../Assets/Icons/NoticificationIcon';
+import NoticificationIcon from '../../../assets/Icons/NoticificationIcon';
 import Profile from '../Profile';
 
 const testUser = {

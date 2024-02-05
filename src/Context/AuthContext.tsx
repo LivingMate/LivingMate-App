@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import BottomTabNavigator from '../Navigation/BottomTabNavigator';
-import InitialStackNavigator from '../Navigation/InitialStackNavigator';
+import BottomTabNavigator from '../navigations/BottomTabNavigator';
+import InitialStackNavigator from '../navigations/InitialStackNavigator';
 
 // AuthContextType 정의
 type AuthContextType = {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, ScrollView } from 'react-native';
 import Post from './Post';
-import PlaceholderMessage from '../../Components/PlaceholderMessage';
+import PlaceholderMessage from '../../components/PlaceholderMessage';
 
 interface PostData {
   id: number;

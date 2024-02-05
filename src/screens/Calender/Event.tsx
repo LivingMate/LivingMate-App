@@ -1,13 +1,13 @@
 // PostView.tsx
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Colors } from '../../Components/Colors';
-import ThreeDotsIcon from '../../Assets/Icons/ThreeDotsIcon';
-import MateBox from '../../Components/MateBox';
+import { Colors } from '../../components/Colors';
+import ThreeDotsIcon from '../../assets/Icons/ThreeDotsIcon';
+import MateBox from '../../components/MateBox';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../Store/store';
-import EditAndDeleteButton from '../../Components/EditAndDeleteButton';
-import ThreeDotsButton from '../../Components/ThreeDotsButton';
+import { RootState } from '../../store/store';
+import EditAndDeleteButton from '../../components/EditAndDeleteButton';
+import ThreeDotsButton from '../../components/ThreeDotsButton';
 
 interface EventProps {
   id: number,

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, SafeAreaView, Text, StyleSheet, ScrollView, Platform, TouchableOpacity } from 'react-native';
-import { Colors } from '../../Components/Colors';
-import CommonStyles from '../../Components/CommonStyles';
+import { Colors } from '../../components/Colors';
+import CommonStyles from '../../components/CommonStyles';
 import SendInvitedCode from './SendInvitedCode';
 import db from '../../../db.json';
 import Profile from './Profile';

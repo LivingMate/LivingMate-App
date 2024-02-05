@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Modal, StyleSheet, Alert } from 'react-native';
-import { Colors } from '../../Components/Colors';
+import { Colors } from '../../components/Colors';
 
 interface AddPostModalProps {
   isVisible: boolean;

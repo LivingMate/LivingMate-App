@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, ScrollView, Text } from 'react-native';
-import PlaceholderMessage from '../../Components/PlaceholderMessage';
-import CommonStyles from '../../Components/CommonStyles';
+import PlaceholderMessage from '../../components/PlaceholderMessage';
+import CommonStyles from '../../components/CommonStyles';
 
 interface Noticification {
   id: number;

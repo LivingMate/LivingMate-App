@@ -1,7 +1,7 @@
 //EntryGroupScreen.tsx
 import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet} from 'react-native';
-import { Colors } from '../../Components/Colors';
+import { Colors } from '../../components/Colors';
 
 interface EntryGroupScreenProps {
   onEntry: () => void;

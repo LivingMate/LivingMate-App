@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import GearIcon from '../../Assets/Icons/GearIcon';
+import GearIcon from '../../assets/Icons/GearIcon';
 
 interface ProfileProps {
     name: string,

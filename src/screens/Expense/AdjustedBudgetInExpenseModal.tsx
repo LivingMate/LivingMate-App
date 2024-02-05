@@ -1,8 +1,8 @@
 import React from 'react';
 import { Modal, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import CommonStyles from '../../Components/CommonStyles';
-import { Colors } from '../../Components/Colors';
-import MateBox from '../../Components/MateBox';
+import CommonStyles from '../../components/CommonStyles';
+import { Colors } from '../../components/Colors';
+import MateBox from '../../components/MateBox';
 
 interface MateSpendingProps {
     user: string;

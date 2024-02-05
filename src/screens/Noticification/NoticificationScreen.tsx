@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, SafeAreaView, Text, StyleSheet, ScrollView } from 'react-native';
-import { Colors } from '../../Components/Colors';
-import CommonStyles from '../../Components/CommonStyles';
+import { Colors } from '../../components/Colors';
+import CommonStyles from '../../components/CommonStyles';
 import AdjustedBudgetInNoticification from './AdjustedBudgetInNoticification';
 import AppNoticifications from './AppNoticification';
 import { TouchableOpacity } from 'react-native-gesture-handler';

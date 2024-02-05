@@ -1,9 +1,9 @@
 // InitialStackNavigator.tsx
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import LoginContainer from '../Screens/Login/LoginContainer';
+import LoginContainer from '../screens/login/LoginContainer';
 import BottomTabNavigator from './BottomTabNavigator';
-import EntryGroupContainer from '../Screens/EntryGroup/EntryGroupContainer';
+import EntryGroupContainer from '../screens/entryGroup/EntryGroupContainer';
 
 const Stack = createStackNavigator();
 

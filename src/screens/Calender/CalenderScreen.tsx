@@ -1,20 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, SafeAreaView, Text, StyleSheet, ScrollView, Platform, TouchableOpacity, Button } from 'react-native';
-import { Colors } from '../../Components/Colors';
-import CommonStyles from '../../Components/CommonStyles'
-import PlusIcon from '../../Assets/Icons/PlusIcon';
+import { Colors } from '../../components/Colors';
+import CommonStyles from '../../components/CommonStyles'
+import PlusIcon from '../../assets/Icons/PlusIcon';
 import { Calendar, DateData } from 'react-native-calendars'; //캘린더 달력 모양
 import { Agenda } from 'react-native-calendars'; //캘린더 아래에 일정 내용 펼쳐지는 거
 import { daysInWeek, weeksToDays } from 'date-fns';
 import { LocaleConfig } from 'react-native-calendars';
 import { createStackNavigator } from '@react-navigation/stack';
-import RoundPlusButtonView from '../../Components/RoundPlusButtonView';
-import ScreenA from '../../Modals/ex';
-import ModalDialog from '../../Modals/ModalDialog';
-import { ApiEndpoints } from '../../API/ApiEndpoints';
+import RoundPlusButtonView from '../../components/RoundPlusButtonView';
+import ScreenA from '../../modals/ex';
+import ModalDialog from '../../modals/ModalDialog';
+import { ApiEndpoints } from '../../api/ApiEndpoints';
 import CalenderView from './CalenderView';
 import Event from './Event';
-import EditAndDeleteButton from '../../Components/EditAndDeleteButton';
+import EditAndDeleteButton from '../../components/EditAndDeleteButton';
 import EventRegisterAndSchedulingButton from './EventRegisterAndSchedulingButton';
 
 //import CalenderAgenda from './CalenderAgenda';

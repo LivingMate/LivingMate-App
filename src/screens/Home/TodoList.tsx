@@ -1,13 +1,13 @@
 // TodoList.tsx
-import PlaceholderMessage from '../../Components/PlaceholderMessage';
+import PlaceholderMessage from '../../components/PlaceholderMessage';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import {todosData} from './TestData';
 import Todo from './Todo';
-import { Colors } from '../../Components/Colors';
-import CommonStyles from '../../Components/CommonStyles';
-import { ApiEndpoints } from '../../API/ApiEndpoints';
-import ArrowUpAndDownIcon from '../../Assets/Icons/ArrowUpAndDownIcon';
+import { Colors } from '../../components/Colors';
+import CommonStyles from '../../components/CommonStyles';
+import { ApiEndpoints } from '../../api/ApiEndpoints';
+import ArrowUpAndDownIcon from '../../assets/Icons/ArrowUpAndDownIcon';
 
 interface TodoData {
   id: number;

@@ -1,12 +1,12 @@
 import React from 'react';
-import AuthNavigator, { AuthProvider } from './src/Context/AuthContext';
-import BottomTabNavigator from './src/Navigation/BottomTabNavigator';
+import AuthNavigator, { AuthProvider } from './src/context/AuthContext';
+import BottomTabNavigator from './src/navigations/BottomTabNavigator';
 import { NavigationContainer } from '@react-navigation/native';
 import { View, StyleSheet } from 'react-native';
-import { Colors } from './src/Components/Colors';
+import { Colors } from './src/components/Colors';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Provider } from 'react-redux';
-import { store } from './src/Store/store';
+import { store } from './src/store/store';
 
 const App: React.FC = () => (
   <GestureHandlerRootView style={{ flex: 1 }}>

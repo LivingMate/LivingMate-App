@@ -1,11 +1,11 @@
 // TodoList.tsx
-import PlaceholderMessage from '../../Components/PlaceholderMessage';
-import CommonStyles from '../../Components/CommonStyles';
+import PlaceholderMessage from '../../components/PlaceholderMessage';
+import CommonStyles from '../../components/CommonStyles';
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Button, StyleSheet, ScrollView } from 'react-native';
-import { Colors } from '../../Components/Colors';
+import { Colors } from '../../components/Colors';
 import Checkbox from 'expo-checkbox';
-import MateBox from '../../Components/MateBox';
+import MateBox from '../../components/MateBox';
 import TodoParticipants from './TodoParticipants';
 
 interface TodoProps {

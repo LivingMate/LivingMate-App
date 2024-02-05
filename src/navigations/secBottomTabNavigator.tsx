@@ -3,21 +3,21 @@
 import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import NavigationIcons from './NavigationIcons';
-import { Colors } from '../Components/Colors';
+import { Colors } from '../components/Colors';
 
-import ExpenseScreen from '../Screens/Expense/ExpenseScreen';
-import CalenderScreen from '../Screens/Calender/CalenderScreen';
-import MypageScreen from '../Screens/Mypage/MypageScreen';
-import NoticificationScreen from '../Screens/Noticification/NoticificationScreen';
+import ExpenseScreen from '../screens/expense/ExpenseScreen';
+import CalenderScreen from '../screens/calender/CalenderScreen';
+import MypageScreen from '../screens/mypage/MypageScreen';
+import NoticificationScreen from '../screens/noticification/NoticificationScreen';
 
-import HomeScreen from '../Screens/Home/HomeScreen';
-import CommonStyles from '../Components/CommonStyles';
-import HomeIcon from "../Assets/Icons/HomeIcon";
-import CalendarIcon from '../Assets/Icons/CalenderIcon';
-import ExpenseIcon from '../Assets/Icons/ExpenseIcon';
-import NoticificationIcon from '../Assets/Icons/NoticificationIcon';
-import MypageIcon from '../Assets/Icons/MypageIcon';
-import PinIcon from '../Assets/Icons/PinIcon';
+import HomeScreen from '../screens/home/HomeScreen';
+import CommonStyles from '../components/CommonStyles';
+import HomeIcon from "../assets/Icons/HomeIcon";
+import CalendarIcon from '../assets/Icons/CalenderIcon';
+import ExpenseIcon from '../assets/Icons/ExpenseIcon';
+import NoticificationIcon from '../assets/Icons/NoticificationIcon';
+import MypageIcon from '../assets/Icons/MypageIcon';
+import PinIcon from '../assets/Icons/PinIcon';
 import { getTime } from 'date-fns';
 
 

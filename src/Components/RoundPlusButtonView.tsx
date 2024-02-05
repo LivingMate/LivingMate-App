@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, SafeAreaView, Text, StyleSheet, TouchableOpacity, ScrollView, Modal } from 'react-native';
 import { Colors } from './Colors';
-import PlusIcon from '../Assets/Icons/PlusIcon';
+import PlusIcon from '../assets/Icons/PlusIcon';
 
 const RoundPlusButton: React.FC = () => {
 

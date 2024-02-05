@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity, DimensionValue } from 'react-native';
-import PlaceholderMessage from '../../Components/PlaceholderMessage';
+import PlaceholderMessage from '../../components/PlaceholderMessage';
 
-import CommonStyles from '../../Components/CommonStyles';
-import MateBox from '../../Components/MateBox';
-import RightArrowIcon from '../../Assets/Icons/RightArrowIcon';
-import { Colors } from '../../Components/Colors';
-import ArrowUpAndDownIcon from '../../Assets/Icons/ArrowUpAndDownIcon';
+import CommonStyles from '../../components/CommonStyles';
+import MateBox from '../../components/MateBox';
+import RightArrowIcon from '../../assets/Icons/RightArrowIcon';
+import { Colors } from '../../components/Colors';
+import ArrowUpAndDownIcon from '../../assets/Icons/ArrowUpAndDownIcon';
 
 interface AdjustedResultProps {
     plusUserId?: string,

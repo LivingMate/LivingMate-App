@@ -1,15 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Platform, Button, TouchableOpacity } from 'react-native';
-import { Colors } from '../../Components/Colors';
-import CategoryButton from './CategoryButton';
-import CommonStyles from '../../Components/CommonStyles'
-import MagnifyingGlassIcon from '../../Assets/Icons/MagnifyingGlassIcon';
-import BudgetList from './BudgetList';
+import { Colors } from '../../components/Colors';
+
+import CommonStyles from '../../components/CommonStyles'
+import MagnifyingGlassIcon from '../../assets/Icons/MagnifyingGlassIcon';
+
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import RoundPlusButtonView from '../../components/RoundPlusButtonView';
+import ModalDialog from '../../modals/ModalDialog';
+import ScreenA from '../../modals/ex';
 import CurrentExpense from './CurrentExpense';
-import RoundPlusButtonView from '../../Components/RoundPlusButtonView';
-import ModalDialog from '../../Modals/ModalDialog';
-import ScreenA from '../../Modals/ex';
+import CategoryButton from './CategoryButton';
+import BudgetList from './BudgetList';
 
 const ExpenseScreen = () => {
   const insets = useSafeAreaInsets();

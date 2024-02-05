@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import PlaceholderMessage from '../../Components/PlaceholderMessage';
+import PlaceholderMessage from '../../components/PlaceholderMessage';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import CommonStyles from '../../Components/CommonStyles';
-import { Colors } from '../../Components/Colors';
+import CommonStyles from '../../components/CommonStyles';
+import { Colors } from '../../components/Colors';
 import AdjustedBudgetInExpenseModal from './AdjustedBudgetInExpenseModal';
 
 const CurrentExpense: React.FC = () => {

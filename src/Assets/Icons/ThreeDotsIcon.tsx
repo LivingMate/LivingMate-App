@@ -1,7 +1,7 @@
 // 네비게이션 홈아이콘 컴포넌트
 import React from 'react';
 import Svg, { Path } from 'react-native-svg';
-import { Colors } from '../../Components/Colors';
+import { Colors } from '../../components/Colors';
 
 const ThreeDotsIcon = () => {
   return (

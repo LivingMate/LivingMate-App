@@ -1,7 +1,7 @@
 // TodoParticipants.tsx
 import React from 'react';
 import { View } from 'react-native';
-import MateBox from '../../Components/MateBox';
+import MateBox from '../../components/MateBox';
 
 interface TodoParticipantsListProps {
     participants: string[]

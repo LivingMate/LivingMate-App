@@ -1,10 +1,10 @@
 // PostView.tsx
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Colors } from '../../Components/Colors';
-import ThreeDotsIcon from '../../Assets/Icons/ThreeDotsIcon';
-import CommonStyles from '../../Components/CommonStyles';
-import MateBox from '../../Components/MateBox';
+import { Colors } from '../../components/Colors';
+import ThreeDotsIcon from '../../assets/Icons/ThreeDotsIcon';
+import CommonStyles from '../../components/CommonStyles';
+import MateBox from '../../components/MateBox';
 
 interface BudgetProps {
   id?: number;

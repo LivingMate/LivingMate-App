@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Colors } from '../../Components/Colors';
+import { Colors } from '../../components/Colors';
 import { Calendar } from 'react-native-calendars'; //캘린더 달력 모양
 import { daysInWeek } from 'date-fns';
 import { LocaleConfig } from 'react-native-calendars';
-import CommonStyles from '../../Components/CommonStyles';
+import CommonStyles from '../../components/CommonStyles';
 import { Agenda } from 'react-native-calendars'; //캘린더 아래에 일정 내용 펼쳐지는 거
 
 /*

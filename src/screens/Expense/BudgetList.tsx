@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import Budget from './Budget';
-import { ApiEndpoints } from '../../API/ApiEndpoints';
-import PlaceholderMessage from '../../Components/PlaceholderMessage';
+import { ApiEndpoints } from '../../api/ApiEndpoints';
+import PlaceholderMessage from '../../components/PlaceholderMessage';
 
 interface BudgetData {
   id: number;

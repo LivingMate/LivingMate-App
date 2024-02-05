@@ -1,6 +1,6 @@
 // components/Login.tsx
-import { RootState } from '../../Store/store';
-import { loginSuccess } from '../../Store/userAction';
+import { RootState } from '../../store/store';
+import { loginSuccess } from '../../store/userAction';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 

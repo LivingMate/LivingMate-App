@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, SafeAreaView, Text, StyleSheet, TouchableOpacity, ScrollView, Modal } from 'react-native';
 import { Colors } from './Colors';
-import ThreeDotsIcon from '../Assets/Icons/ThreeDotsIcon';
+import ThreeDotsIcon from '../assets/Icons/ThreeDotsIcon';
 import EditAndDeleteButton from './EditAndDeleteButton';
 
 interface ThreeDotsButtonProps {

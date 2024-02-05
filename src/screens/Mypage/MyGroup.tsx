@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import PenIcon from '../../Assets/Icons/PenIcon';
-import MsgBalloon from '../../Assets/Icons/MsgBalloon';
-import MateBox from '../../Components/MateBox';
+import PenIcon from '../../assets/Icons/PenIcon';
+import MsgBalloon from '../../assets/Icons/MsgBalloon';
+import MateBox from '../../components/MateBox';
 import { ScrollView } from 'react-native-gesture-handler';
 
 interface MateProps {
