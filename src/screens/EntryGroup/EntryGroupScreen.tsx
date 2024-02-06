@@ -1,14 +1,14 @@
 //EntryGroupScreen.tsx
 import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet} from 'react-native';
-import { Colors } from '../../components/Colors';
+import { Colors } from '../../common/Colors';
 
-interface EntryGroupScreenProps {
+interface EntryGroupContainerProps {
   onEntry: () => void;
   isLoggedIn: () => void;
 }
 
-const EntryGroupScreen: React.ComponentType<EntryGroupScreenProps> = ({ onEntry, isLoggedIn }) => {
+const EntryGroupContainer: React.ComponentType<EntryGroupContainerProps> = ({ onEntry, isLoggedIn }) => {
   return (
       <View style={styles.container}>
         <Text style={styles.msgText}>함께 사는 메이트를 초대하고{'\n'}생활을 편리하게 관리해보세요!</Text>
@@ -77,6 +77,6 @@ const styles = StyleSheet.create({
     }
   });
 
-export default EntryGroupScreen;
+export default EntryGroupContainer;
 
 

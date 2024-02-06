@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import PenIcon from '../../assets/Icons/PenIcon';
-import MsgBalloon from '../../assets/Icons/MsgBalloon';
-import MateBox from '../../components/MateBox';
+import PenIcon from '../../assets/icons/PenIcon';
+import MateBox from '../../common/MateBox';
 import { ScrollView } from 'react-native-gesture-handler';
 
 interface MateProps {
+  id: string;
   name: string;
   color: string;
 }
 
 interface MyGroupProps {
+  groupId: string;
   groupName: string;
   groupMates: MateProps[];
   updateGroupNam?: (groupName: string) => void;
@@ -57,7 +58,12 @@ const MyGroup: React.FC<MyGroupProps> = ({ groupName, groupMates, }) => {
       <ScrollView>
       {
         groupMates.map((mate) => (
-          <MyMate name={mate.name} color={mate.color} />
+          <MyMate 
+            key={mate.id.toString()}
+            id={mate.id}
+            name={mate.name} 
+            color={mate.color} 
+          />
         ))
       }
       </ScrollView>

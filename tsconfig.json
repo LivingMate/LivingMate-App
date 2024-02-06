@@ -8,5 +8,7 @@
     },
     "jsx": "react-native",
     "esModuleInterop": true,
+    "module": "commonjs",
+    "target": "ES6",
   }
 }

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Colors } from '../../components/Colors';
+import { Colors } from '../../common/Colors';
 import { Calendar } from 'react-native-calendars'; //캘린더 달력 모양
-import { daysInWeek } from 'date-fns';
+import daysInWeek from 'date-fns';
 import { LocaleConfig } from 'react-native-calendars';
-import CommonStyles from '../../components/CommonStyles';
+import CommonStyles from '../../common/CommonStyles';
 
 LocaleConfig.locales['en'] = {
   today: 'Today',

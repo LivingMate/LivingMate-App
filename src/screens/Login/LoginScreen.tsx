@@ -1,8 +1,8 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet} from 'react-native';
-import LogoIcon from '../../assets/Icons/LogoIcon';
-import { Colors } from '../../components/Colors';
-import CommonStyles from '../../components/CommonStyles';
+import LogoIcon from '../../assets/icons/LogoIcon';
+import { Colors } from '../../common/Colors';
+import CommonStyles from '../../common/CommonStyles';
 
 interface LoginScreenProps {
   onGoogleLogin: () => void;

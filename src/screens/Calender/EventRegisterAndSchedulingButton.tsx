@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Alert, StyleSheet, Modal} from 'react-native';
-import { Colors } from '../../components/Colors';
-import CommonStyles from '../../components/CommonStyles';
+import { Colors } from '../../common/Colors';
+import CommonStyles from '../../common/CommonStyles';
 
 interface EventRegisterAndSchedulingButtonProps {
     setVisible: (isVisible: boolean) => void;

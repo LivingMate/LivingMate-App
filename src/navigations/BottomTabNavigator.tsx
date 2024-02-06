@@ -4,20 +4,20 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, StyleSheet } from 'react-native';
 
-import { Colors } from '../components/Colors';
-import CommonStyles from '../components/CommonStyles';
+import { Colors } from '../common/Colors';
+import CommonStyles from '../common/CommonStyles';
 
-import ExpenseScreen from '../screens/expense/ExpenseScreen';
-import CalenderScreen from '../screens/calender/CalenderScreen';
-import MypageScreen from '../screens/mypage/MypageScreen';
-import NoticificationScreen from '../screens/noticification/NoticificationScreen';
-import HomeScreen from '../screens/home/HomeScreen';
+import ExpenseContainer from '../screens/expense/ExpenseContainer';
+import CalenderContainer from '../screens/calender/CalenderContainer';
+import MypageContainer from '../screens/mypage/MypageContainer';
+import NoticificationContainer from '../screens/noticification/NoticificationContainer';
+import HomeContainer from '../screens/home/HomeContainer';
 
-import ExpenseIcon from '../assets/Icons/Navigaton/ExpenseIcon';
-import HomeIcon from '../assets/Icons/Navigaton/HomeIcon';
-import CalenderIcon from '../assets/Icons/Navigaton/CalenderIcon';
-import NoticificationIcon from '../assets/Icons/Navigaton/NoticificationIcon';
-import MypageIcon from '../assets/Icons/Navigaton/MypageIcon';
+import ExpenseIcon from '../assets/icons/navigaton/ExpenseIcon';
+import HomeIcon from '../assets/icons/navigaton/HomeIcon';
+import CalenderIcon from '../assets/icons/navigaton/CalenderIcon';
+import NoticificationIcon from '../assets/icons/navigaton/NoticificationIcon';
+import MypageIcon from '../assets/icons/navigaton/MypageIcon';
 
 const Tab = createBottomTabNavigator();
 
@@ -41,7 +41,7 @@ const BottomTabNavigator = ({}) => {
     >
       <Tab.Screen 
         name="Expense" 
-        component={ExpenseScreen} 
+        component={ExpenseContainer} 
         options={
           {
             tabBarLabel: '가계부',
@@ -58,7 +58,7 @@ const BottomTabNavigator = ({}) => {
       />
       <Tab.Screen 
         name="Calender" 
-        component={CalenderScreen}
+        component={CalenderContainer}
         options={
           {
             tabBarLabel: '캘린더',
@@ -73,7 +73,7 @@ const BottomTabNavigator = ({}) => {
       />
       <Tab.Screen 
         name="Home" 
-        component={HomeScreen} 
+        component={HomeContainer} 
         options={
           {
             tabBarLabel: '홈',
@@ -87,7 +87,7 @@ const BottomTabNavigator = ({}) => {
       />
       <Tab.Screen 
         name="Noticification" 
-        component={NoticificationScreen} 
+        component={NoticificationContainer} 
         options={
           {
             tabBarLabel: '알림',
@@ -102,7 +102,7 @@ const BottomTabNavigator = ({}) => {
       />
       <Tab.Screen 
         name="Mypage" 
-        component={MypageScreen} 
+        component={MypageContainer} 
         options={
           {
             tabBarLabel: '마이페이지',
