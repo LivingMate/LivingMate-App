@@ -15,9 +15,25 @@ interface HomeViewProps {
 
 const HomeView:React.FC<HomeViewProps> = ({posts, fetchPosts}) => {
   
-  const [modalVisible, setModalVisible] = React.useState(false); // 모달의 표시 상태를 관리하는 state
-  const toggleModalVisible = () => {
-    setModalVisible(!modalVisible);
+  const [modalVisible, setModalVisible] = useState<boolean>(false); // 모달의 표시 상태를 관리하는 state
+  const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
+  const [editingPostId, setEditingPostId] = useState<number>(-1);
+  const [editingPostContent, setEditingPostContent] = useState<string>('');
+
+  const openModal = () => {
+    setModalVisible(true);
+    
+  }
+
+  const closeModal = () => {
+    setModalVisible(false);
+    setEditingPostId(-1);
+    setEditingPostContent('');
+  }
+  
+  const toggleModalMode = (mode: 'create' | 'edit') => {
+    if(mode==='create') setModalMode('create');
+    else setModalMode('edit');
   }
 
   const [roundBoxHeight, setRoundBoxHeight] = useState<number>(0);
@@ -46,7 +62,7 @@ const HomeView:React.FC<HomeViewProps> = ({posts, fetchPosts}) => {
         }}
       >
         <Text style={[styles.title, { color: 'black' }]}>피드</Text>
-        <ScrollView>
+        <ScrollView style={{marginBottom: 318}}>
           { posts.length > 0 ? (
             posts.map((post) => (
               <PostView
@@ -56,7 +72,11 @@ const HomeView:React.FC<HomeViewProps> = ({posts, fetchPosts}) => {
                 isPinned={post.isPinned}
                 userId={post.userId}
                 date={post.date} 
-                groupId={post.groupId}           
+                groupId={post.groupId} 
+                toggleModalVisible={() => openModal()}
+                toggleModalMode={()=> toggleModalMode('edit')}
+                setEditingPostId={() => setEditingPostId(post.id)}
+                setEditingPostContent={() => setEditingPostContent(post.content)}
               />
             ))
           ) : (
@@ -71,11 +91,17 @@ const HomeView:React.FC<HomeViewProps> = ({posts, fetchPosts}) => {
 
       {/* round plus button */}
       <View style={{alignItems: 'flex-end', paddingHorizontal: '4%'}}>
-      <TouchableOpacity onPress={toggleModalVisible} style={{width: 50}}>
+      <TouchableOpacity 
+          onPress={() => {
+            setEditingPostId(-1);
+            toggleModalMode('create');
+            openModal();
+          }} 
+          style={{width: 50}}>
         <RoundPlusButtonView />
       </TouchableOpacity>
       </View>
-      <RegisterPostModalContainer mode={'create'} isVisible={modalVisible} onClose={toggleModalVisible} fetchPosts={fetchPosts}/>
+      <RegisterPostModalContainer mode={modalMode} isVisible={modalVisible} postId={editingPostId} postContent={editingPostContent} onClose={()=>closeModal()} fetchPosts={fetchPosts}/>
     </View>
   );
 }

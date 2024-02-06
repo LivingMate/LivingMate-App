@@ -3,13 +3,13 @@ import { View, ScrollView, Text } from 'react-native';
 import PlaceholderMessage from '../../common/PlaceholderMessage';
 import CommonStyles from '../../common/CommonStyles';
 
-interface Noticification {
+interface NoticificationProps {
   id: number;
   content: string;
   date: string;
 }
 
-const NoticificationView: React.FC<Noticification> = ({content, date}) => {
+const NoticificationView: React.FC<NoticificationProps> = ({content, date}) => {
   return (
     <View style={CommonStyles.generalBox}>
       <Text>{content}</Text>
@@ -18,15 +18,15 @@ const NoticificationView: React.FC<Noticification> = ({content, date}) => {
   )
 }
 
-const NormalNoticifications: React.FC = () => {
-  const [noticifications, setNoticifications] = useState<Noticification[]>([]);
+const NormalNoticificationsContainer: React.FC = () => {
+  const [noticifications, setNoticifications] = useState<NoticificationProps[]>([]);
 
   useEffect(() => {
     // API에서 데이터를 가져오는 함수
     const fetchNoticifications = async () => {
       try {
         const response = await fetch('http://54.180.100.242:3000/notis/aaaaaa');
-        let data: Noticification[] = await response.json();
+        let data: NoticificationProps[] = await response.json();
 
         // 서버 데이터를 클라이언트의 데이터 구조로 변환
         data = data.map((item: any) => ({
@@ -65,4 +65,4 @@ const NormalNoticifications: React.FC = () => {
   );
 };
 
-export default  NormalNoticifications;
+export default NormalNoticificationsContainer;

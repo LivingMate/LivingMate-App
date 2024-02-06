@@ -45,7 +45,7 @@ const MateSpeding: React.FC<MateSpendingProps> = ({user, userColor, spendingNet,
 }
 
 // ModalDialog 함수형 컴포넌트: ModalDialogProps 인터페이스를 props로 사용합니다.
-const AdjustedBudgetInExpenseModalConatiner: React.FC<AdjustedBudgetInExpenseModalConatinerProps> = ({ visible, onClose, mateSpendings, groupSum, groupAvg}) => {
+const AdjustedBudgetsInExpenseModalConatiner: React.FC<AdjustedBudgetInExpenseModalConatinerProps> = ({ visible, onClose, mateSpendings, groupSum, groupAvg}) => {
     
     return (
         // Modal 컴포넌트: visible과 transparent 속성을 설정합니다.
@@ -166,4 +166,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default AdjustedBudgetInExpenseModalConatiner;
+export default AdjustedBudgetsInExpenseModalConatiner;

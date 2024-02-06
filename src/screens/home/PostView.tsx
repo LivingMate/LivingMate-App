@@ -6,7 +6,7 @@ import PinIcon from '../../assets/icons/PinIcon';
 import ThreeDotsIcon from '../../assets/icons/ThreeDotsIcon';
 import CommonStyles from '../../common/CommonStyles';
 import MateBox from '../../common/MateBox';
-
+import RegisterPostModalContainer from './RegisterPostModalContainer';
 export interface PostProps {
   id: number;
   content: string;
@@ -15,8 +15,14 @@ export interface PostProps {
   groupId: string;
   date: string;
 }
+interface PostViewProps extends PostProps{
+  toggleModalVisible: () => void;
+  toggleModalMode: (mode: 'create' | 'edit') => void;
+  setEditingPostId: (id: string) => void;
+  setEditingPostContent: (content: string) => void;
+}
 
-const PostView: React.FC<PostProps> = ({ id, content, isPinned, userId, date}) => {
+const PostView: React.FC<PostViewProps> = ({ id, content, isPinned, userId, date, toggleModalVisible, toggleModalMode, setEditingPostId, setEditingPostContent}) => {
   const loggedInUserId = "asdf124";
   const [isFocused, setIsFocused] = useState(false);
   // userId가 현재 로그인한 사용자의 userId와 일치하면 버튼을 표시하고 아니면 감춥니다.
@@ -34,7 +40,12 @@ const PostView: React.FC<PostProps> = ({ id, content, isPinned, userId, date}) =
         <TouchableOpacity
           onPressIn={() => setIsFocused(true)}
           onPressOut={() => setIsFocused(false)}
-          onPress={()=> {console.log("post threedots clicked");}}
+          onPress={() => {
+            setEditingPostId(id.toString());
+            setEditingPostContent(content);
+            toggleModalMode('edit');
+            toggleModalVisible();
+          }}
           style={[styles.buttonContainer, isFocused && styles.focused]}
         >
           <ThreeDotsIcon />
@@ -42,8 +53,6 @@ const PostView: React.FC<PostProps> = ({ id, content, isPinned, userId, date}) =
         )}
 
         <TouchableOpacity 
-          
-          //onPress={onTogglePin} 
         >
           <PinIcon 
             color={isPinned ? Colors.theme : Colors.button} 

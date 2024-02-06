@@ -65,7 +65,7 @@ const ReceiverAdjustedResult: React.FC<AdjustedResultProps> = ({minusUserId, min
     )
 }
 
-const AdjustedBudgetInNoticification: React.FC = () => {
+const AdjustedBudgetInNoticificationContainer: React.FC = () => {
     const loggedUser = 'asdf123';
 
     const [lastCalculatedDate, setLastCalculatedDate] = useState<string>('');
@@ -218,5 +218,5 @@ const styles = StyleSheet.create({
     },
 });
 
-export default AdjustedBudgetInNoticification;
+export default AdjustedBudgetInNoticificationContainer;
 

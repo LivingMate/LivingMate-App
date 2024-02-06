@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Modal, StyleSheet, Alert } from 'react-native';
 import { Colors } from '../../common/Colors';
 
 interface RegisterPostModalViewProps {
-  initialContent?: string;
+  initialContent: string;
   isVisible: boolean;
   handleCancel: () => void;
   setContent: (content: string) => void;
@@ -11,20 +11,35 @@ interface RegisterPostModalViewProps {
 }
 
 const RegisterPostModalView: React.FC<RegisterPostModalViewProps> = ({ isVisible, initialContent,handleCancel, setContent, regesterPost}) => {
+  // useRef에 타입을 지정하여 TextInput의 ref를 생성
+  const textInputRef = useRef<TextInput | null>(null);
 
-  const content = initialContent || '';
+  // content를 상태로 관리하고, initialContent를 초기 값으로 설정
+  const [content, setContentState] = React.useState(initialContent || '');
+
+  useEffect(() => {
+    // 모달이 보이는 상태로 변경될 때마다 initialContent로 content 상태를 재설정
+    setContentState(initialContent);
+    // 모달이 보이게 될 때 TextInput에 포커스
+    if (isVisible) {
+      textInputRef.current?.focus();
+    }
+  }, [initialContent, isVisible]);
 
   return (
     <Modal visible={isVisible} transparent animationType='fade'>
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <TextInput
+            ref={textInputRef}
             style={styles.textInput}
             placeholder="게시글 내용을 입력하세요"
             value={content}
-            onChangeText={setContent}
+            onChangeText={(text) => {
+              setContentState(text);  // 상태 업데이트 함수를 사용
+              setContent(text);  // 상위 컴포넌트의 상태도 업데이트
+            }}
             placeholderTextColor={Colors.text}
-            keyboardType="numeric"
           />
           <View style={styles.buttonContainer}>
             <TouchableOpacity onPress={handleCancel} style={[styles.button]}>

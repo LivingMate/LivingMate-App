@@ -12,11 +12,20 @@ const HomeContainer = () => {
     try {
       const path = '/feed/aaaaaa';
       const serverData = await fetchData<ServerPost[]>(path);
-      const adaptedData = serverData.map(adaptPost);
-      if (adaptedData.length > 0) {
+      // 서버 데이터를 클라이언트의 데이터 구조로 변환
+      const data = serverData.map((item) => ({
+        id: item.id,
+        content: item.content,
+        isPinned: item.pin,
+        userId: item.userId, 
+        groupId: item.groupId,
+        date: item.createdAt.substring(0,10),
+      }));
+
+      if (data.length > 0) {
         // 가장 최근 게시글이 피드 상단에 오게 정렬(자동으로 그렇게 옴)
         // isPinned가 true인 포스트를 상단으로 정렬
-        const sortedData = adaptedData.sort((a, b) => {
+        const sortedData = data.sort((a, b) => {
           const aValue = a.isPinned ? 1 : 0;
           const bValue = b.isPinned ? 1 : 0;
           return bValue - aValue;
