@@ -11,9 +11,10 @@ import RegisterPostModalContainer from './RegisterPostModalContainer';
 interface HomeViewProps {
   posts: PostProps[];
   fetchPosts: () => void; // 예시, 구체적인 타입은 구현에 따라 달라질 수 있음
+  editPin: (postId: number, isPinned: boolean) => void;
 }
 
-const HomeView:React.FC<HomeViewProps> = ({posts, fetchPosts}) => {
+const HomeView:React.FC<HomeViewProps> = ({posts, fetchPosts, editPin}) => {
   
   const [modalVisible, setModalVisible] = useState<boolean>(false); // 모달의 표시 상태를 관리하는 state
   const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
@@ -22,7 +23,6 @@ const HomeView:React.FC<HomeViewProps> = ({posts, fetchPosts}) => {
 
   const openModal = () => {
     setModalVisible(true);
-    
   }
 
   const closeModal = () => {
@@ -77,6 +77,7 @@ const HomeView:React.FC<HomeViewProps> = ({posts, fetchPosts}) => {
                 toggleModalMode={()=> toggleModalMode('edit')}
                 setEditingPostId={() => setEditingPostId(post.id)}
                 setEditingPostContent={() => setEditingPostContent(post.content)}
+                editPin={() => editPin(post.id, post.isPinned)}
               />
             ))
           ) : (

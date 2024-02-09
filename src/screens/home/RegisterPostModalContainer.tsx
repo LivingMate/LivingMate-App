@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Alert } from 'react-native';
-import { addData, updateData } from '../../api/APIs';
+import { addData, deleteData, updateData } from '../../api/APIs';
 import RegisterPostModalView from './RegisterPostModalView';
 
 interface RegisterPostModalContainerProps {
@@ -13,6 +13,8 @@ interface RegisterPostModalContainerProps {
 }
 
 const RegisterPostModalContainer: React.FC<RegisterPostModalContainerProps> = ({ mode, isVisible, postId, postContent, onClose, fetchPosts}) => {
+  console.log('mode:', mode);
+  
   const [text, setText] = useState<string>('');  
 
   const handleCancel = () => {
@@ -80,14 +82,31 @@ const RegisterPostModalContainer: React.FC<RegisterPostModalContainerProps> = ({
     }
   };
 
+  const deletePost = async (): Promise<void> => {
+    try {
+      const path = `/feed/aaaaaa/${postId}`;
+      await deleteData<void>(path); // deleteData 함수를 호출하여 DELETE 요청을 보냅니다.
+      console.log(`Post with ID ${postId} deleted successfully.`);
+      onClose(); // 삭제 버튼 클릭 후 모달 닫기
+      fetchPosts(); // 게시글 목록 새로고침
+    } catch (error) {
+      console.error(`Error deleting post with ID ${postId}:`, error);
+      // DELETE 요청 실패를 적절히 처리하세요
+      // 여기에는 예를 들어 사용자에게 오류 메시지를 보여주는 등의 로직을 추가할 수 있습니다.
+      throw error;
+    }
+  };
+
   const regesterPost = mode === 'edit' ? editPost : addPost;
 
   return (
     <RegisterPostModalView 
+        mode={mode}
         isVisible={isVisible} 
         handleCancel={handleCancel} 
         setContent={setText} 
         regesterPost={regesterPost} 
+        deletePost={deletePost}
         initialContent={postContent}
       />
   );

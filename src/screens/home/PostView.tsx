@@ -6,7 +6,7 @@ import PinIcon from '../../assets/icons/PinIcon';
 import ThreeDotsIcon from '../../assets/icons/ThreeDotsIcon';
 import CommonStyles from '../../common/CommonStyles';
 import MateBox from '../../common/MateBox';
-import RegisterPostModalContainer from './RegisterPostModalContainer';
+
 export interface PostProps {
   id: number;
   content: string;
@@ -20,13 +20,15 @@ interface PostViewProps extends PostProps{
   toggleModalMode: (mode: 'create' | 'edit') => void;
   setEditingPostId: (id: string) => void;
   setEditingPostContent: (content: string) => void;
+  editPin: () => void;
 }
 
-const PostView: React.FC<PostViewProps> = ({ id, content, isPinned, userId, date, toggleModalVisible, toggleModalMode, setEditingPostId, setEditingPostContent}) => {
-  const loggedInUserId = "asdf124";
-  const [isFocused, setIsFocused] = useState(false);
+const PostView: React.FC<PostViewProps> = ({ id, content, isPinned, userId, date, toggleModalVisible, toggleModalMode, setEditingPostId, setEditingPostContent, editPin}) => {
   // userId가 현재 로그인한 사용자의 userId와 일치하면 버튼을 표시하고 아니면 감춥니다.
+  const loggedInUserId = "asdf124";
   const showButton = loggedInUserId === userId;
+
+  const [isFocused, setIsFocused] = useState(false);
 
   return(
   <View style={styles.generalBox}>
@@ -51,8 +53,9 @@ const PostView: React.FC<PostViewProps> = ({ id, content, isPinned, userId, date
           <ThreeDotsIcon />
         </TouchableOpacity>
         )}
-
+        
         <TouchableOpacity 
+          onPress={editPin}
         >
           <PinIcon 
             color={isPinned ? Colors.theme : Colors.button} 
@@ -101,7 +104,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
 
-  authorAndDateContainer : {
+  authorAndDateContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },

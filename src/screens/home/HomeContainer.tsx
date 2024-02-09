@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { deleteData, fetchData } from '../../api/APIs';
-import { adaptPost } from '../../api/Adaptors';
+import { deleteData, fetchData, updateData } from '../../api/APIs';
 import { ServerPost } from '../../api/ServerInterfaces';
 import { PostProps } from './PostView';
 import HomeView from './HomeView';
@@ -47,27 +46,27 @@ const HomeContainer = () => {
     }
   };
 
-  // DELETE 요청을 보내는 함수
-  const deletePost = async (postId: string): Promise<void> =>{
-    // deletePost 로직 구현
-    const path = `/feed/aaaaaa/${postId}`;
+  const editPin = async (postId: number, isPinned: boolean) => {
     try {
-      //deleteData api를 호출하여 특정 포스트 삭제 요청
-      await deleteData<void>(path);
-      console.log(`Deleting post with ID: ${postId}`);
-      // 실제 삭제 로직이 여기에 들어갑니다
-    } catch (error) {
-      console.error(`Error deleting post with ID ${postId}:`, error);
-      throw error;
-    }
-  };
+      // 서버에 업데이트 요청을 보냅니다.
+      const updatePin = {
+        pin: !isPinned,
+      }
+      const path = `/feed/pin/${postId}`;
+      const response = await updateData(path, updatePin); // 업데이트할 데이터를 전달합니다.
+      console.log('editPin 서버 응답:', response);
+      fetchPosts(); // 게시글 목록 새로고침          
+      } catch (error) {
+        console.error('editPin 서버 요청 실패:', error);
+      }
+  }; 
 
   useEffect(() => {
     fetchPosts();
   }, []);
 
   return (
-    <HomeView posts={posts} fetchPosts={fetchPosts}/>
+    <HomeView posts={posts} fetchPosts={fetchPosts} editPin={editPin}/>
   );
 }
 

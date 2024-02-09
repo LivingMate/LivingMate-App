@@ -3,14 +3,16 @@ import { View, Text, TextInput, TouchableOpacity, Modal, StyleSheet, Alert } fro
 import { Colors } from '../../common/Colors';
 
 interface RegisterPostModalViewProps {
+  mode: 'create' | 'edit';
   initialContent: string;
   isVisible: boolean;
   handleCancel: () => void;
   setContent: (content: string) => void;
   regesterPost: () => void;
+  deletePost: () => void;
 }
 
-const RegisterPostModalView: React.FC<RegisterPostModalViewProps> = ({ isVisible, initialContent,handleCancel, setContent, regesterPost}) => {
+const RegisterPostModalView: React.FC<RegisterPostModalViewProps> = ({ mode, isVisible, initialContent, handleCancel, setContent, regesterPost, deletePost}) => {
   // useRef에 타입을 지정하여 TextInput의 ref를 생성
   const textInputRef = useRef<TextInput | null>(null);
 
@@ -41,13 +43,22 @@ const RegisterPostModalView: React.FC<RegisterPostModalViewProps> = ({ isVisible
             }}
             placeholderTextColor={Colors.text}
           />
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={handleCancel} style={[styles.button]}>
-              <Text style={styles.buttonText}>취소</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={regesterPost} style={[styles.button, {backgroundColor: Colors.theme}]}>
-              <Text style={[styles.buttonText, {color: '#ffffff'}]}>등록</Text>
-            </TouchableOpacity>
+          <View style={styles.buttonsContainer}>
+            <View style={[styles.buttonContainer, {justifyContent: 'flex-start'}]}>
+              {mode == 'edit' && (
+                <TouchableOpacity onPress={deletePost} style={[styles.button, {backgroundColor: 'red'}]}>
+                  <Text style={[styles.buttonText, {color: '#ffffff'}]}>삭제</Text>
+                </TouchableOpacity>)
+              }
+            </View>
+            <View style={[styles.buttonContainer,{justifyContent: 'flex-end'}]}>
+              <TouchableOpacity onPress={handleCancel} style={[styles.button, {marginRight: 5}]}>
+                <Text style={styles.buttonText}>취소</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={regesterPost} style={[styles.button, {backgroundColor: Colors.theme}]}>
+                <Text style={[styles.buttonText, {color: '#ffffff'}]}>등록</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
@@ -81,13 +92,15 @@ const styles = StyleSheet.create({
     minHeight: 200,
     backgroundColor: Colors.textInputField,
   },
-
+  buttonsContainer: {
+    flexDirection: 'row',
+  },
   buttonContainer: {
     flexDirection: 'row',
+    flex: 1,
     justifyContent: 'flex-end',
   },
   button: {
-    marginLeft: 10,
     padding: 10,
     borderRadius: 10,
   },

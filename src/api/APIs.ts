@@ -1,10 +1,17 @@
 import ApiEndpoints from './ApiEndpoints';
 
+/*
+  http 상태코드: response.status
+  sucess: 200
+  client error: 400
+  server error: 500
+*/
+
 // GET 요청을 위한 함수
 const fetchData = async <T>(path: string): Promise<T> => {
   try {
-    console.log(`fetchData api path: ${ApiEndpoints.baseURL}${path}`);
     const response = await fetch(`${ApiEndpoints.baseURL}${path}`);
+    console.log('fetch HTTP 상태 코드:', response.status);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -28,6 +35,7 @@ const addData = async <T, R>(path: string, data: T): Promise<R> => {
       },
       body: JSON.stringify(data),
     });
+    console.log('add HTTP 상태 코드:', response.status);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -44,11 +52,13 @@ const deleteData = async <T>(path: string): Promise<T> => {
     const response = await fetch(`${ApiEndpoints.baseURL}${path}`, {
       method: 'DELETE',
     });
+    console.log('delete HTTP 상태 코드:', response.status);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
     return response.json() as Promise<T>;
   } catch (error) {
+    
     console.error('Error deleting data:', error);
     throw error;
   }
