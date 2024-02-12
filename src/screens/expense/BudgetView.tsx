@@ -1,5 +1,5 @@
 // PostView.tsx
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Colors } from '../../common/Colors';
 import ThreeDotsIcon from '../../assets/icons/ThreeDotsIcon';
@@ -8,18 +8,20 @@ import MateBox from '../../common/MateBox';
 
 export interface BudgetProps {
   id: number;
-  amount: number;
+  price: number;
   category: string;
-  //subCategory: string;
+  groupId: string;
+  subCategory: string;
   content: string;
   userId?: string;
   date: string;
- //onEdit: (content: string) => void;
- //onPin: (isPinned: boolean) => void;
+}
+interface BudgetViewProps extends BudgetProps{
+  
 }
 
-const BudgetView: React.FC<BudgetProps> = ({amount,content, category, userId, date, id }) => {
-  const loggedInUserId = "asdf125";
+const BudgetView: React.FC<BudgetViewProps> = ({id, userId, groupId, price, content, category, subCategory, date }) => {
+  const loggedInUserId = "asdf000";
   // userId가 현재 로그인한 사용자의 userId와 일치하면 버튼을 표시하고 아니면 감춥니다.
   const showButton = userId === loggedInUserId;
   console.log('userId: ', userId, ' budget id: ', id, ',showButton: ',showButton);
@@ -38,7 +40,6 @@ const BudgetView: React.FC<BudgetProps> = ({amount,content, category, userId, da
               <TouchableOpacity
               onPressIn={() => setIsFocused(true)}
               onPressOut={() => setIsFocused(false)}
-              onPress={()=> {console.log("event threedots clicked");}}
               style={[styles.buttonContainer, isFocused && styles.focused]}
               >
                   <ThreeDotsIcon />   
@@ -58,12 +59,11 @@ const BudgetView: React.FC<BudgetProps> = ({amount,content, category, userId, da
     </View>
 
     {/* 금액, 작성자 */}
-    <View style={styles.amountAndAuthorContainer}>
-      <Text style={[styles.amountText, {marginRight: 7}]}>{amount}원</Text>
+    <View style={styles.priceAndAuthorContainer}>
+      <Text style={[styles.priceText, {marginRight: 7}]}>{price}원</Text>
       <MateBox
           userId={userId}
           textSize={12}
-          showOnlyFirstLetter={false}
       />
     </View>
   </View>
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
 
-  amountAndAuthorContainer : {
+  priceAndAuthorContainer : {
     flexDirection: 'row',
     justifyContent: 'flex-end',
   },
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     color: '#000000',
   },
 
-  amountText: {
+  priceText: {
     fontSize: 19,
   },
 

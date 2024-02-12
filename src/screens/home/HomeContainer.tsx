@@ -32,6 +32,7 @@ const HomeContainer = () => {
         //정렬된 posts를 setting
         setPosts(sortedData);
       }
+      
     } catch (error) {
         if (error instanceof TypeError) {
           // TypeError 타입의 에러 처리

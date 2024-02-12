@@ -1,5 +1,4 @@
 //ServerInterfaces
-
 interface ServerPost {
     id: number,
     content: string,
@@ -17,6 +16,19 @@ interface ServerBudget {
     category: string,
     subCategory:string,
     createdAt:string,
+    groupId: string,
 }
 
-export {ServerPost, ServerBudget};
+interface ServerEvent {
+    id: number; 
+    userId: string; 
+    groupId: string; 
+    title: string; 
+    memo: string; 
+    dateStart: string; 
+    dateEnd: string; 
+    term: string; 
+    participants: string[];
+}
+
+export {ServerPost, ServerBudget,ServerEvent};

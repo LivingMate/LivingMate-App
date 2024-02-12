@@ -5,28 +5,28 @@ import RegisterPostModalView from './RegisterPostModalView';
 
 interface RegisterPostModalContainerProps {
   mode: 'create' | 'edit';
-  postId: number;
+  id: number;
   postContent: string;
   isVisible: boolean;
   onClose: () => void;
   fetchPosts: () => void;
 }
 
-const RegisterPostModalContainer: React.FC<RegisterPostModalContainerProps> = ({ mode, isVisible, postId, postContent, onClose, fetchPosts}) => {
+const RegisterPostModalContainer: React.FC<RegisterPostModalContainerProps> = ({ mode, id, isVisible, postContent, onClose, fetchPosts}) => {
   console.log('mode:', mode);
   
-  const [text, setText] = useState<string>('');  
+  const [content, setContent] = useState<string>('');  
 
   const handleCancel = () => {
     onClose();
-    setText(''); // 모달이 닫힐 때 텍스트 필드 초기화
+    setContent(''); // 모달이 닫힐 때 텍스트 필드 초기화
   };
 
   const addPost = async () => {
-    if (text !== '') {
+    if (content !== '') {
       // JSON 데이터 생성
       const newPost = {
-        content: text,
+        content: content,
       };
       console.log('postData will be sended: ', newPost);
   
@@ -37,7 +37,7 @@ const RegisterPostModalContainer: React.FC<RegisterPostModalContainerProps> = ({
   
         console.log('addPost 서버 응답:', response);
         onClose(); // 등록 버튼 클릭 후 모달 닫기
-        setText(''); // 텍스트 필드 초기화
+        setContent(''); // 텍스트 필드 초기화
         fetchPosts(); // 게시글 목록 새로고침
       } catch (error) {
         console.error('addPost 서버 요청 실패:', error);
@@ -54,19 +54,19 @@ const RegisterPostModalContainer: React.FC<RegisterPostModalContainerProps> = ({
 
   // content 값을 업데이트하는 함수
   const editPost = async () => {
-    if (text !== '') {
+    if (content !== '') {
       try {
         // 서버에 업데이트 요청을 보냅니다.
         const updateContent = {
-          content: text
+          content: content
         }
 
-        const path = `/feed/${postId}`;
+        const path = `/feed/${id}`;
         const response = await updateData(path, updateContent); // 업데이트할 데이터를 전달합니다.
         console.log('editPost 서버 응답:', response);
 
         onClose(); // 등록 버튼 클릭 후 모달 닫기
-        setText(''); // 텍스트 필드 초기화
+        setContent(''); // 텍스트 필드 초기화
         fetchPosts(); // 게시글 목록 새로고침
                 
       } catch (error) {
@@ -84,13 +84,13 @@ const RegisterPostModalContainer: React.FC<RegisterPostModalContainerProps> = ({
 
   const deletePost = async (): Promise<void> => {
     try {
-      const path = `/feed/aaaaaa/${postId}`;
+      const path = `/feed/aaaaaa/${id}`;
       await deleteData<void>(path); // deleteData 함수를 호출하여 DELETE 요청을 보냅니다.
-      console.log(`Post with ID ${postId} deleted successfully.`);
+      console.log(`Post with ID ${id} deleted successfully.`);
       onClose(); // 삭제 버튼 클릭 후 모달 닫기
       fetchPosts(); // 게시글 목록 새로고침
     } catch (error) {
-      console.error(`Error deleting post with ID ${postId}:`, error);
+      console.error(`Error deleting post with ID ${id}:`, error);
       // DELETE 요청 실패를 적절히 처리하세요
       // 여기에는 예를 들어 사용자에게 오류 메시지를 보여주는 등의 로직을 추가할 수 있습니다.
       throw error;
@@ -104,7 +104,7 @@ const RegisterPostModalContainer: React.FC<RegisterPostModalContainerProps> = ({
         mode={mode}
         isVisible={isVisible} 
         handleCancel={handleCancel} 
-        setContent={setText} 
+        setContent={setContent} 
         regesterPost={regesterPost} 
         deletePost={deletePost}
         initialContent={postContent}

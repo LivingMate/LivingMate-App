@@ -15,7 +15,10 @@ const categoryButtonView: React.FC<catagoriesButtonViewProps> = ({ title, focuse
   const backgroundColor = focused ? Colors.theme : Colors.white;
   const textColor = focused ? '#FFFFFF':'#000000' ;
   return (
-    <TouchableOpacity style={[styles.button,{backgroundColor: backgroundColor}]} onPress={onPress}>
+    <TouchableOpacity
+      style={[styles.button,{backgroundColor: backgroundColor}]} 
+      onPress={onPress}
+    >
       <Text style={[styles.text, {color: textColor}]}>{title}</Text>
     </TouchableOpacity>
   );

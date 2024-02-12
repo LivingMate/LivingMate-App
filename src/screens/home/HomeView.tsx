@@ -102,7 +102,7 @@ const HomeView:React.FC<HomeViewProps> = ({posts, fetchPosts, editPin}) => {
         <RoundPlusButtonView />
       </TouchableOpacity>
       </View>
-      <RegisterPostModalContainer mode={modalMode} isVisible={modalVisible} postId={editingPostId} postContent={editingPostContent} onClose={()=>closeModal()} fetchPosts={fetchPosts}/>
+      <RegisterPostModalContainer mode={modalMode} isVisible={modalVisible} id={editingPostId} postContent={editingPostContent} onClose={()=>closeModal()} fetchPosts={fetchPosts}/>
     </View>
   );
 }

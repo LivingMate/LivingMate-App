@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet } from 'react-native';
 
-const ScreenA: React.FC = () => {
+const exModal: React.FC = () => {
   const [text, setText] = useState<string>(''); // 입력한 텍스트를 상태로 관리
   
   const handleTextChange = (newText: string) => {
@@ -44,4 +44,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ScreenA;
+export default exModal;

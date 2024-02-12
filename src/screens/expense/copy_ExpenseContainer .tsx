@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BudgetProps } from './BudgetView';
 import { fetchData } from '../../api/APIs';
 import { ServerBudget } from '../../api/ServerInterfaces';
-import ExpenseContext from '../../context/ExpenseContext';
-import ExpenseStackNavigator from './ExpenseStackNavigator';
+import ExpenseView from './ExpenseView';
 
 const ExpenseContainer = () => {
 
@@ -44,9 +43,7 @@ const ExpenseContainer = () => {
   }, []);
   
   return (
-    <ExpenseContext.Provider value={{fetchBudgets}}>
-      <ExpenseStackNavigator />
-    </ExpenseContext.Provider>
+    <ExpenseView budgets={budgets} fetchBudgets={fetchBudgets}/>
   );
 }
 

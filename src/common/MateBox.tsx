@@ -3,13 +3,15 @@ import { View, Text, StyleSheet} from 'react-native';
 import { Colors } from './Colors';
 
 interface MateProps {
-    userId?: string;
-    textSize: number;
-    userColor?: string;
-    showOnlyFirstLetter?: boolean;
+  userId?: string;
+  textSize: number;
+  userColor?: string;
+  marginLeft?: number;
+  marginRight?: number;
+  showOnlyFirstLetter?: boolean;
 }
 
-const MateBox: React.FC<MateProps> = ({ userId, textSize, showOnlyFirstLetter, userColor}) => {
+const MateBox: React.FC<MateProps> = ({ userId, textSize, showOnlyFirstLetter, userColor, marginLeft, marginRight}) => {
     
   const [userName, setUserName] = useState<string>();
   const [user_Color, setUserColor] = useState<string>();
@@ -24,7 +26,7 @@ const MateBox: React.FC<MateProps> = ({ userId, textSize, showOnlyFirstLetter, u
       color = color;
     } 
     
-    if(showOnlyFirstLetter) {
+    if(showOnlyFirstLetter==true) {
       name = name.charAt(0);
     }
 
@@ -34,7 +36,7 @@ const MateBox: React.FC<MateProps> = ({ userId, textSize, showOnlyFirstLetter, u
   }, []); // dependency 배열에 추가  
   
   return (
-        <View style = {[styles.container, {backgroundColor: user_Color,}]}>
+        <View style = {[styles.container, {backgroundColor: user_Color, marginLeft: marginLeft, marginRight: marginRight}]}>
           <Text style={[styles.text, {fontSize: textSize}]}>{userName}</Text>
         </View>
     );
@@ -45,7 +47,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: 8,
-      margin: 1,
+      marginVertical: 2,
       alignSelf: 'flex-start', // 내부 View가 Text 크기에 맞춰 왼쪽 정렬
     },
   

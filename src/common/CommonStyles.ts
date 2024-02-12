@@ -11,7 +11,6 @@ const CommonStyles = StyleSheet.create({
   safearea: {
     alignItems: 'center',
     flex: 1,
-    //paddingBottom: 177,
   },
 
   section: {
