@@ -3,7 +3,8 @@ import { BudgetProps } from './BudgetView';
 import { fetchData } from '../../api/APIs';
 import { ServerBudget } from '../../api/ServerInterfaces';
 import ExpenseContext from '../../context/ExpenseContext';
-import ExpenseStackNavigator from './ExpenseStackNavigator';
+import ExpenseView from './ExpenseView';
+//import ExpenseStackNavigator from './ExpenseStackNavigator';
 
 const ExpenseContainer = () => {
 
@@ -45,7 +46,7 @@ const ExpenseContainer = () => {
   
   return (
     <ExpenseContext.Provider value={{fetchBudgets}}>
-      <ExpenseStackNavigator />
+      <ExpenseView budgets={budgets}/>
     </ExpenseContext.Provider>
   );
 }

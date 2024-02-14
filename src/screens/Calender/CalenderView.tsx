@@ -3,12 +3,13 @@ import { View, SafeAreaView, StyleSheet, TouchableOpacity, ScrollView} from 'rea
 import { Colors } from '../../common/Colors';
 import CommonStyles from '../../common/CommonStyles'
 import RoundPlusButtonView from '../../common/RoundPlusButtonView';
-import EventRegisterAndSchedulingButton from './EventRegisterAndSchedulingButton';
 import { AgendaItemProps, MarkedDateProps, today } from './CalendarTypes';
 import { Calendar, DateData, LocaleConfig } from 'react-native-calendars';
 import daysInWeek from 'date-fns';
 import EventView from './EventView';
 import EventRegisterAndSchedulingButtonModal from './EventRegisterAndSchedulingButtonModal';
+import EventRegisterModal from './EventRegisterModal';
+import SchedulingModal from './SchedulingModal';
 
 LocaleConfig.locales['en'] = {
   today: 'Today',
@@ -36,11 +37,13 @@ interface CalenderViewProps {
 
 const CalenderView: React.FC<CalenderViewProps> = ({ markedDates, agendaItems }) => {
   const [selectedDate, setSelectedDate] = useState<string>(today);
-  const [eventRegisterAndSchedulingButtonVisible, setEventRegisterAndSchedulingButtonVisible] = useState<boolean>(false);
+  const [eventRegisterAndSchedulingButtonModalVisible, setEventRegisterAndSchedulingModalButtonVisible] = useState<boolean>(false);
+  const [eventRegisterModalVisible, setEventRegisterModalVisible] = useState<boolean>(false);
+  const [schedulingModalVisible, setSchedulingModalVisible] = useState<boolean>(false);
 
   const handleDayPress = (day: DateData) => {
-    setSelectedDate(day.dateString);
     console.log(selectedDate);
+    setSelectedDate(day.dateString);
   };
 
    // 선택된 날짜를 표시하기 위한 markedDates 객체 동적 생성
@@ -49,13 +52,30 @@ const CalenderView: React.FC<CalenderViewProps> = ({ markedDates, agendaItems })
     [selectedDate]: { ...markedDates[selectedDate], selected: true }
   };
 
-  const openModal = () => {
-    setEventRegisterAndSchedulingButtonVisible(true);
+  const openButtonModal = () => {
+    setEventRegisterAndSchedulingModalButtonVisible(true);
   }
 
-  const closeModal = () => {
-    setEventRegisterAndSchedulingButtonVisible(false);
+  const closeButtonModal = () => {
+    setEventRegisterAndSchedulingModalButtonVisible(false);
   }
+
+  const openRegisterModal = () => {
+    setEventRegisterModalVisible(true);
+  }
+
+  const closeRegisterModal = () => {
+    setEventRegisterModalVisible(false);
+  }
+
+  const openSchedulingModal = () => {
+    setSchedulingModalVisible(true);
+  }
+
+  const closeSchedulingModal = () => {
+    setSchedulingModalVisible(false);
+  }
+
 
   return (
     <View style={CommonStyles.baseContainer}>
@@ -70,8 +90,8 @@ const CalenderView: React.FC<CalenderViewProps> = ({ markedDates, agendaItems })
             markedDates={markedAndSelectedDates}
             enableSwipeMonths={true}
             onMonthChange={month => {
-              console.log('month changed', month);
-              setSelectedDate('');
+              const initialDate = month.dateString.substring(0,8)+'01';
+              setSelectedDate(initialDate);
             }}
 
             // 테마 변경
@@ -122,12 +142,19 @@ const CalenderView: React.FC<CalenderViewProps> = ({ markedDates, agendaItems })
       <View style={{alignItems: 'flex-end', paddingHorizontal: '4%'}}>
         <TouchableOpacity 
           style={{width: 50}}
-          onPress={openModal}
+          onPress={openButtonModal}
         >
           <RoundPlusButtonView />
         </TouchableOpacity>
       </View>
-      <EventRegisterAndSchedulingButtonModal onClose={closeModal} isVisible={true} />
+      <EventRegisterAndSchedulingButtonModal 
+        isVisible={eventRegisterAndSchedulingButtonModalVisible} 
+        onClose={closeButtonModal} 
+        openRegisterModal={openRegisterModal} 
+        openSchedulingModal={openSchedulingModal}
+      />
+      <EventRegisterModal isVisible={eventRegisterModalVisible} onClose={closeRegisterModal}/>
+      <SchedulingModal isVisible={schedulingModalVisible} onClose={closeSchedulingModal}/>
     </View>
   );
 }

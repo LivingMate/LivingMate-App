@@ -118,7 +118,7 @@ const ExpenseView:React.FC<ExpenseViewProps> = ({budgets}) => {
         <RoundPlusButtonView />
       </TouchableOpacity>
       </View>
-      <RegisterBudgetModalContainer mode={modalMode} isVisible={modalVisible} onClose={closeModal} />
+      {/*<RegisterBudgetModalContainer mode={modalMode} isVisible={modalVisible} onClose={closeModal} /> */}
     </View>
   );
 }

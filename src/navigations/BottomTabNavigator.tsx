@@ -18,7 +18,7 @@ import HomeIcon from '../assets/icons/navigaton/HomeIcon';
 import CalenderIcon from '../assets/icons/navigaton/CalenderIcon';
 import NoticificationIcon from '../assets/icons/navigaton/NoticificationIcon';
 import MypageIcon from '../assets/icons/navigaton/MypageIcon';
-import ExpenseStackNavigator from '../screens/expense/ExpenseStackNavigator';
+//import ExpenseStackNavigator from '../screens/expense/ExpenseStackNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -42,7 +42,7 @@ const BottomTabNavigator = ({}) => {
     >
       <Tab.Screen 
         name="Expense" 
-        component={ExpenseStackNavigator} 
+        component={ExpenseContainer} 
         options={
           {
             tabBarLabel: '가계부',

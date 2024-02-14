@@ -3,10 +3,10 @@ import RegisterBudgetModalView from './RegisterBudgetModalView';
 import { addData, updateData, deleteData } from '../../api/APIs';
 import { Alert } from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
-import { ExpenseStackParamList } from './ExpenseStackNavigator';
+//import { ExpenseStackParamList } from './ExpenseStackNavigator';
 import { useBudgetContext } from '../../context/ExpenseContext';
 
-export interface RegisterBudgetModalContainerProps {
+interface RegisterBudgetModalContainerProps {
   mode: 'create' | 'edit';
   isVisible: boolean;
   id?: number; // edit 모드일 때만 
@@ -36,7 +36,6 @@ const RegisterBudgetModalContainer: React.FC<RegisterBudgetModalContainerProps> 
   
         console.log('add Budget 서버 응답:', response);
         onClose(); // 등록 버튼 클릭 후 모달 닫기
-        
         fetchBudgets(); // 게시글 목록 새로고침
       } catch (error) {
         console.error('add Budget 서버 요청 실패:', error);

@@ -7,12 +7,25 @@ import { View, Text, TouchableOpacity, Modal, TouchableWithoutFeedback, StyleShe
 interface EditAndDeleteButtonsModalProps {
   isVisible: boolean;
   onClose: () => void;
+  openRegisterModal: () => void;
+  openSchedulingModal: () => void;
 }
 
-const EventRegisterAndSchedulingButtonModal: React.FC<EditAndDeleteButtonsModalProps> = ({ isVisible, onClose }) => {
-  
+const EventRegisterAndSchedulingButtonModal: React.FC<EditAndDeleteButtonsModalProps> = ({ isVisible, onClose, openRegisterModal, openSchedulingModal }) => { 
   const handleCancel = () => {
     onClose();
+  };
+
+  const handleRegisterModal = () => {
+    onClose();
+    openRegisterModal();
+    console.log('handleRegisterModal');
+  };
+
+  const handleSchedulingModal = () => {
+    onClose();
+    openSchedulingModal();
+    console.log('handleSchedulingModal');
   };
   
   return (  
@@ -22,20 +35,22 @@ const EventRegisterAndSchedulingButtonModal: React.FC<EditAndDeleteButtonsModalP
       animationType="fade"
       onRequestClose={handleCancel}
     >
-      <TouchableWithoutFeedback onPress={handleCancel}>
+      <TouchableWithoutFeedback 
+        onPress={handleCancel}
+      >
         <View style={styles.overlay} />
       </TouchableWithoutFeedback>
 
       <View style={styles.postRegisterAndSchedulingButtoncontainer}>
         <TouchableOpacity 
           style={styles.eventRegisterButton} 
-          onPress={handleCancel}
+          onPress={handleRegisterModal}
         > 
           <Text style={styles.text}>바로등록</Text>
         </TouchableOpacity>
         <TouchableOpacity 
           style={styles.eventSchedulingButton} 
-          onPress={() => handleCancel()}
+          onPress={handleSchedulingModal}
         >
           <Text style={styles.text}>일정조율</Text>
         </TouchableOpacity>

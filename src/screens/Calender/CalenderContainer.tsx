@@ -8,7 +8,6 @@ const CalenderContainer = () => {
   const [events, setEvents] = useState<EventProps[]>([]);
   const [markedDates, setMarkedDates] = useState<MarkedDateProps>({});
   const [agendaItem, setAgendaItems] = useState<AgendaItemProps>({});
-  const [eventRegisterAndSchedulingButtonVisible, setEventRegisterAndSchedulingButtonVisible] = useState<boolean>(false);
   
   useEffect(() => {
     const fetchEvents = async () => {
@@ -52,7 +51,6 @@ const CalenderContainer = () => {
         console.error('Failed to fetch events:', error);
       }
     };
-  
     fetchEvents();
   }, []); 
   
