@@ -7,7 +7,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 interface SignupViewProps {
   signup: (email: string, password: string, userName:string, birth: string, sex: string ) => void;
 }
-
+//gk
 const SignupView: React.FC<SignupViewProps> = ({signup}) => {
   console.log('SignupView');
   const [userName, setUserName] = useState<string>('');
