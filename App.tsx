@@ -12,7 +12,7 @@ const App: React.FC = () => (
   <GestureHandlerRootView style={{ flex: 1 }}>
     <NavigationContainer >  
       <View style={styles.container}>
-      <InitialStackNavigator />
+        <InitialStackNavigator />
       </View>
     </NavigationContainer>
     </GestureHandlerRootView>

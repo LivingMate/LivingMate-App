@@ -1,15 +1,15 @@
-import { SafeAreaView, TextInput } from 'react-native';
+import { Alert, SafeAreaView, TextInput } from 'react-native';
 import { Colors } from '../../common/Colors';
 import React, { useEffect, useState } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 interface SignupViewProps {
   signup: (email: string, password: string, userName:string, birth: string, sex: string ) => void;
 }
-//gk
+
 const SignupView: React.FC<SignupViewProps> = ({signup}) => {
-  console.log('SignupView');
   const [userName, setUserName] = useState<string>('');
   const [sex, setSex] = useState<'female' | 'male'>('female');
   const [birth, setBirth] = useState<Date>(new Date());
@@ -17,6 +17,8 @@ const SignupView: React.FC<SignupViewProps> = ({signup}) => {
   const [emailDomain, setEmailDomain] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isEmpty, setIsEmpty] = useState<boolean>(true);
+  
+  const navigation = useNavigation();
 
   const handleBirth = (event: any, selectedDate?: Date) => {
     const currentDate = selectedDate || birth;
@@ -43,6 +45,14 @@ const SignupView: React.FC<SignupViewProps> = ({signup}) => {
       setEmailDomain('');
       setPassword('');
       setSex('female');
+      Alert.alert(
+        '',
+        '회원가입에 성공했습니다!',
+        [{  text: '확인',
+            onPress: () => navigation.navigate('Initial' as never),
+        }],
+        { cancelable: false }
+      );
     }
   }
 
@@ -155,7 +165,7 @@ const SignupView: React.FC<SignupViewProps> = ({signup}) => {
         >
           <Text 
             style={[styles.buttonText, !isEmpty && {color: '#fff'}]}
-          >가입</Text>
+          >다음</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

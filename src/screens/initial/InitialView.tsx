@@ -5,20 +5,15 @@ import { Colors } from '../../common/Colors';
 import CommonStyles from '../../common/CommonStyles';
 import { useNavigation } from '@react-navigation/native';
 
-interface LoginScreenProps {
-  onLogin?: () => void;
-}
 
-const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
+const InitialView = () => {
   const navigation = useNavigation();
   
   const handleLogin = () => {
-    if(onLogin) onLogin();
-    navigation.navigate('EntryGroup' as never);
+    navigation.navigate('Login' as never);
   }
 
   const handleSignup = () => {
-    if(onLogin) onLogin();
     navigation.navigate('Signup' as never);
   }
   
@@ -28,12 +23,11 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
           source={require('../../assets/images/logo.png')} 
           style={{ width: 220, height: 220, marginBottom: 100 }}
         />
-
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.text}>로그인</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{marginTop: 15}} onPress={handleSignup}>
-          <Text style={[styles.text, {color: '#FFFFFF'}]}>회원가입</Text>
+        <TouchableOpacity style={[styles.button]} onPress={handleSignup}>
+          <Text style={[styles.text]}>회원가입</Text>
         </TouchableOpacity>
       </View>
   );
@@ -62,4 +56,4 @@ const styles = StyleSheet.create({
     },
   });
 
-export default LoginScreen;
+export default InitialView;
