@@ -12,7 +12,7 @@ const ExpenseContainer = () => {
   
   const fetchBudgets = async () => {
     try {
-      const path = '/budget/aaaaaa';
+      const path = '/budget';
       const serverData = await fetchData<ServerBudget[]>(path);
       // 서버 데이터를 클라이언트의 데이터 구조로 변환
       const data = serverData.map((item) => ({

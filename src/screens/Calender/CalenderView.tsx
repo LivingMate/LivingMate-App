@@ -8,8 +8,8 @@ import { Calendar, DateData, LocaleConfig } from 'react-native-calendars';
 import daysInWeek from 'date-fns';
 import EventView from './EventView';
 import EventRegisterAndSchedulingButtonModal from './EventRegisterAndSchedulingButtonModal';
-import EventRegisterModal from './EventRegisterModal';
 import SchedulingModal from './SchedulingModal';
+import EventRegisterModalContainer from './EventRegisterModalContainer';
 
 LocaleConfig.locales['en'] = {
   today: 'Today',
@@ -153,7 +153,7 @@ const CalenderView: React.FC<CalenderViewProps> = ({ markedDates, agendaItems })
         openRegisterModal={openRegisterModal} 
         openSchedulingModal={openSchedulingModal}
       />
-      <EventRegisterModal isVisible={eventRegisterModalVisible} onClose={closeRegisterModal}/>
+      <EventRegisterModalContainer isVisible={eventRegisterModalVisible} onClose={closeRegisterModal}/>
       <SchedulingModal isVisible={schedulingModalVisible} onClose={closeSchedulingModal}/>
     </View>
   );

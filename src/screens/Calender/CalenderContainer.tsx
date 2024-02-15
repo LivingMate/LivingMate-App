@@ -5,14 +5,13 @@ import CalenderView from './CalenderView';
 import { AgendaItemProps, EventProps, MarkedDateProps } from './CalendarTypes';
 
 const CalenderContainer = () => {
-  const [events, setEvents] = useState<EventProps[]>([]);
   const [markedDates, setMarkedDates] = useState<MarkedDateProps>({});
   const [agendaItem, setAgendaItems] = useState<AgendaItemProps>({});
   
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const path = '/calendar/aaaaaa';
+        const path = '/calendar';
         const serverData = await fetchData<ServerEvent[]>(path);
         const data = serverData.map((item) => ({
           id: item.id,
@@ -46,7 +45,7 @@ const CalenderContainer = () => {
   
         setAgendaItems(newAgendaItems);
         setMarkedDates(newMarkedDates);
-        setEvents(data);
+
       } catch (error) {
         console.error('Failed to fetch events:', error);
       }

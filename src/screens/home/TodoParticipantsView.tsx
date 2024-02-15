@@ -22,6 +22,7 @@ const TodoParticipantsView: React.FC<TodoParticipantsProps> = ({participants}) =
                 userId={participants[index]}
                 textSize={10}
                 showOnlyFirstLetter={true}
+                marginRight={3}
             />
             ))}
         </View>

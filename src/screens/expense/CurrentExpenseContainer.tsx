@@ -10,7 +10,7 @@ import AdjustedBudgetsInExpenseModalConatiner from './AdjustedBudgetsInExpenseMo
 const CurrentExpenseContainer: React.FC = () => {
   const [currentGroupSum, setCurrentGroupSum] = useState<number>(10);
 
-  const [modalVisible, setModalVisible] = React.useState(false); // 모달의 표시 상태를 관리하는 state
+  const [modalVisible, setModalVisible] = useState(false); // 모달의 표시 상태를 관리하는 state
   const openModal = () => setModalVisible(true); // 모달을 여는 함수
   const closeModal = () => setModalVisible(false); // 모달을 닫는 함수
 

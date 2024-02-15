@@ -19,13 +19,11 @@ const EventRegisterAndSchedulingButtonModal: React.FC<EditAndDeleteButtonsModalP
   const handleRegisterModal = () => {
     onClose();
     openRegisterModal();
-    console.log('handleRegisterModal');
   };
 
   const handleSchedulingModal = () => {
     onClose();
     openSchedulingModal();
-    console.log('handleSchedulingModal');
   };
   
   return (  

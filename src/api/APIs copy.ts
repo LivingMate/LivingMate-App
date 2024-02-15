@@ -1,25 +1,17 @@
 import ApiEndpoints from './ApiEndpoints';
+
 /*
   http 상태코드: response.status
   sucess: 200
   client error: 400
   server error: 500
 */
-// 모든 요청에 공통으로 사용될 인증 헤더를 설정하는 함수
-const getAuthHeaders = () => {
-  return {
-    'Authorization': `Bearer your_access_token_here`, // 실제 애플리케이션에서는 유효한 토큰으로 대체
-    'Content-Type': 'application/json',
-  };
-};
 
 // GET 요청을 위한 함수
 const fetchData = async <T>(path: string): Promise<T> => {
   try {
-    const response = await fetch(`${ApiEndpoints.baseURL}${path}`, {
-      headers: getAuthHeaders(),
-    });
-    console.log('GET fetch HTTP 상태 코드:', response.status);
+    const response = await fetch(`${ApiEndpoints.baseURL}${path}`);
+    console.log('fetch HTTP 상태 코드:', response.status);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -30,15 +22,20 @@ const fetchData = async <T>(path: string): Promise<T> => {
   }
 };
 
-// POST 요청을 위한 함수
+/* POST 요청을 위한 함수
+  T: POST 할 데이터의 type
+  R: return type
+*/
 const addData = async <T, R>(path: string, data: T): Promise<R> => {
   try {
     const response = await fetch(`${ApiEndpoints.baseURL}${path}`, {
       method: 'POST',
-      headers: getAuthHeaders(),
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(data),
     });
-    console.log('POST HTTP 상태 코드:', response.status);
+    console.log('add HTTP 상태 코드:', response.status);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -54,37 +51,42 @@ const deleteData = async <T>(path: string): Promise<T> => {
   try {
     const response = await fetch(`${ApiEndpoints.baseURL}${path}`, {
       method: 'DELETE',
-      headers: getAuthHeaders(),
     });
-    console.log('DELETE HTTP 상태 코드:', response.status);
+    console.log('delete HTTP 상태 코드:', response.status);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
     return response.json() as Promise<T>;
   } catch (error) {
+    
     console.error('Error deleting data:', error);
     throw error;
   }
 };
 
-// UPDATE (PATCH) 요청을 위한 함수
 const updateData = async <T, R>(path: string, data: T): Promise<R> => {
   try {
     const response = await fetch(`${ApiEndpoints.baseURL}${path}`, {
-      method: 'PATCH',
-      headers: getAuthHeaders(),
-      body: JSON.stringify(data),
+      method: 'PATCH', // HTTP 메소드 지정
+      headers: {
+        'Content-Type': 'application/json', // 컨텐트 타입 지정
+      },
+      body: JSON.stringify(data), // 요청 본문에 JSON 데이터 포함
     });
-    console.log('PATCH HTTP 상태 코드:', response.status);
+
     if (!response.ok) {
+      // 응답 상태가 OK가 아닌 경우, 오류 처리
       throw new Error(`Failed to update: ${response.status}`);
     }
-    return await response.json() as R;
+
+    // 성공적인 응답 처리
+    return await response.json() as R; // 응답 데이터를 R 타입으로 파싱
   } catch (error) {
+    // 네트워크 오류 또는 response.ok가 false일 때의 오류 처리
     console.error('Error updating data:', error);
-    throw error;
+    throw error; // 오류를 상위 호출자에게 전파
   }
 };
 
 // 함수들을 export 합니다.
-export { fetchData, addData, deleteData, updateData };
+export { fetchData, addData, deleteData, updateData};

@@ -1,26 +1,44 @@
 //EntryGroupScreen.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import { Colors } from '../../common/Colors';
+import EntryModalContainer from './EntryModalContainer';
+import { modeType } from './EntryGroupTypes';
 
 interface EntryGroupContainerProps {
-  onEntry: () => void;
-  isLoggedIn: () => void;
+  handleEntry: (mode: modeType) => void;
 }
 
-const EntryGroupContainer: React.ComponentType<EntryGroupContainerProps> = ({ onEntry, isLoggedIn }) => {
+const EntryGroupContainer: React.ComponentType<EntryGroupContainerProps> = ({handleEntry}) => {
+  
+  const [entryModalVisible, setEntryModalVisible] = useState<boolean>(false);
+  const [mode, setMode] = useState<modeType>('new');
+  
+  const openEntryModal = (mode: modeType) => {
+    setMode(mode);
+    setEntryModalVisible(true);
+  }
+
+  const closeEntryModal = () =>{
+    setEntryModalVisible(false);
+  }
+
   return (
       <View style={styles.container}>
         <Text style={styles.msgText}>함께 사는 메이트를 초대하고{'\n'}생활을 편리하게 관리해보세요!</Text>
-        <TouchableOpacity style={styles.invitingButton} onPress={onEntry}>
+        <TouchableOpacity 
+          style={styles.invitingButton} 
+          onPress={()=>openEntryModal('new')}
+        >
           <Text style={styles.invitingText}>메이트 그룹 만들고 초대하기</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.invitedButton} onPress={onEntry}>
+        <TouchableOpacity 
+          style={styles.invitedButton} 
+          onPress={()=>openEntryModal('existing')}
+        >
           <Text style={styles.invitiedText}>또는 초대코드로 참여하기</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={isLoggedIn}>
-          <Text style={styles.LogoutText}>로그아웃</Text>
-        </TouchableOpacity>
+        <EntryModalContainer handleEntry={() => handleEntry(mode)} mode={mode} isVisible={entryModalVisible} onClose={closeEntryModal} groupId='' />
       </View>
   );
 };
