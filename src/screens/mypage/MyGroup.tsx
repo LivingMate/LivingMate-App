@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import PenIcon from '../../assets/icons/PenIcon';
-import MateBox from '../../common/MateBox';
 import { ScrollView } from 'react-native-gesture-handler';
 
 interface MateProps {

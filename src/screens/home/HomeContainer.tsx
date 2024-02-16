@@ -9,7 +9,7 @@ const HomeContainer = () => {
   const { userToken } = useAuth();
   const [posts, setPosts] = useState<PostProps[]>([]);
   
-  const fetchPosts = async () => {
+  const getPosts = async () => {
     try {
       const path = '/feed';
       const serverData = await getData<ServerPost[]>(path, userToken);
@@ -20,6 +20,8 @@ const HomeContainer = () => {
         content: item.content,
         isPinned: item.pinned,
         userId: item.userId, 
+        userName: item.userName,
+        userColor: item.userColor,
         groupId: item.groupId,
         date: item.createdAt.substring(0,10),
       }));
@@ -58,18 +60,18 @@ const HomeContainer = () => {
       const path = `/feed/pin/${postId}`;
       const response = await patchData(path, updatePin, userToken); // 업데이트할 데이터를 전달합니다.
       console.log('editPin 서버 응답:', response);
-      fetchPosts(); // 게시글 목록 새로고침          
+      getPosts(); // 게시글 목록 새로고침          
       } catch (error) {
         console.error('editPin 서버 요청 실패:', error);
       }
   }; 
 
   useEffect(() => {
-    fetchPosts();
+    getPosts();
   }, []);
 
   return (
-    <HomeView posts={posts} fetchPosts={fetchPosts} editPin={editPin}/>
+    <HomeView posts={posts} fetchPosts={getPosts} editPin={editPin}/>
   );
 }
 

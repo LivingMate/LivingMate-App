@@ -39,7 +39,7 @@ const Login: React.FC = () => {
           navigation.navigate('BottomTabNavigator' as never);
         }
       } 
-      
+            
     } catch (error) {
       Alert.alert('', '로그인에 실패했습니다!', [{ text: '확인' }]);
       console.error('loggingUser 서버 요청 실패:', error);
