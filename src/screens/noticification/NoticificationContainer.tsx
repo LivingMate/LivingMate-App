@@ -47,7 +47,6 @@ const NoticificationContainer = () => {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   roundBox: {
     zIndex: 1, // 낮은 zIndex로 뒤에 위치
