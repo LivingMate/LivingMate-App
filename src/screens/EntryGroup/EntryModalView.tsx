@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Modal, StyleSheet, Alert } from 'react-native';
 import { Colors } from '../../common/Colors';
 
@@ -12,10 +12,24 @@ interface EntryModalViewProps {
 const EntryModalView: React.FC<EntryModalViewProps> = ({ mode, isVisible, handleCancel, entryGroup}) => {
 
   const [content, setContent] = useState<string>('');
+  const [isEmpty, setIsEmpty] = useState<boolean>(true);
+
+  useEffect(() => {
+    // 모든 입력 필드가 비어있지 않은지 확인
+    const foundEmpty = () => {
+      return (content !== '') ? false : true;  
+    };
+    // foundEmpty 함수의 결과에 따라 isEmpty 상태 업데이트
+    setIsEmpty(foundEmpty());
+  }, [content]); 
 
   const handleEntryGroup = () => {
-    entryGroup(content);
+    if(!isEmpty) {
+      entryGroup(content);
+    }
     handleCancel();
+    setContent('');
+    setIsEmpty(true);
   }
 
   const title = mode === 'new' ? '메이트 그룹 만들기' : '초대코드로 참여하기';
@@ -41,10 +55,11 @@ const EntryModalView: React.FC<EntryModalViewProps> = ({ mode, isVisible, handle
           />
           <View style={styles.buttonsContainer}>
             <View style={[styles.buttonContainer,{justifyContent: 'flex-end'}]}>
-              <TouchableOpacity onPress={handleCancel} style={[styles.button, {marginRight: 5}]}>
+              <TouchableOpacity onPress={handleEntryGroup} style={[styles.button, {marginRight: 5}]}>
                 <Text style={styles.buttonText}>취소</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={handleEntryGroup} style={[styles.button, {backgroundColor: Colors.theme}]}>
+              <TouchableOpacity onPress={handleEntryGroup} 
+                style={[styles.button, isEmpty ? {backgroundColor: Colors.text} : {backgroundColor: Colors.theme}]}>
                 <Text style={[styles.buttonText, {color: '#ffffff'}]}>등록</Text>
               </TouchableOpacity>
             </View>

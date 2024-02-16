@@ -25,6 +25,7 @@ const MypageContainer: React.FC = () => {
     {id: 'asdf124', name: '박영희', color: '#1e64eb'},
     {id: 'asdf123', name: '박시온', color: '#c900eb'},
   ]
+
   /* 사용자 이름과 색상만 업데이트하는 함수
   const updateUserNameAndColor = (newName: string, newColor: string) => {
     // API 요청 대신 로컬 상태를 직접 업데이트
@@ -89,9 +90,6 @@ const GroupManaging = () => {
       <Text style={styles.title}>그룹 관리</Text>
       <TouchableOpacity>
         <Text style={styles.text}>초대 코드 보내기</Text>
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <Text style={styles.text}>단체 알림 보내기</Text>
       </TouchableOpacity>
       <TouchableOpacity>
         <Text style={styles.text}>그룹 탈퇴</Text>

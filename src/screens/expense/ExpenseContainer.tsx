@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { BudgetProps } from './BudgetView';
-import { fetchData } from '../../api/APIs';
+import { getData } from '../../api/APIs';
 import { ServerBudget } from '../../api/ServerInterfaces';
 import ExpenseContext from '../../context/ExpenseContext';
 import ExpenseView from './ExpenseView';
+import { useAuth } from '../../auth/AuthContext';
 //import ExpenseStackNavigator from './ExpenseStackNavigator';
 
 const ExpenseContainer = () => {
 
+  const { userToken } = useAuth();
   const [budgets, setBudgets] = useState<BudgetProps[]>([]);
   
   const fetchBudgets = async () => {
     try {
       const path = '/budget';
-      const serverData = await fetchData<ServerBudget[]>(path);
+      const serverData = await getData<ServerBudget[]>(path, userToken);
       // 서버 데이터를 클라이언트의 데이터 구조로 변환
       const data = serverData.map((item) => ({
         id: item.id,

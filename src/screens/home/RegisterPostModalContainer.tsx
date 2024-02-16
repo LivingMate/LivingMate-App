@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
-import { addData, deleteData, updateData } from '../../api/APIs';
+import { postData, deleteData, patchData } from '../../api/APIs';
 import RegisterPostModalView from './RegisterPostModalView';
+import { useAuth } from '../../auth/AuthContext';
 
 interface RegisterPostModalContainerProps {
   mode: 'create' | 'edit';
@@ -14,8 +15,9 @@ interface RegisterPostModalContainerProps {
 
 const RegisterPostModalContainer: React.FC<RegisterPostModalContainerProps> = ({ mode, id, isVisible, postContent, onClose, fetchPosts}) => {
   console.log('mode:', mode);
+  const { userToken } = useAuth();
   
-  const [content, setContent] = useState<string>('');  
+  const [content, setContent] = useState<string>(''); 
 
   const handleCancel = () => {
     onClose();
@@ -32,8 +34,8 @@ const RegisterPostModalContainer: React.FC<RegisterPostModalContainerProps> = ({
   
       try {
         // addData 함수를 사용하여 서버에 POST 요청
-        const path = '/feed/aaaaaa/asdf124'; // 요청을 보낼 경로
-        const response = await addData<typeof newPost, any>(path, newPost); // 여기서 응답 데이터 타입은 실제 응답에 맞게 수정해야 합니다.
+        const path = '/feed'; // 요청을 보낼 경로
+        const response = await postData<typeof newPost, any>(path, newPost, userToken); // 여기서 응답 데이터 타입은 실제 응답에 맞게 수정해야 합니다.
   
         console.log('addPost 서버 응답:', response);
         onClose(); // 등록 버튼 클릭 후 모달 닫기
@@ -62,7 +64,7 @@ const RegisterPostModalContainer: React.FC<RegisterPostModalContainerProps> = ({
         }
 
         const path = `/feed/${id}`;
-        const response = await updateData(path, updateContent); // 업데이트할 데이터를 전달합니다.
+        const response = await patchData(path, updateContent, userToken); // 업데이트할 데이터를 전달합니다.
         console.log('editPost 서버 응답:', response);
 
         onClose(); // 등록 버튼 클릭 후 모달 닫기
@@ -84,8 +86,8 @@ const RegisterPostModalContainer: React.FC<RegisterPostModalContainerProps> = ({
 
   const deletePost = async (): Promise<void> => {
     try {
-      const path = `/feed/aaaaaa/${id}`;
-      await deleteData<void>(path); // deleteData 함수를 호출하여 DELETE 요청을 보냅니다.
+      const path = `/feed/${id}`;
+      await deleteData<void>(path, userToken); // deleteData 함수를 호출하여 DELETE 요청을 보냅니다.
       console.log(`Post with ID ${id} deleted successfully.`);
       onClose(); // 삭제 버튼 클릭 후 모달 닫기
       fetchPosts(); // 게시글 목록 새로고침

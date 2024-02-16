@@ -4,11 +4,11 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Colors } from '../../common/Colors';
 import Checkbox from 'expo-checkbox';
 import TodoParticipantsView from './TodoParticipantsView';
-
+import { UserProps } from '../mypage/MypageTypes';
 export interface TodoProps {
     id: number;
     content: string;
-    participants: string[];
+    participants: UserProps[];
     weekDays: string;
 }
 

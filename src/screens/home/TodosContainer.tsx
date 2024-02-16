@@ -6,9 +6,12 @@ import { Colors } from '../../common/Colors';
 import CommonStyles from '../../common/CommonStyles';
 import ArrowUpAndDownIcon from '../../assets/icons/ArrowUpAndDownIcon';
 import TodoView, { TodoProps } from './TodoView';
+import { getData } from '../../api/APIs';
+import { ServerTodo } from '../../api/ServerInterfaces';
+import { useAuth } from '../../auth/AuthContext';
 
 const TodosContainer = () => {
-
+  const { userToken } = useAuth();
   const [thisWeekTodoList, setThisWeekTodoList] = useState<TodoProps[]>([]);
   const [boxMaxHeight, setBoxMaxHeight] = useState<number | null>(200);
   const [boxMaxHeightButtonFocused, setBoxMaxHeightButtonFocused] = useState<boolean>(false);
@@ -24,15 +27,10 @@ const TodosContainer = () => {
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const url = `http://54.180.100.242:3000/calendar/thisweek/aaaaaa`;
-        const response = await fetch(url);
-        
-        let data: TodoProps[] = await response.json();
-
-        console.log("data:", data);
-
+        const path = '/calendar/get/thisweek';
+        const serverData = await getData<ServerTodo[]>(path, userToken);
         // 서버 데이터를 클라이언트의 데이터 구조로 변환
-        data = data.map((item: any) => ({
+        const data = serverData.map((item: any) => ({
           id: item.id,
           content: item.title,
           groupId: item.groupId,

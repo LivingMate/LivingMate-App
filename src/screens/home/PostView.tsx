@@ -6,12 +6,13 @@ import PinIcon from '../../assets/icons/PinIcon';
 import ThreeDotsIcon from '../../assets/icons/ThreeDotsIcon';
 import CommonStyles from '../../common/CommonStyles';
 import MateBox from '../../common/MateBox';
-
 export interface PostProps {
   id: number;
   content: string;
   isPinned: boolean;
   userId?: string;
+  userColor?: string;
+  userName?: string;
   groupId: string;
   date: string;
 }
@@ -20,10 +21,10 @@ interface PostViewProps extends PostProps{
   toggleModalMode: (mode: 'create' | 'edit') => void;
   setEditingPostId: (id: string) => void;
   setEditingPostContent: (content: string) => void;
-  editPin: () => void;
+  editPin: (id: number, isPinned: boolean) => void;
 }
 
-const PostView: React.FC<PostViewProps> = ({ id, content, isPinned, userId, date, toggleModalVisible, toggleModalMode, setEditingPostId, setEditingPostContent, editPin}) => {
+const PostView: React.FC<PostViewProps> = ({ id, content, isPinned, userId, date, userColor, userName, toggleModalVisible, toggleModalMode, setEditingPostId, setEditingPostContent, editPin}) => {
   // userId가 현재 로그인한 사용자의 userId와 일치하면 버튼을 표시하고 아니면 감춥니다.
   const loggedInUserId = "asdf124";
   const showButton = loggedInUserId === userId;
@@ -55,7 +56,7 @@ const PostView: React.FC<PostViewProps> = ({ id, content, isPinned, userId, date
         )}
         
         <TouchableOpacity 
-          onPress={editPin}
+          onPress={() => editPin(id, isPinned)}
         >
           <PinIcon 
             color={isPinned ? Colors.theme : Colors.button} 
@@ -71,7 +72,9 @@ const PostView: React.FC<PostViewProps> = ({ id, content, isPinned, userId, date
       <MateBox
           userId={userId}
           textSize={12}
-          showOnlyFirstLetter={false}
+          showOnlyFirstLetter={false} 
+          userName={''} 
+          userColor={''}      
       />
     </View>
   </View>

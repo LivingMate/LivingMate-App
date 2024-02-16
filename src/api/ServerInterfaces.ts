@@ -1,15 +1,17 @@
 //ServerInterfaces
 interface ServerPost {
-    id: number,
+    feedId: number,
     content: string,
-    pin: boolean,
-    userId: string,
+    pinned: boolean,
     groupId: string,
     createdAt: string,
+    userId?: string,
+    userName?: string,
+    userColor?: string,
 }
 
 interface ServerBudget {
-    id: number,
+    id: string,
     spendingName: string,
     spendings: number,
     userId: string,
@@ -20,7 +22,7 @@ interface ServerBudget {
 }
 
 interface ServerEvent {
-    id: number; 
+    id: string; 
     userId: string; 
     groupId: string; 
     title: string; 
@@ -31,4 +33,18 @@ interface ServerEvent {
     participants: string[];
 }
 
-export {ServerPost, ServerBudget,ServerEvent};
+interface ServerTodo {
+    id: string,
+    title: string,
+    groupId: string,
+    daysOfWeek: string[],
+    participants: ServerUser[],
+}
+
+interface ServerUser {
+    id: string,
+    name: string,
+    color: string,
+}
+
+export {ServerPost, ServerBudget, ServerEvent, ServerTodo, ServerUser};

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import RegisterBudgetModalView from './RegisterBudgetModalView';
-import { addData, updateData, deleteData } from '../../api/APIs';
+import { postData, patchData, deleteData } from '../../api/APIs';
 import { Alert } from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
 //import { ExpenseStackParamList } from './ExpenseStackNavigator';
 import { useBudgetContext } from '../../context/ExpenseContext';
+import { useAuth } from '../../auth/AuthContext';
 
 interface RegisterBudgetModalContainerProps {
   mode: 'create' | 'edit';
@@ -17,6 +18,8 @@ const RegisterBudgetModalContainer: React.FC<RegisterBudgetModalContainerProps> 
   const route = useRoute<RouteProp<ExpenseStackParamList, 'RegisterBudgetModalContainer'>>();
   console.log('RegisterBudget mode:', mode); 
   const { fetchBudgets } = useBudgetContext();
+
+  const { userToken } = useAuth();
 
   const addBudget = async (content: string, price: number, category: string, subCategory: string) => {
     if (content !== '' && price !== -1 && category!=='' && subCategory!=='') {
@@ -31,8 +34,8 @@ const RegisterBudgetModalContainer: React.FC<RegisterBudgetModalContainerProps> 
   
       try {
         // addData 함수를 사용하여 서버에 POST 요청
-        const path = '/budget/aaaaaa/asdf0000'; // 요청을 보낼 경로
-        const response = await addData<typeof newBudget, any>(path, newBudget); // 여기서 응답 데이터 타입은 실제 응답에 맞게 수정해야 합니다.
+        const path = '/budget'; // 요청을 보낼 경로
+        const response = await postData<typeof newBudget, any>(path, newBudget, userToken); // 여기서 응답 데이터 타입은 실제 응답에 맞게 수정해야 합니다.
   
         console.log('add Budget 서버 응답:', response);
         onClose(); // 등록 버튼 클릭 후 모달 닫기
@@ -62,8 +65,8 @@ const RegisterBudgetModalContainer: React.FC<RegisterBudgetModalContainerProps> 
         };
       console.log('budget Data will be sended: ', updateBudget);
 
-        const path = `/budget/${id}`;
-        const response = await updateData(path, updateBudget); // 업데이트할 데이터를 전달합니다.
+        const path = `/budget/update/${id}`;
+        const response = await patchData(path, updateBudget, userToken); // 업데이트할 데이터를 전달합니다.
         console.log('edit budget 서버 응답:', response);
 
         onClose(); // 등록 버튼 클릭 후 모달 닫기
@@ -84,7 +87,7 @@ const RegisterBudgetModalContainer: React.FC<RegisterBudgetModalContainerProps> 
 /*
   const deleteBudget = async (): Promise<void> => {
     try {
-      const path = `/feed/aaaaaa/${id}`;
+      const path = `/budget/${id}`;
       await deleteData<void>(path); // deleteData 함수를 호출하여 DELETE 요청을 보냅니다.
       console.log(`Post with ID ${id} deleted successfully.`);
       onClose(); // 삭제 버튼 클릭 후 모달 닫기

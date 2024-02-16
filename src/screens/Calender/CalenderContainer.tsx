@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { ServerEvent } from '../../api/ServerInterfaces';
-import { fetchData } from '../../api/APIs';
+import { getData } from '../../api/APIs';
 import CalenderView from './CalenderView';
 import { AgendaItemProps, EventProps, MarkedDateProps } from './CalendarTypes';
+import { useAuth } from '../../auth/AuthContext';
 
 const CalenderContainer = () => {
+  
+  const { userToken } = useAuth();
+  
   const [markedDates, setMarkedDates] = useState<MarkedDateProps>({});
   const [agendaItem, setAgendaItems] = useState<AgendaItemProps>({});
   
@@ -12,7 +16,7 @@ const CalenderContainer = () => {
     const fetchEvents = async () => {
       try {
         const path = '/calendar';
-        const serverData = await fetchData<ServerEvent[]>(path);
+        const serverData = await getData<ServerEvent[]>(path, userToken);
         const data = serverData.map((item) => ({
           id: item.id,
           userId: item.userId,

@@ -15,7 +15,7 @@ interface HomeViewProps {
 }
 
 const HomeView:React.FC<HomeViewProps> = ({posts, fetchPosts, editPin}) => {
-  
+  console.log('HomeView posts:', posts);
   const [modalVisible, setModalVisible] = useState<boolean>(false); // 모달의 표시 상태를 관리하는 state
   const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
   const [editingPostId, setEditingPostId] = useState<number>(-1);
@@ -66,11 +66,13 @@ const HomeView:React.FC<HomeViewProps> = ({posts, fetchPosts, editPin}) => {
           { posts.length > 0 ? (
             posts.map((post) => (
               <PostView
-                key={post.id.toString()}
+                key={post.id}
                 id={post.id}
                 content={post.content}
                 isPinned={post.isPinned}
                 userId={post.userId}
+                userName={post.userName}
+                userColor={post.userColor}
                 date={post.date} 
                 groupId={post.groupId} 
                 toggleModalVisible={() => openModal()}

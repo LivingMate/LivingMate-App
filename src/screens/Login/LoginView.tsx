@@ -1,4 +1,4 @@
-import { SafeAreaView, TextInput } from 'react-native';
+import { Alert, SafeAreaView, TextInput } from 'react-native';
 import { Colors } from '../../common/Colors';
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';

@@ -1,9 +1,8 @@
-import { Alert, SafeAreaView, TextInput } from 'react-native';
+import { SafeAreaView, TextInput } from 'react-native';
 import { Colors } from '../../common/Colors';
 import React, { useEffect, useState } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 
 interface SignupViewProps {
   signup: (email: string, password: string, userName:string, birth: string, sex: string ) => void;
@@ -17,8 +16,6 @@ const SignupView: React.FC<SignupViewProps> = ({signup}) => {
   const [emailDomain, setEmailDomain] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isEmpty, setIsEmpty] = useState<boolean>(true);
-  
-  const navigation = useNavigation();
 
   const handleBirth = (event: any, selectedDate?: Date) => {
     const currentDate = selectedDate || birth;
@@ -45,14 +42,6 @@ const SignupView: React.FC<SignupViewProps> = ({signup}) => {
       setEmailDomain('');
       setPassword('');
       setSex('female');
-      Alert.alert(
-        '',
-        '회원가입에 성공했습니다!',
-        [{  text: '확인',
-            onPress: () => navigation.navigate('Initial' as never),
-        }],
-        { cancelable: false }
-      );
     }
   }
 
@@ -64,6 +53,7 @@ const SignupView: React.FC<SignupViewProps> = ({signup}) => {
           {/* email */}
           <View style={[styles.titleContainer, {marginTop: 60}]}>
             <Text style={styles.title}>아이디</Text>
+            <Text style={{marginTop: 6, fontSize: 12, color: Colors.text}}>아이디로 쓰실 이메일을 입력해주세요</Text>
           </View>
           <View style={[styles.inputContainer, {flexDirection: 'row'}]}>
           <View style={{flex: 1}}>
@@ -83,7 +73,7 @@ const SignupView: React.FC<SignupViewProps> = ({signup}) => {
             <View style={{flex: 1}}>
             <TextInput
               style={[styles.textInput]}
-              placeholder="domain"
+              placeholder="gmail.com"
               value={emailDomain}
               onChangeText={(text) => {
                 setEmailDomain(text);
@@ -165,7 +155,7 @@ const SignupView: React.FC<SignupViewProps> = ({signup}) => {
         >
           <Text 
             style={[styles.buttonText, !isEmpty && {color: '#fff'}]}
-          >다음</Text>
+          >가입하기</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { deleteData, fetchData, updateData } from '../../api/APIs';
+import { deleteData, getData, patchData } from '../../api/APIs';
 import { ServerPost } from '../../api/ServerInterfaces';
 import { PostProps } from './PostView';
 import HomeView from './HomeView';
+import { useAuth } from '../../auth/AuthContext';
 
 const HomeContainer = () => {
+  const { userToken } = useAuth();
   const [posts, setPosts] = useState<PostProps[]>([]);
   
   const fetchPosts = async () => {
     try {
-      const path = '/feed/aaaaaa';
-      const serverData = await fetchData<ServerPost[]>(path);
+      const path = '/feed';
+      const serverData = await getData<ServerPost[]>(path, userToken);
       // 서버 데이터를 클라이언트의 데이터 구조로 변환
+      console.log('serverData:', serverData);
       const data = serverData.map((item) => ({
-        id: item.id,
+        id: item.feedId,
         content: item.content,
-        isPinned: item.pin,
+        isPinned: item.pinned,
         userId: item.userId, 
         groupId: item.groupId,
         date: item.createdAt.substring(0,10),
@@ -32,7 +35,6 @@ const HomeContainer = () => {
         //정렬된 posts를 setting
         setPosts(sortedData);
       }
-      
     } catch (error) {
         if (error instanceof TypeError) {
           // TypeError 타입의 에러 처리
@@ -51,10 +53,10 @@ const HomeContainer = () => {
     try {
       // 서버에 업데이트 요청을 보냅니다.
       const updatePin = {
-        pin: !isPinned,
+        pinned: !isPinned,
       }
       const path = `/feed/pin/${postId}`;
-      const response = await updateData(path, updatePin); // 업데이트할 데이터를 전달합니다.
+      const response = await patchData(path, updatePin, userToken); // 업데이트할 데이터를 전달합니다.
       console.log('editPin 서버 응답:', response);
       fetchPosts(); // 게시글 목록 새로고침          
       } catch (error) {
@@ -72,13 +74,3 @@ const HomeContainer = () => {
 }
 
 export default HomeContainer;
-
-/*
-fetchData는 데이터를 가져오는(GET) 함수로, 
-호출 시 지정한 타입의 데이터를 서버로부터 받아와야 하므로 
-반환 타입이 Promise<T>입니다.
-deletePost는 데이터를 삭제하는(DELETE) 함수로, 
-특정 작업을 수행한 후 반환할 데이터가 없으므로 
-반환 타입이 Promise<void>입니다.
-*/
-

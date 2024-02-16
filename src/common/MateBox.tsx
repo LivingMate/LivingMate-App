@@ -4,40 +4,37 @@ import { Colors } from './Colors';
 
 interface MateProps {
   userId?: string;
-  textSize: number;
+  userName?: string;
   userColor?: string;
+  textSize: number;
   marginLeft?: number;
   marginRight?: number;
   showOnlyFirstLetter?: boolean;
 }
 
-const MateBox: React.FC<MateProps> = ({ userId, textSize, showOnlyFirstLetter, userColor, marginLeft, marginRight}) => {
+const MateBox: React.FC<MateProps> = ({ userId, userName, userColor, textSize, showOnlyFirstLetter, marginLeft, marginRight}) => {
     
-  const [userName, setUserName] = useState<string>();
-  const [user_Color, setUserColor] = useState<string>();
-
-  //let firstChar = str.charAt(0); 
-  let name = '탈퇴';
-  let color = (userColor) ? userColor : Colors.text;
+  const [name, setName] = useState<string>();
+  const [color, setColor] = useState<string>();
 
   useEffect(() => {
-    if (userId)  {
-      name = userId;
-      color = color;
+    if (!userId || !userName || !userColor)  {
+      setName('탈퇴');
+      setColor('Colors.text');
     } 
-    
-    if(showOnlyFirstLetter==true) {
-      name = name.charAt(0);
+    else {
+      if(showOnlyFirstLetter==true) {
+        setName(userName.charAt(0));
+      } else {
+        setName(userName);
+      }
+      setColor(color);
     }
-
-    setUserName(name);
-    setUserColor(color);
-
   }, []); // dependency 배열에 추가  
   
   return (
-        <View style = {[styles.container, {backgroundColor: user_Color, marginLeft: marginLeft, marginRight: marginRight}]}>
-          <Text style={[styles.text, {fontSize: textSize}]}>{userName}</Text>
+        <View style = {[styles.container, {backgroundColor: color, marginLeft: marginLeft, marginRight: marginRight}]}>
+          <Text style={[styles.text, {fontSize: textSize}]}>{name}</Text>
         </View>
     );
 };

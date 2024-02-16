@@ -25,7 +25,7 @@ const NormalNoticificationsContainer: React.FC = () => {
     // API에서 데이터를 가져오는 함수
     const fetchNoticifications = async () => {
       try {
-        const response = await fetch('http://54.180.100.242:3000/notis/aaaaaa');
+        const response = await fetch('http://54.180.100.242:3000/notis');
         let data: NoticificationProps[] = await response.json();
 
         // 서버 데이터를 클라이언트의 데이터 구조로 변환

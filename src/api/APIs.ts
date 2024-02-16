@@ -5,86 +5,110 @@ import ApiEndpoints from './ApiEndpoints';
   client error: 400
   server error: 500
 */
-// 모든 요청에 공통으로 사용될 인증 헤더를 설정하는 함수
-const getAuthHeaders = () => {
-  return {
-    'Authorization': `Bearer your_access_token_here`, // 실제 애플리케이션에서는 유효한 토큰으로 대체
-    'Content-Type': 'application/json',
-  };
-};
 
 // GET 요청을 위한 함수
-const fetchData = async <T>(path: string): Promise<T> => {
+const getData = async <T>(path: string, userToken: string | null): Promise<T> => {
   try {
     const response = await fetch(`${ApiEndpoints.baseURL}${path}`, {
-      headers: getAuthHeaders(),
+      headers:  
+      { 
+        'Authorization': `Bearer ${userToken}`,
+        'Content-Type': 'application/json',
+      },
     });
-    console.log('GET fetch HTTP 상태 코드:', response.status);
+    console.log(path, ': GET fetch HTTP 상태 코드:', response.status);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
     return response.json() as Promise<T>;
   } catch (error) {
-    console.error('fetch Data error', error);
+    console.error(path, ': fetch Data error', error);
     throw error;
   }
 };
 
 // POST 요청을 위한 함수
-const addData = async <T, R>(path: string, data: T): Promise<R> => {
+const postData = async <T, R>(path: string, data: T, userToken: string | null): Promise<R> => {
   try {
     const response = await fetch(`${ApiEndpoints.baseURL}${path}`, {
       method: 'POST',
-      headers: getAuthHeaders(),
+      headers: 
+      { 
+        'Authorization': `Bearer ${userToken}`,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(data),
     });
-    console.log('POST HTTP 상태 코드:', response.status);
+    console.log(path, ': POST HTTP 상태 코드:', response.status);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
     return response.json() as Promise<R>;
   } catch (error) {
-    console.error('Error creating data:', error);
+    console.error(path, ': Error creating data:', error);
     throw error;
   }
 };
 
 // DELETE 요청을 위한 함수
-const deleteData = async <T>(path: string): Promise<T> => {
+const deleteData = async <T>(path: string, userToken: string | null): Promise<T> => {
   try {
     const response = await fetch(`${ApiEndpoints.baseURL}${path}`, {
       method: 'DELETE',
-      headers: getAuthHeaders(),
+      headers: { 
+        'Authorization': `Bearer ${userToken}`,
+        'Content-Type': 'application/json',
+      },
     });
-    console.log('DELETE HTTP 상태 코드:', response.status);
+    console.log(path,':DELETE HTTP 상태 코드:', response.status);
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+     // throw new Error('Network response was not ok');
     }
     return response.json() as Promise<T>;
   } catch (error) {
-    console.error('Error deleting data:', error);
+    console.error(path, ': Error deleting data:', error);
     throw error;
   }
 };
 
 // UPDATE (PATCH) 요청을 위한 함수
-const updateData = async <T, R>(path: string, data: T): Promise<R> => {
+const patchData = async <T, R>(path: string, data: T, userToken: string | null): Promise<R> => {
   try {
     const response = await fetch(`${ApiEndpoints.baseURL}${path}`, {
       method: 'PATCH',
-      headers: getAuthHeaders(),
+      headers: { 
+        'Authorization': `Bearer ${userToken}`,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(data),
     });
-    console.log('PATCH HTTP 상태 코드:', response.status);
+    console.log(path, ':PATCH HTTP 상태 코드:', response.status);
     if (!response.ok) {
       throw new Error(`Failed to update: ${response.status}`);
     }
     return await response.json() as R;
   } catch (error) {
-    console.error('Error updating data:', error);
+    console.error(path, ': Error updating data:', error);
     throw error;
   }
 };
 
+
+const getGroupId = async (userToken: string | null) => {
+  try {
+    const path = '/group/invitation';
+    const serverData = await getData<{
+      code: number,
+      message: string,
+      data: string,
+    }>(path, userToken);
+    console.log("getGroupId response", serverData);
+    const data = serverData.data;
+    return data;
+  } catch (error) {
+    console.log("getGroupId error", error);
+  }
+}
+
 // 함수들을 export 합니다.
-export { fetchData, addData, deleteData, updateData };
+export { getData, postData, deleteData, patchData, getGroupId};
