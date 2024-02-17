@@ -11,10 +11,12 @@ interface ServerPost {
 }
 
 interface ServerBudget {
-    id: string,
+    id: number,
     spendingName: string,
     spendings: number,
-    userId: string,
+    userId?: string,
+    userName?: string,
+    userColor?: string,
     category: string,
     subCategory:string,
     createdAt:string,
@@ -22,8 +24,10 @@ interface ServerBudget {
 }
 
 interface ServerEvent {
-    id: string; 
-    userId: string; 
+    id: number; 
+    userId?: string,
+    userName?: string,
+    userColor?: string,
     groupId: string; 
     title: string; 
     memo: string; 
@@ -34,7 +38,7 @@ interface ServerEvent {
 }
 
 interface ServerTodo {
-    id: string,
+    id: number,
     title: string,
     groupId: string,
     daysOfWeek: string[],

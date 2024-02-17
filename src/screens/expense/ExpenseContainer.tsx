@@ -2,17 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { BudgetProps } from './BudgetView';
 import { getData } from '../../api/APIs';
 import { ServerBudget } from '../../api/ServerInterfaces';
-import ExpenseContext from '../../context/ExpenseContext';
 import ExpenseView from './ExpenseView';
 import { useAuth } from '../../auth/AuthContext';
-//import ExpenseStackNavigator from './ExpenseStackNavigator';
 
 const ExpenseContainer = () => {
 
   const { userToken } = useAuth();
   const [budgets, setBudgets] = useState<BudgetProps[]>([]);
   
-  const fetchBudgets = async () => {
+  const getBudgets = async () => {
     try {
       const path = '/budget';
       const serverData = await getData<ServerBudget[]>(path, userToken);
@@ -20,6 +18,8 @@ const ExpenseContainer = () => {
       const data = serverData.map((item) => ({
         id: item.id,
         userId: item.userId, 
+        userName: item.userName,
+        userColor: item.userColor,
         groupId: item.groupId,
         content: item.spendingName,
         price: item.spendings,
@@ -43,13 +43,11 @@ const ExpenseContainer = () => {
   };
 
   useEffect(() => {
-    fetchBudgets();
+    getBudgets();
   }, []);
   
   return (
-    <ExpenseContext.Provider value={{fetchBudgets}}>
-      <ExpenseView budgets={budgets}/>
-    </ExpenseContext.Provider>
+      <ExpenseView budgets={budgets} getBudgets={getBudgets}/>
   );
 }
 

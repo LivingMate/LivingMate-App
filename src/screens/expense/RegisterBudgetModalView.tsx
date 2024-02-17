@@ -1,6 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Modal, StyleSheet, Alert } from 'react-native';
 import { Colors } from '../../common/Colors';
+import SelectCategoryModal from './SelectCategoryModal';
+import { categoryType } from './types';
+import ResidentialIcon from '../../assets/icons/categories/ResidentialIcon';
+import FoodIcon from '../../assets/icons/categories/FoodIcon';
+import LifestyleIcon from '../../assets/icons/categories/LifestyleIcon';
+import EtcIcon from '../../assets/icons/categories/EtcIcon';
 
 interface RegisterBudgetModalViewProps {
   mode: 'create' | 'edit';
@@ -12,8 +18,11 @@ interface RegisterBudgetModalViewProps {
 const RegisterBudgetModalView: React.FC<RegisterBudgetModalViewProps> = ({ mode, isVisible, onClose, regesterBudget}) => {
   const [content, setContent] = useState<string>('');
   const [price, setPrice] = useState<number>(-1);
-  const [category, setCategory] = useState<string>('주거');
-  const [subCategory, setSubCategory] = useState<string>('공과금');
+  const [category, setCategory] = useState<categoryType>('주거');
+  const [subCategory, setSubCategory] = useState<string>('기타');
+  const [modalVisible, setModalVisible] = useState<boolean>(false); // 모달의 표시 상태를 관리하는 state
+  const openModal = () => { setModalVisible(true);}
+  const closeModal = () => { setModalVisible(false);}
 
   const handlePriceChange = (inputText: string) => {
     // 입력된 값이 숫자이고, 양수일 때만 state 업데이트
@@ -28,17 +37,56 @@ const RegisterBudgetModalView: React.FC<RegisterBudgetModalViewProps> = ({ mode,
     onClose();
     setContent('');
     setPrice(-1);
-    setCategory('주거');
-    setSubCategory('공과금');
+    setCategory('기타');
+    setSubCategory('');
   }
 
   const handleCancel = () => {
     onClose();
     setContent('');
     setPrice(-1);
-    setCategory('주거');
-    setSubCategory('공과금');
+    setCategory('기타');
+    setSubCategory('기타');
   }
+
+  const handleCategories = (cat: categoryType, subcat: string) => {
+    console.log(cat, subcat);
+    setCategory(cat);
+    setSubCategory(subcat);
+  }
+
+  const CategoryView = () => {
+
+    const focused = true;
+
+    const renderCategoryComponent = (category: categoryType) => {
+      switch (category) {
+        case '주거':
+          return <ResidentialIcon focused={focused} color={Colors.theme}/>;
+        case '식비':
+          return <FoodIcon focused={focused} color={Colors.theme}/>;
+        case '생활':
+          return <LifestyleIcon focused={focused} color={Colors.theme}/>;
+        case '기타':
+          return <EtcIcon focused={focused} color={Colors.theme} />;
+      }
+    };
+
+    return (
+      <View style={styles.categoryIconContanier}>
+        <View style={{width: 80, alignItems: 'flex-start', paddingLeft: 5}}>
+          <View style={styles.categoryShape}> 
+          {renderCategoryComponent(category)}
+          <Text style={{marginTop: 5,fontSize: 15}}>{category}</Text>
+          </View>
+         </View>
+        <Text style={{fontSize: 15}}>{subCategory}</Text>
+      </View>
+    )
+  }
+
+  useEffect(() => {
+  }, [category, subCategory]); 
 
   return (
     <Modal visible={isVisible} transparent animationType='fade'>
@@ -76,15 +124,12 @@ const RegisterBudgetModalView: React.FC<RegisterBudgetModalViewProps> = ({ mode,
 
           {/* 카테고리  */}
           <View style={[styles.itemContainer, {marginTop: 10}]}>
-            <Text style={styles.itemText}>카테고리</Text>
+            <Text style={[styles.itemText, {marginBottom: 5}]}>카테고리</Text>
           </View>
-            <TouchableOpacity>
-                <View style={styles.categoryIconContanier}>
-                  <View style = {styles.categoryShape}>
-                    <Text style={{fontSize: 35, color: '#b9b9b9'}}>?</Text>
-                  </View>
-                  <Text style={styles.subCategoryText}>서브카테고리</Text>
-              </View>
+            <TouchableOpacity
+              onPress={openModal}
+            >
+             <CategoryView />
           </TouchableOpacity>
         
           <View style={styles.buttonsContainer}>
@@ -110,6 +155,7 @@ const RegisterBudgetModalView: React.FC<RegisterBudgetModalViewProps> = ({ mode,
             </View>
           </View>
         </View>
+        <SelectCategoryModal isVisible={modalVisible} onClose={closeModal} handleCategories={handleCategories}/>
       </View>
     </Modal>
   );
@@ -128,6 +174,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     borderRadius: 10,
     width: '80%',
+    minHeight: 360,
   },
 
   titleText: {
@@ -181,19 +228,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   categoryShape:{
-    width: 50,
-    height: 50,
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: '#b9b9b9',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  subCategoryText: {
-    color: Colors.text,
-    fontSize: 15,
-    marginLeft: 20,
-  }
 });
 
 export default RegisterBudgetModalView;

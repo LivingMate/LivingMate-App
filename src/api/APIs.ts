@@ -51,7 +51,7 @@ const postData = async <T, R>(path: string, data: T, userToken: string | null): 
 };
 
 // DELETE 요청을 위한 함수
-const deleteData = async <T>(path: string, userToken: string | null): Promise<T> => {
+const deleteData = async (path: string, userToken: string | null): Promise<void> => {
   try {
     const response = await fetch(`${ApiEndpoints.baseURL}${path}`, {
       method: 'DELETE',
@@ -61,10 +61,7 @@ const deleteData = async <T>(path: string, userToken: string | null): Promise<T>
       },
     });
     console.log(path,':DELETE HTTP 상태 코드:', response.status);
-    if (!response.ok) {
-     // throw new Error('Network response was not ok');
-    }
-    return response.json() as Promise<T>;
+
   } catch (error) {
     console.error(path, ': Error deleting data:', error);
     throw error;

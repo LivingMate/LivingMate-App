@@ -10,14 +10,14 @@ import { useAuth } from '../../auth/AuthContext';
 interface RegisterBudgetModalContainerProps {
   mode: 'create' | 'edit';
   isVisible: boolean;
+  getBudgets: () => void;
   id?: number; // edit 모드일 때만 
   onClose: () => void;
 }
 
-const RegisterBudgetModalContainer: React.FC<RegisterBudgetModalContainerProps> = ({ mode, isVisible, id, onClose}) => {
-  const route = useRoute<RouteProp<ExpenseStackParamList, 'RegisterBudgetModalContainer'>>();
+const RegisterBudgetModalContainer: React.FC<RegisterBudgetModalContainerProps> = ({ mode, getBudgets, isVisible, id, onClose}) => {
+
   console.log('RegisterBudget mode:', mode); 
-  const { fetchBudgets } = useBudgetContext();
 
   const { userToken } = useAuth();
 
@@ -39,7 +39,7 @@ const RegisterBudgetModalContainer: React.FC<RegisterBudgetModalContainerProps> 
   
         console.log('add Budget 서버 응답:', response);
         onClose(); // 등록 버튼 클릭 후 모달 닫기
-        fetchBudgets(); // 게시글 목록 새로고침
+        getBudgets(); // 게시글 목록 새로고침
       } catch (error) {
         console.error('add Budget 서버 요청 실패:', error);
       }
@@ -70,7 +70,7 @@ const RegisterBudgetModalContainer: React.FC<RegisterBudgetModalContainerProps> 
         console.log('edit budget 서버 응답:', response);
 
         onClose(); // 등록 버튼 클릭 후 모달 닫기
-        fetchBudgets(); // 게시글 목록 새로고침
+        getBudgets(); // 게시글 목록 새로고침
                 
       } catch (error) {
         console.error('edit budget 서버 요청 실패:', error);

@@ -14,17 +14,19 @@ import RegisterBudgetModalContainer from './RegisterBudgetModalContainer';
 
 interface ExpenseViewProps {
   budgets: BudgetProps[];
+  getBudgets: () => void;
 }
 
-const ExpenseView:React.FC<ExpenseViewProps> = ({budgets}) => {
+const ExpenseView:React.FC<ExpenseViewProps> = ({budgets, getBudgets}) => {
   
   const [roundBoxHeight, setRoundBoxHeight] = useState<number>(0);
   
-  const [modalVisible, setModalVisible] = useState<boolean>(false); // 모달의 표시 상태를 관리하는 state
-  const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
+ 
   const [editingId, setEditingId] = useState<number>(-1);
   const [editingContent, setEditingContent] = useState<string>('');
 
+  const [modalVisible, setModalVisible] = useState<boolean>(false); // 모달의 표시 상태를 관리하는 state
+  const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
   const openModal = () => {
     setModalVisible(true);
   }
@@ -76,11 +78,10 @@ const ExpenseView:React.FC<ExpenseViewProps> = ({budgets}) => {
         </View>
 
         <View style={[styles.categories, { borderTopColor: 'black', borderTopWidth: 1 }]}>
-          <CategoryButtonView title="전체" focused={true} onPress={() => handlePress("전체")}/>
-          <CategoryButtonView title="공과금" focused={false} onPress={() => handlePress("공과금")} />
-          <CategoryButtonView title="식비" focused={false} onPress={() => handlePress("식비")}  />
-          <CategoryButtonView title="비품" focused={false}  onPress={() => handlePress("비품")} />
-          <CategoryButtonView title="기타" focused={false} onPress={() => handlePress("기타")} />
+          <CategoryButtonView name="주거" focused={false} onPress={() => handlePress("공과금")} />
+          <CategoryButtonView name="식비" focused={false} onPress={() => handlePress("식비")}  />
+          <CategoryButtonView name="생활" focused={false}  onPress={() => handlePress("비품")} />
+          <CategoryButtonView name="기타" focused={false} onPress={() => handlePress("기타")} />
         </View>
         
       </View>
@@ -118,7 +119,7 @@ const ExpenseView:React.FC<ExpenseViewProps> = ({budgets}) => {
         <RoundPlusButtonView />
       </TouchableOpacity>
       </View>
-      {/*<RegisterBudgetModalContainer mode={modalMode} isVisible={modalVisible} onClose={closeModal} /> */}
+      <RegisterBudgetModalContainer mode={modalMode} isVisible={modalVisible} onClose={closeModal} getBudgets={getBudgets}/>
     </View>
   );
 }
