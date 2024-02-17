@@ -1,25 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import RegisterBudgetModalView from './RegisterBudgetModalView';
 import { postData, patchData, deleteData } from '../../api/APIs';
 import { Alert } from 'react-native';
-import { RouteProp, useRoute } from '@react-navigation/native';
-//import { ExpenseStackParamList } from './ExpenseStackNavigator';
-import { useBudgetContext } from '../../context/ExpenseContext';
 import { useAuth } from '../../auth/AuthContext';
+import { BudgetProps, modeType } from './types';
+import { set } from 'date-fns';
 
 interface RegisterBudgetModalContainerProps {
-  mode: 'create' | 'edit';
+  mode: modeType;
   isVisible: boolean;
-  getBudgets: () => void;
-  id?: number; // edit 모드일 때만 
+  editingBudget: BudgetProps | null;
   onClose: () => void;
+  getBudgets: () => void;
 }
 
-const RegisterBudgetModalContainer: React.FC<RegisterBudgetModalContainerProps> = ({ mode, getBudgets, isVisible, id, onClose}) => {
+const RegisterBudgetModalContainer: React.FC<RegisterBudgetModalContainerProps> = ({ mode, getBudgets, isVisible, onClose, editingBudget}) => {
 
   console.log('RegisterBudget mode:', mode); 
 
   const { userToken } = useAuth();
+
+  const [id, setId] = useState<string>('');
+
+  useEffect(() => {
+    if(editingBudget) setId(editingBudget.id.toString());
+    console.log('RegisterBudgetModal id:', id);
+  }, [editingBudget]);
 
   const addBudget = async (content: string, price: number, category: string, subCategory: string) => {
     if (content !== '' && price !== -1 && category!=='' && subCategory!=='') {
@@ -84,22 +90,19 @@ const RegisterBudgetModalContainer: React.FC<RegisterBudgetModalContainerProps> 
       );
     }
   };
-/*
-  const deleteBudget = async (): Promise<void> => {
+
+  const deleteBudget = async () => {
     try {
-      const path = `/budget/${id}`;
-      await deleteData<void>(path); // deleteData 함수를 호출하여 DELETE 요청을 보냅니다.
-      console.log(`Post with ID ${id} deleted successfully.`);
-      onClose(); // 삭제 버튼 클릭 후 모달 닫기
-      fetchBudgets(); // 게시글 목록 새로고침
+      const path = '/budget/'+id;
+      await deleteData(path, userToken);
+      console.log(id, 'deleteBudget 완료');
+      onClose();
+      getBudgets();
     } catch (error) {
-      console.error(`Error deleting post with ID ${id}:`, error);
-      // DELETE 요청 실패를 적절히 처리하세요
-      // 여기에는 예를 들어 사용자에게 오류 메시지를 보여주는 등의 로직을 추가할 수 있습니다.
-      throw error;
+      console.error('deleteBudget 실패:', error);
     }
   };
-*/
+
   const regesterBudget = mode === 'edit' ? editBudget : addBudget;
 
   return (
@@ -107,7 +110,10 @@ const RegisterBudgetModalContainer: React.FC<RegisterBudgetModalContainerProps> 
       mode={mode} 
       onClose={onClose} 
       isVisible={isVisible} 
-      regesterBudget={regesterBudget}/>
+      regesterBudget={regesterBudget}
+      deleteBudget={deleteBudget}
+      editingBudget={editingBudget}
+    />
   );
 };
 

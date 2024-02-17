@@ -10,15 +10,15 @@ interface RegisterPostModalContainerProps {
   postContent: string;
   isVisible: boolean;
   onClose: () => void;
-  fetchPosts: () => void;
+  getPosts: () => void;
 }
 
-const RegisterPostModalContainer: React.FC<RegisterPostModalContainerProps> = ({ mode, id, isVisible, postContent, onClose, fetchPosts}) => {
+const RegisterPostModalContainer: React.FC<RegisterPostModalContainerProps> = ({ mode, id, isVisible, postContent, onClose, getPosts}) => {
   console.log('mode:', mode);
   const { userToken } = useAuth();
   
   const [content, setContent] = useState<string>(''); 
-
+  console.log('post id:', id);
   const handleCancel = () => {
     onClose();
     setContent(''); // 모달이 닫힐 때 텍스트 필드 초기화
@@ -35,12 +35,11 @@ const RegisterPostModalContainer: React.FC<RegisterPostModalContainerProps> = ({
       try {
         // addData 함수를 사용하여 서버에 POST 요청
         const path = '/feed'; // 요청을 보낼 경로
-        const response = await postData<typeof newPost, any>(path, newPost, userToken); // 여기서 응답 데이터 타입은 실제 응답에 맞게 수정해야 합니다.
-  
+        const response = await postData<typeof newPost, any>(path, newPost, userToken); 
         console.log('addPost 서버 응답:', response);
         onClose(); // 등록 버튼 클릭 후 모달 닫기
         setContent(''); // 텍스트 필드 초기화
-        fetchPosts(); // 게시글 목록 새로고침
+        getPosts(); // 게시글 목록 새로고침
       } catch (error) {
         console.error('addPost 서버 요청 실패:', error);
       }
@@ -69,8 +68,7 @@ const RegisterPostModalContainer: React.FC<RegisterPostModalContainerProps> = ({
 
         onClose(); // 등록 버튼 클릭 후 모달 닫기
         setContent(''); // 텍스트 필드 초기화
-        fetchPosts(); // 게시글 목록 새로고침
-                
+        getPosts(); // 게시글 목록 새로고침
       } catch (error) {
         console.error('editPost 서버 요청 실패:', error);
       }
@@ -84,18 +82,16 @@ const RegisterPostModalContainer: React.FC<RegisterPostModalContainerProps> = ({
     }
   };
 
-  const deletePost = async (): Promise<void> => {
+  const deletePost = async () => {
     try {
-      const path = `/feed/${id}`;
-      await deleteData<void>(path, userToken); // deleteData 함수를 호출하여 DELETE 요청을 보냅니다.
-      console.log(`Post with ID ${id} deleted successfully.`);
-      onClose(); // 삭제 버튼 클릭 후 모달 닫기
-      fetchPosts(); // 게시글 목록 새로고침
+      const path = '/feed/'+id;
+      await deleteData(path, userToken);
+      console.log('deletePost 완료: ', postContent);
+      onClose();
+      setContent('');
+      getPosts();
     } catch (error) {
-      console.error(`Error deleting post with ID ${id}:`, error);
-      // DELETE 요청 실패를 적절히 처리하세요
-      // 여기에는 예를 들어 사용자에게 오류 메시지를 보여주는 등의 로직을 추가할 수 있습니다.
-      throw error;
+      console.error('deletePost 실패:', error);
     }
   };
 

@@ -7,6 +7,7 @@ import db from '../../../db.json';
 import Profile from './Profile';
 import MyGroup from './MyGroup';
 import matesData from './TestData';
+import LogoutButton from './LogoutButton';
 
 interface User {
   //id: string;
@@ -25,20 +26,6 @@ const MypageContainer: React.FC = () => {
     {id: 'asdf124', name: '박영희', color: '#1e64eb'},
     {id: 'asdf123', name: '박시온', color: '#c900eb'},
   ]
-
-  /* 사용자 이름과 색상만 업데이트하는 함수
-  const updateUserNameAndColor = (newName: string, newColor: string) => {
-    // API 요청 대신 로컬 상태를 직접 업데이트
-    const updatedUser = { ...user, name: newName, color: newColor };
-    setUser(updatedUser);
-  };
-
-  // 그룹 이름만 업데이트하는 함수
-  const updateGroupName = (newGroupName: string) => {
-    // API 요청 대신 로컬 상태를 직접 업데이트
-    const updatedUser = { ...user, name: newGroupName};
-    setUser(updatedUser);
-  }; */
 
   return (
     <View style={CommonStyles.baseContainer}>
@@ -73,7 +60,7 @@ const MypageContainer: React.FC = () => {
               <View style={CommonStyles.generalBox}>
                   <Guidelines />
               </View>
-                
+                <LogoutButton />
               </ScrollView>
             </View>
 

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { BudgetProps } from './BudgetView';
 import { getData } from '../../api/APIs';
 import { ServerBudget } from '../../api/ServerInterfaces';
 import ExpenseView from './ExpenseView';
 import { useAuth } from '../../auth/AuthContext';
+import { BudgetProps } from './types';
 
 const ExpenseContainer = () => {
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Modal, StyleSheet, Alert } from 'react-native';
 import { Colors } from '../../common/Colors';
 import SelectCategoryModal from './SelectCategoryModal';
-import { categoryType } from './types';
+import { BudgetProps } from './types';
 import ResidentialIcon from '../../assets/icons/categories/ResidentialIcon';
 import FoodIcon from '../../assets/icons/categories/FoodIcon';
 import LifestyleIcon from '../../assets/icons/categories/LifestyleIcon';
@@ -11,18 +11,54 @@ import EtcIcon from '../../assets/icons/categories/EtcIcon';
 interface RegisterBudgetModalViewProps {
   mode: 'create' | 'edit';
   isVisible: boolean;
+  editingBudget: BudgetProps|null;
   onClose: () => void;
   regesterBudget: (content: string, price: number, category: string, subCategory: string) => void;
+  deleteBudget: () => void;
 }
 
-const RegisterBudgetModalView: React.FC<RegisterBudgetModalViewProps> = ({ mode, isVisible, onClose, regesterBudget}) => {
+interface CategoryIconProps {
+  category: string;
+  focused: boolean;
+}
+
+const CategoryIcon: React.FC<CategoryIconProps> = ({ category, focused }) => {
+  switch (category) {
+    case '주거':
+      return <ResidentialIcon focused={focused} color={Colors.theme}/>;
+    case '식비':
+      return <FoodIcon focused={focused} color={Colors.theme}/>;
+    case '생활':
+      return <LifestyleIcon focused={focused} color={Colors.theme}/>;
+    case '기타':
+      return <EtcIcon focused={focused} color={Colors.theme} />;
+    default:
+      return null;
+  }
+};
+
+const RegisterBudgetModalView: React.FC<RegisterBudgetModalViewProps> = ({ mode, isVisible, onClose, regesterBudget, deleteBudget, editingBudget}) => {
   const [content, setContent] = useState<string>('');
-  const [price, setPrice] = useState<number>(-1);
-  const [category, setCategory] = useState<categoryType>('주거');
-  const [subCategory, setSubCategory] = useState<string>('기타');
+  const [price, setPrice] = useState<number>(0);
+  const [category, setCategory] = useState<string>('기타');
+  const [subCategory, setSubCategory] = useState<string>('');
   const [modalVisible, setModalVisible] = useState<boolean>(false); // 모달의 표시 상태를 관리하는 state
   const openModal = () => { setModalVisible(true);}
   const closeModal = () => { setModalVisible(false);}
+
+  const setInitialData = () => {
+    if(mode==='edit' && editingBudget) {
+      setContent(editingBudget.content);
+      setPrice(editingBudget.price);
+      setCategory(editingBudget.category);
+      setSubCategory(editingBudget.subCategory);
+    }
+    console.log('editingBudget InitialData: ',editingBudget);
+  }
+
+  useEffect(() => {
+    setInitialData();
+  }, [editingBudget]);
 
   const handlePriceChange = (inputText: string) => {
     // 입력된 값이 숫자이고, 양수일 때만 state 업데이트
@@ -41,6 +77,15 @@ const RegisterBudgetModalView: React.FC<RegisterBudgetModalViewProps> = ({ mode,
     setSubCategory('');
   }
 
+  const handleDelete = () => {
+    deleteBudget();
+    onClose();
+    setContent('');
+    setPrice(-1);
+    setCategory('기타');
+    setSubCategory('');
+  }
+
   const handleCancel = () => {
     onClose();
     setContent('');
@@ -49,34 +94,18 @@ const RegisterBudgetModalView: React.FC<RegisterBudgetModalViewProps> = ({ mode,
     setSubCategory('기타');
   }
 
-  const handleCategories = (cat: categoryType, subcat: string) => {
+  const handleCategories = (cat: string, subcat: string) => {
     console.log(cat, subcat);
     setCategory(cat);
     setSubCategory(subcat);
   }
 
   const CategoryView = () => {
-
-    const focused = true;
-
-    const renderCategoryComponent = (category: categoryType) => {
-      switch (category) {
-        case '주거':
-          return <ResidentialIcon focused={focused} color={Colors.theme}/>;
-        case '식비':
-          return <FoodIcon focused={focused} color={Colors.theme}/>;
-        case '생활':
-          return <LifestyleIcon focused={focused} color={Colors.theme}/>;
-        case '기타':
-          return <EtcIcon focused={focused} color={Colors.theme} />;
-      }
-    };
-
     return (
       <View style={styles.categoryIconContanier}>
         <View style={{width: 80, alignItems: 'flex-start', paddingLeft: 5}}>
           <View style={styles.categoryShape}> 
-          {renderCategoryComponent(category)}
+            <CategoryIcon category={category} focused={true} />
           <Text style={{marginTop: 5,fontSize: 15}}>{category}</Text>
           </View>
          </View>
@@ -103,6 +132,7 @@ const RegisterBudgetModalView: React.FC<RegisterBudgetModalViewProps> = ({ mode,
             <TextInput
               style={styles.textInput}
               placeholder="제목을 입력하세요"
+              value={content}
               onChangeText={setContent}
               placeholderTextColor={Colors.text}
             />
@@ -115,6 +145,7 @@ const RegisterBudgetModalView: React.FC<RegisterBudgetModalViewProps> = ({ mode,
           <View style={styles.textInputContainer}>
             <TextInput
               style={styles.textInput}
+              value={price.toString()}
               keyboardType="numeric"
               placeholder="숫자로 입력하세요"
               onChangeText={handlePriceChange}
@@ -135,7 +166,10 @@ const RegisterBudgetModalView: React.FC<RegisterBudgetModalViewProps> = ({ mode,
           <View style={styles.buttonsContainer}>
             <View style={[styles.buttonContainer, {justifyContent: 'flex-start'}]}>
               {mode == 'edit' && (
-                <TouchableOpacity style={[styles.buttonShape, {backgroundColor: 'red'}]}>
+                <TouchableOpacity 
+                  style={[styles.buttonShape, {backgroundColor: 'red'}]}
+                  onPress={handleDelete}
+                >
                   <Text style={[styles.buttonText, {color: '#ffffff'}]}>삭제</Text>
                 </TouchableOpacity>)
               }

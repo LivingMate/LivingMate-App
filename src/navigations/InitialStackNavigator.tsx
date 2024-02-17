@@ -44,7 +44,7 @@ const InitialStackNavigator: React.FC = () => {
       <Stack.Screen 
         name="BottomTabNavigator" 
         component={BottomTabNavigator} 
-      // options={{ headerShown: false }}
+       options={{ headerShown: false }}
       />
         <Stack.Screen 
         name="Signup" 

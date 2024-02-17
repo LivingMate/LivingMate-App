@@ -3,13 +3,13 @@ import { View, Text, TextInput, TouchableOpacity, Modal, StyleSheet, Alert, Scro
 import { Colors } from '../../common/Colors';
 import { useAuth } from '../../auth/AuthContext';
 import { deleteData, getData, postData } from '../../api/APIs';
-import { CategoryProps, categoryType } from './types';
+import { CategoryProps } from './types';
 
 
 interface SelectCategoryModalProps {
   isVisible: boolean;
   onClose: () => void;
-  handleCategories: (cat: categoryType, subcat: string) => void;
+  handleCategories: (cat: string, subcat: string) => void;
 }
 
 type modeType = 'select' | 'edit' | 'post' ;
@@ -17,7 +17,7 @@ type modeType = 'select' | 'edit' | 'post' ;
 const categoryNames: CategoryProps[] = [ {name: '주거'} , {name: '식비'}, {name: '생활'}, {name: '기타'}];
 
 interface subCategoryProps {
-  parent: categoryType,
+  parent: string,
   name: string,
 }
 
@@ -26,7 +26,7 @@ const SelectCategoryModal: React.FC<SelectCategoryModalProps> = ({ isVisible, on
   const { userToken } = useAuth();
 
   const [mode, setMode] = useState<modeType>('select');
-  const [selectedCategory, setSelectedCategory] = useState<categoryType>('기타');
+  const [selectedCategory, setSelectedCategory] = useState<string>('기타');
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('');
   const [subCategories, setSubCategories] = useState<subCategoryProps[]>([]);
   const [newSubCategory, setNewSubCategory] = useState<string>('');
@@ -52,7 +52,7 @@ const SelectCategoryModal: React.FC<SelectCategoryModalProps> = ({ isVisible, on
     }
   }
 
-  const postSubCategory = async (parent: categoryType, name: string) => {
+  const postSubCategory = async (parent: string, name: string) => {
     // JSON 데이터 생성
     const newSub = {
       name: name,
@@ -67,7 +67,7 @@ const SelectCategoryModal: React.FC<SelectCategoryModalProps> = ({ isVisible, on
     }
   };
 
-  const deleteSubCategory = async (parent: categoryType, subCategoryName: string) => {
+  const deleteSubCategory = async (parent: string, subCategoryName: string) => {
     try {
       const path = '/budget/subcat/'+parent+'/'+subCategoryName;
       await deleteData(path, userToken);
@@ -139,17 +139,16 @@ const SelectCategoryModal: React.FC<SelectCategoryModalProps> = ({ isVisible, on
     setMode('select');
   }
 
-  const handleResigsterSubCategory = (parent: categoryType, name: string) => {
+  const handleResigsterSubCategory = (parent: string, name: string) => {
     postSubCategory(parent, name);
     setSelectedCategory(parent);
     setMode('edit');
     setNewSubCategory('');
   }
 
-  const handleDeleteSubCategory = (parent: categoryType, name: string) => {
+  const handleDeleteSubCategory = (parent: string, name: string) => {
     deleteSubCategory(parent, name);
     setSelectedCategory(parent);
-    getSubCategories();
     setMode('select');
     setNewSubCategory('');
   }
@@ -165,7 +164,11 @@ const SelectCategoryModal: React.FC<SelectCategoryModalProps> = ({ isVisible, on
            {/* 모드 & 제목 */}
           <View style={{borderBottomColor: Colors.text, flexDirection: 'row', alignItems: 'center', marginBottom: 12}}>
             <View style={{flex: 1}}>
-              <Text style={styles.titleText}> {mode=='edit' ? '카테고리 편집' : '카테고리 선택'} </Text>
+              <Text style={styles.titleText}> 
+              {
+                mode == 'select' ? '카테고리 선택' : mode=='edit' ? '카테고리 삭제' : '카테고리 추가'
+              }
+              </Text>
             </View>
           { mode=='select' ? (
             <View style={[{flexDirection: 'row', flex: 1, alignItems: 'center', justifyContent: 'flex-end', paddingVertical: 10}]}>
@@ -295,7 +298,7 @@ const styles = StyleSheet.create({
   textInput: {
     borderRadius: 6,
     backgroundColor: Colors.textInputField,
-    height: 40,
+    height: 50,
     paddingHorizontal: 5,
   },
 

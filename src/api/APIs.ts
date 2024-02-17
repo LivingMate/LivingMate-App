@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import ApiEndpoints from './ApiEndpoints';
 /*
   http 상태코드: response.status
@@ -41,6 +42,12 @@ const postData = async <T, R>(path: string, data: T, userToken: string | null): 
     });
     console.log(path, ': POST HTTP 상태 코드:', response.status);
     if (!response.ok) {
+      Alert.alert(
+        '',
+        '오류가 났습니다. 잠시 후 이용해주세요',
+        [{ text: '확인' }],
+        { cancelable: false }
+      );
       throw new Error('Network response was not ok');
     }
     return response.json() as Promise<R>;
@@ -61,6 +68,15 @@ const deleteData = async (path: string, userToken: string | null): Promise<void>
       },
     });
     console.log(path,':DELETE HTTP 상태 코드:', response.status);
+    if(!response.ok) {
+      Alert.alert(
+        '',
+        '오류가 났습니다. 잠시 후 이용해주세요',
+        [{ text: '확인' }],
+        { cancelable: false }
+      );
+      throw new Error('DELETE 실패');
+    }
 
   } catch (error) {
     console.error(path, ': Error deleting data:', error);
@@ -81,6 +97,12 @@ const patchData = async <T, R>(path: string, data: T, userToken: string | null):
     });
     console.log(path, ':PATCH HTTP 상태 코드:', response.status);
     if (!response.ok) {
+      Alert.alert(
+        '',
+        '오류가 났습니다. 잠시 후 이용해주세요',
+        [{ text: '확인' }],
+        { cancelable: false }
+      );
       throw new Error(`Failed to update: ${response.status}`);
     }
     return await response.json() as R;

@@ -10,6 +10,7 @@ import { useAuth } from '../../auth/AuthContext';
 const Login: React.FC = () => {
 
   const { userToken } = useAuth();
+  const { signIn } = useAuth(); 
   
   const navigation = useNavigation();
 
@@ -25,9 +26,8 @@ const Login: React.FC = () => {
       // addData 함수를 사용하여 서버에 POST 요청
       const path = '/login'; // 요청을 보낼 경로
       const response = await postData<typeof loggingUser, any>(path, loggingUser, userToken);
-
+      await signIn(response.data);
       console.log('loggingUser 서버 응답:', response);
-      await AsyncStorage.setItem('userToken', response.data);
 
       const groupId = await getGroupId(userToken);
       console.log('groupId:', groupId);

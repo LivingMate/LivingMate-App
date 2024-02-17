@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Modal, StyleSheet, Alert } from 'react-native';
 import { Colors } from '../../common/Colors';
 
@@ -17,7 +17,7 @@ const RegisterPostModalView: React.FC<RegisterPostModalViewProps> = ({ mode, isV
   const textInputRef = useRef<TextInput | null>(null);
 
   // content를 상태로 관리하고, initialContent를 초기 값으로 설정
-  const [content, setContentState] = React.useState(initialContent || '');
+  const [content, setContentState] = useState(initialContent || '');
 
   useEffect(() => {
     // 모달이 보이는 상태로 변경될 때마다 initialContent로 content 상태를 재설정

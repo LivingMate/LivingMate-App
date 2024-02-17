@@ -5,27 +5,72 @@ import { Colors } from '../../common/Colors';
 import ThreeDotsIcon from '../../assets/icons/ThreeDotsIcon';
 import CommonStyles from '../../common/CommonStyles';
 import MateBox from '../../common/MateBox';
+import ResidentialIcon from '../../assets/icons/categories/ResidentialIcon';
+import FoodIcon from '../../assets/icons/categories/FoodIcon';
+import LifestyleIcon from '../../assets/icons/categories/LifestyleIcon';
+import EtcIcon from '../../assets/icons/categories/EtcIcon';
+import { BudgetProps } from './types';
 
-export interface BudgetProps {
-  id: number;
-  price: number;
-  category: string;
-  groupId: string;
-  subCategory: string;
-  content: string;
-  userId?: string;
-  date: string;
-}
 interface BudgetViewProps extends BudgetProps{
-  
+  openModal: () => void;
+  setEditingBudget: (
+    id: number,
+    price: number,
+    category: string,
+    groupId: string,
+    subCategory: string,
+    content: string,
+    date: string,
+    userId?: string,
+    userName?: string,
+    userColor?: string,
+  ) => void;
 }
 
-const BudgetView: React.FC<BudgetViewProps> = ({id, userId, groupId, price, content, category, subCategory, date }) => {
-  const loggedInUserId = "asdf000";
+interface CategoryIconProps {
+  category: string;
+  subCategory: string;
+  focused: boolean;
+}
+
+const CategoryIconView: React.FC<CategoryIconProps> = ({ category, subCategory, focused }) => {
+  
+  const CategoryIcon = () => {
+    switch (category) {
+      case '주거':
+        return <ResidentialIcon focused={focused} color={Colors.theme}/>;
+      case '식비':
+        return <FoodIcon focused={focused} color={Colors.theme}/>;
+      case '생활':
+        return <LifestyleIcon focused={focused} color={Colors.theme}/>;
+      case '기타':
+        return <EtcIcon focused={focused} color={Colors.theme} />;
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <View style={styles.categoryIconContanier}>
+        <View style={styles.categoryShape}> 
+          <CategoryIcon />
+        <Text style={{marginTop: 5,fontSize: 15, color: Colors.text}}>{subCategory}</Text>
+        </View>
+    </View>
+  )
+}
+
+const BudgetView: React.FC<BudgetViewProps> = ({id, userId, userName, userColor, groupId, price, content, category, subCategory, date,setEditingBudget, openModal}) => {
+  const loggedInUserId = '';
   // userId가 현재 로그인한 사용자의 userId와 일치하면 버튼을 표시하고 아니면 감춥니다.
   const showButton = userId === loggedInUserId;
   console.log('userId: ', userId, ' budget id: ', id, ',showButton: ',showButton);
   const [isFocused, setIsFocused] = useState(false);
+
+  const handleEdit = () => {
+    setEditingBudget( id, price, category, groupId, subCategory, content, date);
+    openModal();
+  }
 
   return(
   <View style={styles.generalBox}>
@@ -35,11 +80,12 @@ const BudgetView: React.FC<BudgetViewProps> = ({id, userId, groupId, price, cont
         <Text style = {{color: Colors.text, marginLeft: 8, marginTop: 5}}>{date}</Text>
       </View>
         {/* 버튼(threeDots, 수정/삭제) */}
-        {showButton && (
+        {!showButton && (
           <View style={styles.buttonContainer}>
               <TouchableOpacity
               onPressIn={() => setIsFocused(true)}
               onPressOut={() => setIsFocused(false)}
+              onPress={handleEdit}
               style={[styles.buttonContainer, isFocused && styles.focused]}
               >
                   <ThreeDotsIcon />   
@@ -47,17 +93,23 @@ const BudgetView: React.FC<BudgetViewProps> = ({id, userId, groupId, price, cont
           </View>
         )}
     </View>
-    
-    {/* 카테고리, 내용 */}
-    <View style={styles.categoryAndContentContainer}>
-      <View style = {styles.categoryContainer}>
-        <Text style={{fontSize: 35, color: '#b9b9b9'}}>?</Text>
-      </View>
+     
+   
+    <View style={{flexDirection:'row'}}>
+     {/* left */}
+    {/* 카테고리 */}
+    <View style={styles.categoryAndContentContainer}>   
       <View style={[styles.contentContainer, {marginLeft: 4}]}>
-        <Text style={[styles.text, {marginLeft: 4}]}>{content}</Text>
+        <CategoryIconView category={category} subCategory={subCategory} focused={true}/>
       </View>
     </View>
-
+    
+    {/* right */}
+    <View style={{flex:1, flexDirection: 'column', paddingTop: 10}}>
+    {/* 내용 */}
+      <View style={{flex:1}}>
+      <Text style={{fontSize: 16}}>{content}</Text>
+      </View>
     {/* 금액, 작성자 */}
     <View style={styles.priceAndAuthorContainer}>
       <Text style={[styles.priceText, {marginRight: 7}]}>{price}원</Text>
@@ -66,6 +118,8 @@ const BudgetView: React.FC<BudgetViewProps> = ({id, userId, groupId, price, cont
           textSize={12}
       />
     </View>
+    </View>
+  </View>
   </View>
   );
 }
@@ -76,7 +130,8 @@ const styles = StyleSheet.create({
     marginHorizontal: '5%',
     marginBottom: 10,
     borderRadius: 12,
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 7,
     ...CommonStyles.shadow,
   },
 
@@ -89,31 +144,12 @@ const styles = StyleSheet.create({
     flex: 8,
   },
 
-  button2Container: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-    margin: 10,
-  },
-
   categoryAndContentContainer:{
     flexDirection: 'row',
   },
 
-  categoryContainer:{
-    width: 50,
-    height: 50,
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: '#b9b9b9',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginHorizontal: 5,
-  },
-
   contentContainer:{
     alignItems: 'flex-start',
-    marginVertical: 5,
   },
 
   priceAndAuthorContainer : {
@@ -142,6 +178,22 @@ const styles = StyleSheet.create({
   focused: {
     backgroundColor: 'rgba(181, 181, 181, 0.4)', //포커스 시 배경색
   },
+
+  categoryIconContanier: {
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    width: 60,
+    marginLeft: 5,
+  },
+
+  categoryShape:{
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 export default React.memo(BudgetView);
+function getUser() {
+  throw new Error('Function not implemented.');
+}
+

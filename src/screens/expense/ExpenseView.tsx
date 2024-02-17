@@ -8,9 +8,10 @@ import RoundPlusButtonView from '../../common/RoundPlusButtonView';
 import CategoryButtonView from './CategoryButtonView';
 
 import CurrentExpenseContainer from './CurrentExpenseContainer';
-import BudgetView, { BudgetProps } from './BudgetView';
+import BudgetView from './BudgetView';
 import PlaceholderMessage from '../../common/PlaceholderMessage';
 import RegisterBudgetModalContainer from './RegisterBudgetModalContainer';
+import { BudgetProps, modeType } from './types';
 
 interface ExpenseViewProps {
   budgets: BudgetProps[];
@@ -21,25 +22,18 @@ const ExpenseView:React.FC<ExpenseViewProps> = ({budgets, getBudgets}) => {
   
   const [roundBoxHeight, setRoundBoxHeight] = useState<number>(0);
   
- 
-  const [editingId, setEditingId] = useState<number>(-1);
-  const [editingContent, setEditingContent] = useState<string>('');
-
   const [modalVisible, setModalVisible] = useState<boolean>(false); // 모달의 표시 상태를 관리하는 state
-  const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
-  const openModal = () => {
+  const [modalMode, setModalMode] = useState<modeType>('create');
+  const [editingBudget, setEditingBudget] = useState<BudgetProps|null>(null);
+  
+  const openModal = (mode: modeType) => {
+    setModalMode(mode)
     setModalVisible(true);
   }
 
   const closeModal = () => {
     setModalVisible(false);
-    setEditingId(-1);
-    setEditingContent('');
-  }
-  
-  const toggleModalMode = (mode: 'create' | 'edit') => {
-    if(mode==='create') setModalMode('create');
-    else setModalMode('edit');
+    setEditingBudget(null);
   }
 
   useEffect(() => {
@@ -50,6 +44,30 @@ const ExpenseView:React.FC<ExpenseViewProps> = ({budgets, getBudgets}) => {
   const handlePress = (title: string) => {
     console.log(`${title} 버튼이 클릭되었습니다.`);
   };
+
+  const handleEditingBudget = (
+    id: number,
+    price: number,
+    category: string,
+    groupId: string,
+    subCategory: string,
+    content: string,
+    date: string,
+    userId?: string,
+    userName?: string,
+    userColor?: string,
+  ) => {
+      const editingBudget: BudgetProps = {
+        id: id,
+        price: price,
+        category: category,
+        groupId: groupId,
+        subCategory: subCategory,
+        content: content,
+        date: date,
+      }
+      setEditingBudget(editingBudget);
+  }
 
   //공과금 utilities 식비 food 비품 supplies 기타 others
   return (
@@ -98,9 +116,13 @@ const ExpenseView:React.FC<ExpenseViewProps> = ({budgets, getBudgets}) => {
                 content={budget.content}
                 category={budget.category}
                 userId={budget.userId}
+                userColor={budget.userColor}
+                userName={budget.userColor}
                 date={budget.date} 
                 groupId={budget.groupId} 
-                subCategory={budget.subCategory}              
+                subCategory={budget.subCategory}  
+                openModal={()=>openModal('edit')}
+                setEditingBudget={handleEditingBudget}
               />
             ))
             ) : ( 
@@ -115,11 +137,11 @@ const ExpenseView:React.FC<ExpenseViewProps> = ({budgets, getBudgets}) => {
 
       {/* round plus button */}
       <View style={{alignItems: 'flex-end', paddingHorizontal: '4%'}}>
-      <TouchableOpacity onPress={openModal} style={{width: 50}}>
+      <TouchableOpacity onPress={()=>openModal('create')} style={{width: 50}}>
         <RoundPlusButtonView />
       </TouchableOpacity>
       </View>
-      <RegisterBudgetModalContainer mode={modalMode} isVisible={modalVisible} onClose={closeModal} getBudgets={getBudgets}/>
+      <RegisterBudgetModalContainer mode={modalMode} isVisible={modalVisible} onClose={closeModal} getBudgets={getBudgets} editingBudget={editingBudget}/>
     </View>
   );
 }

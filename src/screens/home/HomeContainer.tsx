@@ -7,6 +7,7 @@ import { useAuth } from '../../auth/AuthContext';
 
 const HomeContainer = () => {
   const { userToken } = useAuth();
+  
   const [posts, setPosts] = useState<PostProps[]>([]);
   
   const getPosts = async () => {
@@ -51,13 +52,13 @@ const HomeContainer = () => {
     }
   };
 
-  const editPin = async (postId: number, isPinned: boolean) => {
+  const editPin = async (id: number, isPinned: boolean) => {
     try {
       // 서버에 업데이트 요청을 보냅니다.
       const updatePin = {
         pinned: !isPinned,
       }
-      const path = `/feed/pin/${postId}`;
+      const path = `/feed/pin/${id}`;
       const response = await patchData(path, updatePin, userToken); // 업데이트할 데이터를 전달합니다.
       console.log('editPin 서버 응답:', response);
       getPosts(); // 게시글 목록 새로고침          
@@ -71,8 +72,37 @@ const HomeContainer = () => {
   }, []);
 
   return (
-    <HomeView posts={posts} fetchPosts={getPosts} editPin={editPin}/>
+    <HomeView posts={posts} getPosts={getPosts} editPin={editPin}/>
   );
 }
 
 export default HomeContainer;
+
+/*
+const getUser = async () => {
+  try {
+    const path = '/user/setting';
+    const serverData = await getData<
+      { code: string,
+        message: string,
+        data: {
+          userName: string,
+          userColor: string,
+        }
+      }
+    >(path, userToken);
+    console.log(path, serverData);
+  } catch (error) {
+    if (error instanceof TypeError) {
+      // TypeError 타입의 에러 처리
+      console.error('posts TypeError:', error);
+    } else if (error instanceof ReferenceError) {
+      // ReferenceError 타입의 에러 처리
+      console.error('posts ReferenceError:', error);
+    } else {
+      // 다른 모든 에러 처리
+      console.error('posts Unknown Error:', error);
+    }
+  }
+}
+*/

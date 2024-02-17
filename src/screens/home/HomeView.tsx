@@ -10,11 +10,11 @@ import RegisterPostModalContainer from './RegisterPostModalContainer';
 
 interface HomeViewProps {
   posts: PostProps[];
-  fetchPosts: () => void; // 예시, 구체적인 타입은 구현에 따라 달라질 수 있음
-  editPin: (postId: number, isPinned: boolean) => void;
+  getPosts: () => void; // 예시, 구체적인 타입은 구현에 따라 달라질 수 있음
+  editPin: (id: number, isPinned: boolean) => void;
 }
 
-const HomeView:React.FC<HomeViewProps> = ({posts, fetchPosts, editPin}) => {
+const HomeView:React.FC<HomeViewProps> = ({posts, getPosts, editPin}) => {
   console.log('HomeView posts:', posts);
   const [modalVisible, setModalVisible] = useState<boolean>(false); // 모달의 표시 상태를 관리하는 state
   const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
@@ -62,7 +62,7 @@ const HomeView:React.FC<HomeViewProps> = ({posts, fetchPosts, editPin}) => {
         }}
       >
         <Text style={[styles.title, { color: 'black' }]}>피드</Text>
-        <ScrollView style={{marginBottom: 318}}>
+        <ScrollView>
           { posts.length > 0 ? (
             posts.map((post) => (
               <PostView
@@ -75,8 +75,8 @@ const HomeView:React.FC<HomeViewProps> = ({posts, fetchPosts, editPin}) => {
                 userColor={post.userColor}
                 date={post.date} 
                 groupId={post.groupId} 
-                toggleModalVisible={() => openModal()}
-                toggleModalMode={()=> toggleModalMode('edit')}
+                openModal={() => openModal()}
+                setModalMode={()=> toggleModalMode('edit')}
                 setEditingPostId={() => setEditingPostId(post.id)}
                 setEditingPostContent={() => setEditingPostContent(post.content)}
                 editPin={() => editPin(post.id, post.isPinned)}
@@ -104,7 +104,7 @@ const HomeView:React.FC<HomeViewProps> = ({posts, fetchPosts, editPin}) => {
         <RoundPlusButtonView />
       </TouchableOpacity>
       </View>
-      <RegisterPostModalContainer mode={modalMode} isVisible={modalVisible} id={editingPostId} postContent={editingPostContent} onClose={()=>closeModal()} fetchPosts={fetchPosts}/>
+      <RegisterPostModalContainer mode={modalMode} isVisible={modalVisible} id={editingPostId} postContent={editingPostContent} onClose={()=>closeModal()} getPosts={getPosts}/>
     </View>
   );
 }

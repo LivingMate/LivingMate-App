@@ -20,11 +20,13 @@ interface BudgetProps {
     subCategory: string;
     content: string;
     userId?: string;
+    userName?: string;
+    userColor?: string;
     date: string;
 }
 
-type categoryType = '주거' | '식비' | '생활' | '기타';
+type modeType = 'create' | 'edit';
 
-interface CategoryProps { name: categoryType };
+interface CategoryProps { name: string };
 
-export {BudgetProps, CurrentExpenseViewProps, MateSpendingProps, categoryType,  CategoryProps}
+export {BudgetProps, CurrentExpenseViewProps, MateSpendingProps, modeType, CategoryProps}
