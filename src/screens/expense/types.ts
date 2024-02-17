@@ -3,7 +3,6 @@ interface CurrentExpenseViewProps {
     groupSum: number;
     mateSpendings: MateSpendingProps[];
 }
-
 interface MateSpendingProps {
     userId: string;
     userName: string;
@@ -29,4 +28,19 @@ type modeType = 'create' | 'edit';
 
 interface CategoryProps { name: string };
 
-export {BudgetProps, CurrentExpenseViewProps, MateSpendingProps, modeType, CategoryProps}
+interface AdjustedResultItemProps {
+    plusUserId?: string,
+    plusUserName?: string,
+    plusUserColor?: string,
+    minusUserId?:string,
+    minusUserName?: string,
+    minusUserColor?: string, 
+    change: number,
+}
+
+interface AdjustedBudgetInNoticificationViewProps {
+    lastCalculatedDate: string;
+    adjustedResult: AdjustedResultItemProps[]
+}
+
+export {BudgetProps, CurrentExpenseViewProps, MateSpendingProps, modeType, CategoryProps, AdjustedResultItemProps, AdjustedBudgetInNoticificationViewProps}

@@ -3,10 +3,10 @@ import { View, SafeAreaView, Text, StyleSheet, TouchableOpacity, ScrollView,} fr
 import { Colors } from '../../common/Colors';
 import CommonStyles from '../../common/CommonStyles';
 import RoundPlusButtonView from '../../common/RoundPlusButtonView';
-import TodosContainer from './TodosContainer';
 import PostView, { PostProps } from './PostView';
 import PlaceholderMessage from '../../common/PlaceholderMessage';
 import RegisterPostModalContainer from './RegisterPostModalContainer';
+import TodosContainer from '../calender/TodosContainer';
 
 interface HomeViewProps {
   posts: PostProps[];

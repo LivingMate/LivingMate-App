@@ -6,6 +6,7 @@ import PinIcon from '../../assets/icons/PinIcon';
 import ThreeDotsIcon from '../../assets/icons/ThreeDotsIcon';
 import CommonStyles from '../../common/CommonStyles';
 import MateBox from '../../common/MateBox';
+import { testUser } from '../../../testUsers';
 
 export interface PostProps {
   id: number;
@@ -28,8 +29,10 @@ interface PostViewProps extends PostProps{
 
 const PostView: React.FC<PostViewProps> = ({ id, content, isPinned, userId, date, userColor, userName, openModal, setModalMode, setEditingPostId, setEditingPostContent, editPin}) => {
   // userId가 현재 로그인한 사용자의 userId와 일치하면 버튼을 표시하고 아니면 감춥니다.
-  const loggedInUserId = "asdf124";
-  const showButton = loggedInUserId === userId;
+  const loggedUser = testUser.loggedUser;
+  
+  const showButton = loggedUser === userId;
+  console.log('post view testUser.loggedUser:', testUser.loggedUser, 'userId:',userId, ' showButton:',  showButton)
 
   const [isFocused, setIsFocused] = useState(false);
 
@@ -48,7 +51,7 @@ const PostView: React.FC<PostViewProps> = ({ id, content, isPinned, userId, date
       </View>
       
       <View style={styles.buttonsContainer}>
-        {!showButton && (
+        {showButton && (
         <TouchableOpacity
           onPressIn={() => setIsFocused(true)}
           onPressOut={() => setIsFocused(false)}
@@ -77,8 +80,8 @@ const PostView: React.FC<PostViewProps> = ({ id, content, isPinned, userId, date
           userId={userId}
           textSize={12}
           showOnlyFirstLetter={false} 
-          userName={''} 
-          userColor={''}      
+          userName={userName} 
+          userColor={userColor}     
       />
     </View>
   </View>

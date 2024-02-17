@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Colors } from '../../common/Colors';
 import MateBox from '../../common/MateBox';
 import ThreeDotsButton from '../../common/ThreeDotsButton';
-import { EventProps } from './CalendarTypes';
+import { EventProps } from './types';
 
 const EventView: React.FC<EventProps> = ({ id, participants, title, memo, term, startTime, endTime}) => {
   const [editButtonVisible, setEditButtonVisible] = useState(false);
@@ -22,7 +22,8 @@ const EventView: React.FC<EventProps> = ({ id, participants, title, memo, term, 
         {participants.map((participant, index) => (
           <MateBox
             key={index.toString()} // key prop을 MateBox에 직접 적용
-            userId={participant} // participant를 올바르게 참조
+            userName={participant.userName} // participant를 올바르게 참조
+            userColor={participant.userColor}
             textSize={12}
             marginRight={7}
           />

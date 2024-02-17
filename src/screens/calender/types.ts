@@ -1,13 +1,15 @@
+import { UserProps } from "../mypage/types";
+
 interface EventProps {
     id: number,
-    userId: string,
+    userId?: string,
     groupId: string,
     title: string,
     memo: string,
     startTime: string,
     endTime: string,
     term: string,
-    participants: string[],
+    participants: UserProps[],
 }
 
 interface AgendaItemProps {

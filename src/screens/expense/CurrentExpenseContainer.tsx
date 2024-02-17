@@ -6,7 +6,6 @@ import CommonStyles from '../../common/CommonStyles';
 import { Colors } from '../../common/Colors';
 import AdjustedBudgetsInExpenseModalConatiner from './AdjustedBudgetsInExpenseModalConatiner';
 
-
 const CurrentExpenseContainer: React.FC = () => {
   const [currentGroupSum, setCurrentGroupSum] = useState<number>(10);
 
@@ -21,7 +20,7 @@ const CurrentExpenseContainer: React.FC = () => {
          <View style={[CommonStyles.generalBox, {alignItems: 'center', paddingVertical: 25, paddingHorizontal: 15, flexDirection: 'row'}]}>
             {/* 총액 표출 */}
             <View style={styles.groupSumConatiner}>
-              <Text style={styles.groupSumText}>총 440,000원</Text>
+              <Text style={styles.groupSumText}>{currentGroupSum}</Text>
             </View>
 
             {/* 가계부 정산결과 모달 버튼*/}

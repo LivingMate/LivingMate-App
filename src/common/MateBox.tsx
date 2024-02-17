@@ -14,13 +14,12 @@ interface MateProps {
 
 const MateBox: React.FC<MateProps> = ({ userId, userName, userColor, textSize, showOnlyFirstLetter, marginLeft, marginRight}) => {
     
-  const [name, setName] = useState<string>();
-  const [color, setColor] = useState<string>();
+  const [name, setName] = useState<string>('탈퇴');
+  const [color, setColor] = useState<string>(Colors.text);
 
   useEffect(() => {
-    if (!userId || !userName || !userColor)  {
+    if (!userName)  {
       setName('탈퇴');
-      setColor('Colors.text');
     } 
     else {
       if(showOnlyFirstLetter==true) {
@@ -28,9 +27,17 @@ const MateBox: React.FC<MateProps> = ({ userId, userName, userColor, textSize, s
       } else {
         setName(userName);
       }
-      setColor(color);
     }
-  }, []); // dependency 배열에 추가  
+  }, [userName]); // dependency 배열에 추가 
+
+  useEffect(() => {
+    if (!userColor)  {
+      setColor('Colors.text');
+    } 
+    else {
+      setColor(userColor);
+    }
+  }, [userColor]); // dependency 배열에 추가 
   
   return (
         <View style = {[styles.container, {backgroundColor: color, marginLeft: marginLeft, marginRight: marginRight}]}>

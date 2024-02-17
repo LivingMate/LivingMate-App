@@ -117,7 +117,7 @@ const ExpenseView:React.FC<ExpenseViewProps> = ({budgets, getBudgets}) => {
                 category={budget.category}
                 userId={budget.userId}
                 userColor={budget.userColor}
-                userName={budget.userColor}
+                userName={budget.userName}
                 date={budget.date} 
                 groupId={budget.groupId} 
                 subCategory={budget.subCategory}  

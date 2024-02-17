@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity, DimensionValue } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 
 import MateBox from '../../common/MateBox';
 import RightArrowIcon from '../../assets/icons/RightArrowIcon';
@@ -7,46 +7,22 @@ import { Colors } from '../../common/Colors';
 import CommonStyles from '../../common/CommonStyles';
 import ArrowUpAndDownIcon from '../../assets/icons/ArrowUpAndDownIcon';
 import PlaceholderMessage from '../../common/PlaceholderMessage';
+import { testUser } from '../../../testUsers';
+import { AdjustedBudgetInNoticificationViewProps, AdjustedResultItemProps } from './types';
 
-const data = {
-    "final": {
-        "LastCalculatedDate": "2024-01-14T18:15:22.311Z",
-        "AdjustedResult": [
-            {
-                "plusUserId": "asdf125",
-                "minusUserId": "asdf123",
-                "change": 26000
-            },
-            {
-                "plusUserId": "asdf125",
-                "minusUserId": "asdf124",
-                "change": 46000
-            },
-        ]
-    }
-};
-
-interface AdjustedResultProps {
-    plusUserId?: string,
-    plusUserColor?: string,
-    minusUserId: string;
-    minusUserColor?: string; 
-    change: number;
-}
-
-const AdjustedResult: React.FC<AdjustedResultProps> = ({plusUserId, plusUserColor, minusUserId, minusUserColor, change}) => {
+const AdjustedResult: React.FC<AdjustedResultItemProps> = ({plusUserName, plusUserColor, minusUserName, minusUserColor, change}) => {
     return (
         <View style={{flexDirection: 'row', marginVertical: 5}}>
             {/* plusUser */}
             <View style={{justifyContent: 'center'}}>
-                <MateBox userId={plusUserId} textSize={13} userColor={plusUserColor}/>
+                <MateBox userName={plusUserName} textSize={13} userColor={plusUserColor}/>
             </View>
             <View style={{justifyContent: 'center', paddingVertical: 2, marginHorizontal: 15}}>
                 <RightArrowIcon />
             </View>
             {/* minusUser */}
             <View style={{justifyContent: 'center', paddingLeft: 4}}>
-                <MateBox userId={minusUserId} textSize={12} userColor={minusUserColor}/>
+                <MateBox userId={minusUserName} textSize={12} userColor={minusUserColor}/>
             </View>
             <View style={styles.moneyContainer}>
                 <Text style={styles.moneyText}>{'('+change.toLocaleString()+'원)'}</Text>
@@ -55,22 +31,19 @@ const AdjustedResult: React.FC<AdjustedResultProps> = ({plusUserId, plusUserColo
     )
 }
 
-const ReceiverAdjustedResult: React.FC<AdjustedResultProps> = ({minusUserId, minusUserColor, change}) => {
+const ReceiverAdjustedResult: React.FC<AdjustedResultItemProps> = ({minusUserName, minusUserColor, change}) => {
     return (
         <View style={{flexDirection: 'row', marginVertical: 5, alignItems: 'center'}}>
             {/* minusUser */}
-            <MateBox userId={minusUserId} textSize={12} userColor={minusUserColor}/>
+            <MateBox userId={minusUserName} textSize={12} userColor={minusUserColor}/>
             <Text style={{marginLeft: 5, fontSize: 16}}>님께 {change.toLocaleString()}원 이체하세요</Text>
         </View>
     )
 }
 
-const AdjustedBudgetInNoticificationContainer: React.FC = () => {
-    const loggedUser = 'asdf123';
+const AdjustedBudgetInNoticificationView: React.FC<AdjustedBudgetInNoticificationViewProps> = ({lastCalculatedDate, adjustedResult}) => {
 
-    const [lastCalculatedDate, setLastCalculatedDate] = useState<string>('');
-    const [adjustedBudgetData, setAdjustedBudgetData] = useState<AdjustedResultProps[]>([]);
-    
+    const loggedUser = testUser.loggedUser;
 
     const [boxMaxHeightButtonFocused, setBoxMaxHeightButtonFocused] = useState<boolean>(false);
     const [boxMaxHeight, setBoxMaxHeight] = useState<number>(200);
@@ -91,12 +64,17 @@ const AdjustedBudgetInNoticificationContainer: React.FC = () => {
     }
 
     const Results: React.FC = () => {
-        // 로그인유저 기준으로 필터링된 결과를 변수에 저장
-        const filteredResults = adjustedBudgetData.filter(item => loggedUser === item.plusUserId);
-            return (
+        const [filteredResults, setFilteredResults] = useState<AdjustedResultItemProps[]>([]);
+        
+        useEffect(() => {
+            const data = adjustedResult.filter(item => loggedUser === item.plusUserId);
+            setFilteredResults(data);
+        }, []);
+
+        return (
                 <View>
                 {/* 조건에 따라 ReceiverAdjustedResults 렌더링 또는 Text 출력 */}
-                {filteredResults.length > 0 ? (
+                {filteredResults  && filteredResults.length > 0 ? (
                     filteredResults.map((item, index) => (
                     <ReceiverAdjustedResult
                     key={index.toString()}
@@ -114,7 +92,7 @@ const AdjustedBudgetInNoticificationContainer: React.FC = () => {
                         <View style={{borderColor: Colors.text, borderTopWidth: 1, marginVertical: 15, marginHorizontal: 5}} />
 
                         {/* 전체 AdjustedResults 렌더링 */}
-                        {adjustedBudgetData.map((item, index) => (
+                        { adjustedResult.map((item, index) => (
                         <AdjustedResult
                             key={index.toString()}
                             plusUserId={item.plusUserId}
@@ -131,18 +109,11 @@ const AdjustedBudgetInNoticificationContainer: React.FC = () => {
             );
     };      
     
-      
-    useEffect(() => {
-        // 초기 데이터 설정
-        setLastCalculatedDate(formetDate(data.final.LastCalculatedDate));
-        setAdjustedBudgetData(data.final.AdjustedResult);
-    }, []); // 빈 배열을 전달하여 초기 렌더링 시에만 실행
-
     return (
         <View>
-            {adjustedBudgetData.length > 0 ? (
+            {adjustedResult && adjustedResult.length > 0 ? (
                 <View style={[CommonStyles.generalBox, {maxHeight: boxMaxHeight, paddingHorizontal: 15}]}>
-                    <Text style={styles.title}>{lastCalculatedDate}까지의 정산 내역입니다.</Text>
+                    <Text style={styles.title}>{formetDate(lastCalculatedDate)}까지의 정산 내역입니다.</Text>
                     <ScrollView>
                     <Results />
                     </ScrollView>
@@ -218,5 +189,5 @@ const styles = StyleSheet.create({
     },
 });
 
-export default AdjustedBudgetInNoticificationContainer;
+export default AdjustedBudgetInNoticificationView;
 

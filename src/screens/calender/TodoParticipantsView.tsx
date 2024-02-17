@@ -2,7 +2,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import MateBox from '../../common/MateBox';
-import { UserProps } from '../mypage/MypageTypes';
+import { UserProps } from '../mypage/types';
 
 interface TodoParticipantsProps {
     participants: UserProps[]
@@ -17,10 +17,11 @@ const TodoParticipantsView: React.FC<TodoParticipantsProps> = ({participants}) =
                 flexDirection: 'row',
                 justifyContent: 'center',
             }}>
-            {participants.map((participant) => (
+            {participants.map((participant, index) => (
             <MateBox
-                key={participant.id}
-                userId={participant.name}
+                key={index.toString()}
+                userName={participant.userName}
+                userColor={participant.userColor}
                 textSize={10}
                 showOnlyFirstLetter={true}
                 marginRight={3}

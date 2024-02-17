@@ -19,6 +19,7 @@ const getData = async <T>(path: string, userToken: string | null): Promise<T> =>
     });
     console.log(path, ': GET fetch HTTP 상태 코드:', response.status);
     if (!response.ok) {
+      console.log('GET error:', response);
       throw new Error('Network response was not ok');
     }
     return response.json() as Promise<T>;
@@ -42,6 +43,7 @@ const postData = async <T, R>(path: string, data: T, userToken: string | null): 
     });
     console.log(path, ': POST HTTP 상태 코드:', response.status);
     if (!response.ok) {
+      console.log('POST error:', response);
       Alert.alert(
         '',
         '오류가 났습니다. 잠시 후 이용해주세요',
@@ -69,6 +71,7 @@ const deleteData = async (path: string, userToken: string | null): Promise<void>
     });
     console.log(path,':DELETE HTTP 상태 코드:', response.status);
     if(!response.ok) {
+      console.log('DELETE error:', response.text);
       Alert.alert(
         '',
         '오류가 났습니다. 잠시 후 이용해주세요',
@@ -97,6 +100,7 @@ const patchData = async <T, R>(path: string, data: T, userToken: string | null):
     });
     console.log(path, ':PATCH HTTP 상태 코드:', response.status);
     if (!response.ok) {
+      console.log('PATCH error:', response);
       Alert.alert(
         '',
         '오류가 났습니다. 잠시 후 이용해주세요',

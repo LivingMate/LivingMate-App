@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
 import CustomPicker from './CustomPicker';
+import { testUser } from '../../../testUsers';
+
 
 interface EventRegisterModalViewProps {
   isVisible: boolean;
@@ -12,12 +14,12 @@ interface EventRegisterModalViewProps {
 }
 
 const EventRegisterModalView: React.FC<EventRegisterModalViewProps> = ({ isVisible, onClose, mode }) => {
-  
+  const loggedUser = testUser.loggedUser;
   const [title, setTitle] = useState<string>('');
   const [start, setStartTime] = useState<string>('');
   const [end, setEndTime] = useState<string>('');
   const [term, setTerm] = useState<number>(0);
-  const [participants, setParticipants] = useState<string[]>([]);
+  const [participants, setParticipants] = useState<string[]>([loggedUser]);
   const [memo, setMemo] = useState<string>('');
 
   const [open, setOpen] = useState(false);

@@ -34,7 +34,7 @@ interface ServerEvent {
     dateStart: string; 
     dateEnd: string; 
     term: string; 
-    participants: string[];
+    participants: {userId: string, userName: string, userColor: string}[];
 }
 
 interface ServerTodo {

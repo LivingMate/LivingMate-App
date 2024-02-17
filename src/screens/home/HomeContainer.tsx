@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { deleteData, getData, patchData } from '../../api/APIs';
+import { getData, patchData } from '../../api/APIs';
 import { ServerPost } from '../../api/ServerInterfaces';
 import { PostProps } from './PostView';
 import HomeView from './HomeView';

@@ -3,13 +3,13 @@ import { View, SafeAreaView, StyleSheet, TouchableOpacity, ScrollView} from 'rea
 import { Colors } from '../../common/Colors';
 import CommonStyles from '../../common/CommonStyles'
 import RoundPlusButtonView from '../../common/RoundPlusButtonView';
-import { AgendaItemProps, MarkedDateProps, today } from './CalendarTypes';
+import { AgendaItemProps, EventProps, MarkedDateProps, modeType, today } from './types';
 import { Calendar, DateData, LocaleConfig } from 'react-native-calendars';
 import daysInWeek from 'date-fns';
 import EventView from './EventView';
 import EventRegisterAndSchedulingButtonModal from './EventRegisterAndSchedulingButtonModal';
 import SchedulingModal from './SchedulingModal';
-import EventRegisterModalContainer from './EventRegisterModalContainer';
+import RegisterEventModalContainer from './RegisterEventModalContainer';
 
 LocaleConfig.locales['en'] = {
   today: 'Today',
@@ -33,13 +33,17 @@ LocaleConfig.defaultLocale = 'en';
 interface CalenderViewProps {
   markedDates: MarkedDateProps,
   agendaItems: AgendaItemProps,
+  getEvents: () => void;
 }
 
-const CalenderView: React.FC<CalenderViewProps> = ({ markedDates, agendaItems }) => {
+const CalenderView: React.FC<CalenderViewProps> = ({ markedDates, agendaItems, getEvents }) => {
   const [selectedDate, setSelectedDate] = useState<string>(today);
   const [eventRegisterAndSchedulingButtonModalVisible, setEventRegisterAndSchedulingModalButtonVisible] = useState<boolean>(false);
   const [eventRegisterModalVisible, setEventRegisterModalVisible] = useState<boolean>(false);
   const [schedulingModalVisible, setSchedulingModalVisible] = useState<boolean>(false);
+  
+  const [registerModalMode, setRegisterModalMode] = useState<modeType>('create');
+  const [editingEvent, setEditingEvent] = useState<EventProps | null>(null);
 
   const handleDayPress = (day: DateData) => {
     console.log(selectedDate);
@@ -60,7 +64,8 @@ const CalenderView: React.FC<CalenderViewProps> = ({ markedDates, agendaItems })
     setEventRegisterAndSchedulingModalButtonVisible(false);
   }
 
-  const openRegisterModal = () => {
+  const openRegisterModal = (mode: modeType) => {
+    setRegisterModalMode(mode);
     setEventRegisterModalVisible(true);
   }
 
@@ -150,10 +155,10 @@ const CalenderView: React.FC<CalenderViewProps> = ({ markedDates, agendaItems })
       <EventRegisterAndSchedulingButtonModal 
         isVisible={eventRegisterAndSchedulingButtonModalVisible} 
         onClose={closeButtonModal} 
-        openRegisterModal={openRegisterModal} 
+        openRegisterModal={()=>openRegisterModal('create')} 
         openSchedulingModal={openSchedulingModal}
       />
-      <EventRegisterModalContainer isVisible={eventRegisterModalVisible} onClose={closeRegisterModal}/>
+      <RegisterEventModalContainer mode={registerModalMode} getEvents={getEvents} editingEvent={editingEvent} isVisible={eventRegisterModalVisible} onClose={closeRegisterModal}/>
       <SchedulingModal isVisible={schedulingModalVisible} onClose={closeSchedulingModal}/>
     </View>
   );

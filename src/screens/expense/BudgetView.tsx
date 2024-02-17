@@ -10,6 +10,7 @@ import FoodIcon from '../../assets/icons/categories/FoodIcon';
 import LifestyleIcon from '../../assets/icons/categories/LifestyleIcon';
 import EtcIcon from '../../assets/icons/categories/EtcIcon';
 import { BudgetProps } from './types';
+import { testUser } from '../../../testUsers';
 
 interface BudgetViewProps extends BudgetProps{
   openModal: () => void;
@@ -61,9 +62,13 @@ const CategoryIconView: React.FC<CategoryIconProps> = ({ category, subCategory, 
 }
 
 const BudgetView: React.FC<BudgetViewProps> = ({id, userId, userName, userColor, groupId, price, content, category, subCategory, date,setEditingBudget, openModal}) => {
-  const loggedInUserId = '';
-  // userId가 현재 로그인한 사용자의 userId와 일치하면 버튼을 표시하고 아니면 감춥니다.
-  const showButton = userId === loggedInUserId;
+
+  const loggedUser = testUser.loggedUser;
+  
+  const showButton = loggedUser === userId;
+
+  console.log('Budget view testUser.loggedUser:', testUser.loggedUser, 'userId:',userId, ' showButton:',  showButton)
+
   console.log('userId: ', userId, ' budget id: ', id, ',showButton: ',showButton);
   const [isFocused, setIsFocused] = useState(false);
 
@@ -80,7 +85,7 @@ const BudgetView: React.FC<BudgetViewProps> = ({id, userId, userName, userColor,
         <Text style = {{color: Colors.text, marginLeft: 8, marginTop: 5}}>{date}</Text>
       </View>
         {/* 버튼(threeDots, 수정/삭제) */}
-        {!showButton && (
+        {showButton && (
           <View style={styles.buttonContainer}>
               <TouchableOpacity
               onPressIn={() => setIsFocused(true)}
@@ -115,6 +120,8 @@ const BudgetView: React.FC<BudgetViewProps> = ({id, userId, userName, userColor,
       <Text style={[styles.priceText, {marginRight: 7}]}>{price}원</Text>
       <MateBox
           userId={userId}
+          userColor={userColor}
+          userName={userName}
           textSize={12}
       />
     </View>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, SafeAreaView, Text, StyleSheet, ScrollView } from 'react-native';
 import { Colors } from '../../common/Colors';
 import CommonStyles from '../../common/CommonStyles';
-import AdjustedBudgetInNoticificationContainer from './AdjustedBudgetInNoticificationContainer';
+import AdjustedBudgetInNoticificationContainer from '../expense/AdjustedBudgetInNoticificationContainer';
 import NormalNoticificationsContainer from './NormalNoticificationContainer';
 
 const NoticificationContainer = () => {
