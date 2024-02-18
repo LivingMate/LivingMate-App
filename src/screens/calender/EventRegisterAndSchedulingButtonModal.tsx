@@ -6,12 +6,13 @@ import { View, Text, TouchableOpacity, Modal, TouchableWithoutFeedback, StyleShe
 
 interface EditAndDeleteButtonsModalProps {
   isVisible: boolean;
+  isScheduling: boolean,
   onClose: () => void;
   openRegisterModal: () => void;
   openSchedulingModal: () => void;
 }
 
-const EventRegisterAndSchedulingButtonModal: React.FC<EditAndDeleteButtonsModalProps> = ({ isVisible, onClose, openRegisterModal, openSchedulingModal }) => { 
+const EventRegisterAndSchedulingButtonModal: React.FC<EditAndDeleteButtonsModalProps> = ({ isVisible, isScheduling, onClose, openRegisterModal, openSchedulingModal }) => { 
   const handleCancel = () => {
     onClose();
   };
@@ -46,12 +47,14 @@ const EventRegisterAndSchedulingButtonModal: React.FC<EditAndDeleteButtonsModalP
         > 
           <Text style={styles.text}>바로등록</Text>
         </TouchableOpacity>
+        { !isScheduling && (
         <TouchableOpacity 
           style={styles.eventSchedulingButton} 
           onPress={handleSchedulingModal}
         >
           <Text style={styles.text}>일정조율</Text>
         </TouchableOpacity>
+        )}
       </View> 
     </Modal>
   );
@@ -76,21 +79,21 @@ const styles = StyleSheet.create({
   eventRegisterButton:{
     alignItems: 'center',
     justifyContent: 'center',
-    borderRightColor: Colors.text,
-    borderBottomWidth: 1,
-    padding: 10,
+    padding: 15,
     flex: 1,
   },
 
   eventSchedulingButton:{
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 10,
+    padding: 15,
     flex: 1,
+    borderTopWidth: 1,
+    borderColor: Colors.text,
   },
 
   text: {
-    fontSize: 14,
+    fontSize: 15,
     color: '#000000',
   },
 });

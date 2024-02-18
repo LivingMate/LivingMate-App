@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { ServerEvent } from '../../api/ServerInterfaces';
 import { getData } from '../../api/APIs';
 import CalenderView from './CalenderView';
-import { AgendaItemProps, EventProps, MarkedDateProps } from './types';
+import { AgendaItemProps, EventProps, MarkedDateProps, SchedulingProps } from './types';
 import { useAuth } from '../../auth/AuthContext';
+
+const test = {"dates": ["2024-02-26", "2024-02-27"], "endTime": "17:00", "groupId": "CDIR8FUQ", "id": 3, "startTime": "04:30", "title": "Third"}
 
 const CalenderContainer = () => {
   
@@ -11,6 +13,8 @@ const CalenderContainer = () => {
   
   const [markedDates, setMarkedDates] = useState<MarkedDateProps>({});
   const [agendaItem, setAgendaItems] = useState<AgendaItemProps>({});
+
+  const [schedulingData, setSchedulingData] = useState<SchedulingProps>();
   
   const getEvents = async () => {
     try {
@@ -52,13 +56,35 @@ const CalenderContainer = () => {
       console.error('Failed to get events:', error);
     }
   };
+
+  const getSchedulingParticipateData = async () => {
+    try {
+      const path = '/calendar/schedule/schedule';
+      const serverData = await getData<SchedulingProps>(path, userToken);
+      // 서버 데이터를 클라이언트의 데이터 구조로 변환
+      console.log('serverData:', serverData);
+      setSchedulingData(serverData);
+      console.log('/schedule, ',schedulingData);
+    } catch (error) {
+        if (error instanceof TypeError) {
+          // TypeError 타입의 에러 처리
+          console.error('posts TypeError:', error);
+        } else if (error instanceof ReferenceError) {
+          // ReferenceError 타입의 에러 처리
+          console.error('posts ReferenceError:', error);
+        } else {
+          // 다른 모든 에러 처리
+          console.error('posts Unknown Error:', error);
+        }
+    }
+  };
   
   useEffect(() => {
     getEvents();
   }, []); 
   
   return (
-    <CalenderView markedDates={markedDates} agendaItems={agendaItem} getEvents={getEvents}/>
+    <CalenderView markedDates={markedDates} agendaItems={agendaItem} schedulingData={test} getEvents={getEvents}/>
   );
 }
 

@@ -24,7 +24,15 @@ interface MarkedDateProps {
     selected?: boolean;
   };
 }
+interface SchedulingProps {
+  id: number,
+  groupId: string,
+  title: string,
+  dates: string[];
+  startTime: string,
+  endTime: string,
+}
 
 type modeType = 'create' | 'edit';
 
-export {AgendaItemProps, MarkedDateProps, EventProps, modeType}
+export {AgendaItemProps, MarkedDateProps, EventProps, modeType, SchedulingProps}

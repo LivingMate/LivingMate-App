@@ -9,7 +9,7 @@ interface SchedulingModalProps {
   onClose: () => void;
 }
 
-const SchedulingModal: React.FC<SchedulingModalProps> = ({ isVisible, onClose }) => {
+const TimeslotModalContainer: React.FC<SchedulingModalProps> = ({ isVisible, onClose }) => {
   
   const handleCancel = () => {
     onClose();
@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default SchedulingModal;
+export default TimeslotModalContainer;
