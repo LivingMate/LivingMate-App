@@ -9,7 +9,6 @@ import { EventProps } from '../types';
 import { UserProps } from '../../mypage/types';
 import useIsInThisWeek from '../todo/UseIsInThisWeek';
 
-
 interface RegisterEventModalViewProps {
   isVisible: boolean;
   mode: 'create' | 'edit';
