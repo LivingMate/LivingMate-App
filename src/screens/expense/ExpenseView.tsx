@@ -28,6 +28,8 @@ const ExpenseView:React.FC<ExpenseViewProps> = ({budgets, getBudgets, groupSum, 
   const [modalVisible, setModalVisible] = useState<boolean>(false); // 모달의 표시 상태를 관리하는 state
   const [modalMode, setModalMode] = useState<modeType>('create');
   const [editingBudget, setEditingBudget] = useState<BudgetProps|null>(null);
+
+  const [searchFieldVisivble, setSearchFieldVisible] = useState<boolean>(false); 
   
   const openModal = (mode: modeType) => {
     setModalMode(mode)
@@ -39,14 +41,14 @@ const ExpenseView:React.FC<ExpenseViewProps> = ({budgets, getBudgets, groupSum, 
     setEditingBudget(null);
   }
 
-  useEffect(() => {
-      console.log("roundBoxHeight: ", roundBoxHeight);
-  }, [roundBoxHeight]); // roundBoxHeight가 변경될 때마다 실행됨
-
   // 버튼 함수
   const handlePress = (title: string) => {
     console.log(`${title} 버튼이 클릭되었습니다.`);
   };
+
+  const handleSearchFieldVisible = () => {
+    setSearchFieldVisible(current => !current);
+  }
 
   const handleEditingBudget = (
     id: number,
@@ -72,6 +74,10 @@ const ExpenseView:React.FC<ExpenseViewProps> = ({budgets, getBudgets, groupSum, 
       setEditingBudget(editingBudget);
   }
 
+  useEffect(() => {
+    console.log("roundBoxHeight: ", roundBoxHeight);
+  }, [roundBoxHeight]); // roundBoxHeight가 변경될 때마다 실행됨
+
   //공과금 utilities 식비 food 비품 supplies 기타 others
   return (
     <View style={CommonStyles.baseContainer}>
@@ -94,16 +100,26 @@ const ExpenseView:React.FC<ExpenseViewProps> = ({budgets, getBudgets, groupSum, 
         }}
         >
         
-        <View style={[styles.searchContainer]}>
-          <MagnifyingGlassIcon />
+        <View style={{flexDirection: 'row', marginHorizontal: '5%'}}>
+          <View style={[styles.categories, {flex: 1}]}>
+            <CategoryButtonView name="주거" focused={false} onPress={() => handlePress("공과금")} />
+            <CategoryButtonView name="식비" focused={false} onPress={() => handlePress("식비")}  />
+            <CategoryButtonView name="생활" focused={false}  onPress={() => handlePress("비품")} />
+            <CategoryButtonView name="기타" focused={false} onPress={() => handlePress("기타")} />
+          </View>
+          <View style={{width: 30, justifyContent: 'center'}}>
+            <TouchableOpacity
+              onPress={handleSearchFieldVisible}>
+              <MagnifyingGlassIcon />
+            </TouchableOpacity>
+          </View>
         </View>
-
-        <View style={[styles.categories, { borderTopColor: 'black', borderTopWidth: 1 }]}>
-          <CategoryButtonView name="주거" focused={false} onPress={() => handlePress("공과금")} />
-          <CategoryButtonView name="식비" focused={false} onPress={() => handlePress("식비")}  />
-          <CategoryButtonView name="생활" focused={false}  onPress={() => handlePress("비품")} />
-          <CategoryButtonView name="기타" focused={false} onPress={() => handlePress("기타")} />
-        </View>
+        
+        { searchFieldVisivble && (
+          <View style={[styles.searchContainer, {borderBottomColor: '#000', borderBottomWidth: 1}]}>
+           <MagnifyingGlassIcon />
+          </View>
+        )}
         
       </View>
 
@@ -185,7 +201,6 @@ const styles = StyleSheet.create({
 
   categories: {
     marginBottom: 3,
-    marginHorizontal: '5%',
     alignItems: 'flex-start',
     flexDirection: 'row',  // 가로 방향으로 정렬
   },

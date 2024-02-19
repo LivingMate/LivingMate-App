@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, SafeAreaView, StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
 import { Colors } from '../../common/Colors';
 import CommonStyles from '../../common/CommonStyles'
@@ -11,8 +11,8 @@ import EventRegisterAndSchedulingButtonModal from './EventRegisterAndSchedulingB
 import RegisterEventModalContainer from './register/RegisterEventModalContainer';
 import { UserProps } from '../mypage/types';
 import { todayString } from './todo/UseIsInThisWeek';
-import SchedulingCreateModalContainer from './scheduling/SchedulingCreateModalContainer';
-import SchedulingParticipateContainer from './scheduling/SchedulingParticipateContainer';
+import RegisterSchedulingModalContainer from './register/RegisterSchedulingModalContainer';
+import SchedulingView from './scheduling/SchedulingView';
 
 LocaleConfig.locales['en'] = {
   today: 'Today',
@@ -37,11 +37,12 @@ interface CalenderViewProps {
   markedDates: MarkedDateProps,
   agendaItems: AgendaItemProps,
   schedulingData: SchedulingProps | undefined,
+  isScheduling: boolean;
   getEvents: () => void;
-  
+  handleIsScheduling: () => void;
 }
 
-const CalenderView: React.FC<CalenderViewProps> = ({ markedDates, agendaItems, getEvents, schedulingData }) => {
+const CalenderView: React.FC<CalenderViewProps> = ({ markedDates, agendaItems, getEvents, schedulingData, handleIsScheduling, isScheduling }) => {
   const [selectedDate, setSelectedDate] = useState<string>(todayString);
   const [eventRegisterAndSchedulingButtonModalVisible, setEventRegisterAndSchedulingModalButtonVisible] = useState<boolean>(false);
   const [eventRegisterModalVisible, setEventRegisterModalVisible] = useState<boolean>(false);
@@ -50,8 +51,7 @@ const CalenderView: React.FC<CalenderViewProps> = ({ markedDates, agendaItems, g
   const [registerModalMode, setRegisterModalMode] = useState<modeType>('create');
   const [editingEvent, setEditingEvent] = useState<EventProps | null>(null);
   const [calendarShapeHide, setCalendarShapeHide] = useState<boolean>(false);
-  
-  const [isScheduling, setIsScheduling] = useState<boolean>(false); 
+   
   const handleDayPress = (day: DateData) => {
     console.log(selectedDate);
     setSelectedDate(day.dateString);
@@ -109,15 +109,6 @@ const CalenderView: React.FC<CalenderViewProps> = ({ markedDates, agendaItems, g
     setCalendarShapeHide(current => !current);
   }
 
-  const handleIsScheduling = (mode: boolean) => {
-      setIsScheduling(mode);
-  }
-    
-  useEffect(() => {
-    if(schedulingData == undefined) setIsScheduling(false);
-    else setIsScheduling(true);
-  }, [schedulingData]); 
-
   return (
     <View style={CommonStyles.baseContainer}>
     <SafeAreaView style={CommonStyles.safearea}>
@@ -153,8 +144,8 @@ const CalenderView: React.FC<CalenderViewProps> = ({ markedDates, agendaItems, g
             }}
           />
         </View>
-        { isScheduling &&
-         ( <SchedulingParticipateContainer setIsScheduling={()=>handleIsScheduling(false)}/> )
+        { isScheduling && schedulingData &&
+         ( <SchedulingView schedulingData={schedulingData} setIsScheduling={handleIsScheduling}/> )
         }
         <ScrollView>
           {Object.values(agendaItems[selectedDate] || {}).map((item) => (
@@ -199,7 +190,7 @@ const CalenderView: React.FC<CalenderViewProps> = ({ markedDates, agendaItems, g
         openSchedulingModal={openSchedulingCreateModal}
       />
       <RegisterEventModalContainer mode={registerModalMode} getEvents={getEvents} editingEvent={editingEvent} isVisible={eventRegisterModalVisible} onClose={closeRegisterModal}/>
-      <SchedulingCreateModalContainer isVisible={schedulingCreateModalVisible} onClose={closeSchedulingCreateModal} setIsScheduling={()=>handleIsScheduling(true)}/>
+      <RegisterSchedulingModalContainer isVisible={schedulingCreateModalVisible} onClose={closeSchedulingCreateModal} setIsScheduling={handleIsScheduling}/>
     </View>
   );
 }

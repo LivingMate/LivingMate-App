@@ -4,23 +4,23 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import CommonStyles from '../../../common/CommonStyles';
 import { Colors } from '../../../common/Colors';
 import TimeslotModalContainer from './TimeslotModalContainer';
-
-interface SchedulingParticipateViewProps {
-  setIsScheduling: () => void;
+import { SchedulingProps } from '../types';
+interface SchedulingViewProps {
+  schedulingData: SchedulingProps,
+  setIsScheduling: () => void,
 }
 
-const SchedulingParticipateView: React.FC<SchedulingParticipateViewProps> = ({setIsScheduling}) => {
+const SchedulingView: React.FC<SchedulingViewProps> = ({schedulingData, setIsScheduling }) => {
   const [modalVisible, setModalVisible] = useState(false); // 모달의 표시 상태를 관리하는 state
   const openModal = () => setModalVisible(true); // 모달을 여는 함수
   const closeModal = () => setModalVisible(false); // 모달을 닫는 함수
-  
-  const [title, setTitle] = useState<string>('title');
-  const [dates, setDates] = useState<string[]>(['2024-02-23', '2024-02-24', '2024-02-25', '2024-02-26']);
 
   const formatDate = (date: string, index: number) => {
     let formattedDate = index!=0 ? ', '+date.substring(5) : date.substring(5); 
     return formattedDate;
   };
+
+  const dates = schedulingData.dates;
 
   return (
       <View style={styles.container}>
@@ -34,8 +34,6 @@ const SchedulingParticipateView: React.FC<SchedulingParticipateViewProps> = ({se
               <Text style={styles.text}>일정조율</Text>
             </View>
 
-
-
             {/* 모달 버튼*/}
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
@@ -43,7 +41,12 @@ const SchedulingParticipateView: React.FC<SchedulingParticipateViewProps> = ({se
                   <Text style={styles.buttonText}> 참여 </Text>
                 </TouchableOpacity>
             </View>
-            <TimeslotModalContainer isVisible={modalVisible} onClose={closeModal} />
+            <TimeslotModalContainer 
+              isVisible={modalVisible} 
+              onClose={closeModal} 
+              setIsScheduling={setIsScheduling}
+              schedulingData={schedulingData}
+            />
         </View>
   );
 };
@@ -83,4 +86,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default SchedulingParticipateView;
+export default SchedulingView;

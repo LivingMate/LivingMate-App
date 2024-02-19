@@ -15,6 +15,7 @@ const CalenderContainer = () => {
   const [agendaItem, setAgendaItems] = useState<AgendaItemProps>({});
 
   const [schedulingData, setSchedulingData] = useState<SchedulingProps>();
+  const [isScheduling, setIsScheduling] = useState<boolean>(false);
   
   const getEvents = async () => {
     try {
@@ -60,11 +61,13 @@ const CalenderContainer = () => {
   const getSchedulingParticipateData = async () => {
     try {
       const path = '/calendar/schedule/schedule';
-      const serverData = await getData<SchedulingProps>(path, userToken);
+      const serverData = await getData<SchedulingProps[]>(path, userToken);
       // 서버 데이터를 클라이언트의 데이터 구조로 변환
-      console.log('serverData:', serverData);
-      setSchedulingData(serverData);
-      console.log('/schedule, ',schedulingData);
+      console.log('/schedule get serverData:', serverData);
+      if(serverData.length && serverData.length > 0) {
+        setSchedulingData(serverData[0]);
+        setIsScheduling(true);
+      }
     } catch (error) {
         if (error instanceof TypeError) {
           // TypeError 타입의 에러 처리
@@ -78,13 +81,21 @@ const CalenderContainer = () => {
         }
     }
   };
-  
+
+  const handleIsScheduling = () => {
+    setIsScheduling(current => !current);
+  }
+
   useEffect(() => {
     getEvents();
   }, []); 
+
+  useEffect(() => {
+    getSchedulingParticipateData();
+  }, [isScheduling]); 
   
   return (
-    <CalenderView markedDates={markedDates} agendaItems={agendaItem} schedulingData={test} getEvents={getEvents}/>
+    <CalenderView markedDates={markedDates} agendaItems={agendaItem} schedulingData={schedulingData} isScheduling={isScheduling} getEvents={getEvents} handleIsScheduling={handleIsScheduling}/>
   );
 }
 

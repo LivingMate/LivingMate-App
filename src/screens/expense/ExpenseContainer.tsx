@@ -17,6 +17,8 @@ const ExpenseContainer = () => {
     try {
       const path = '/budget';
       const serverData = await getData<ServerBudget[]>(path, userToken);
+      
+      console.log('getBudgets', serverData)
       // 서버 데이터를 클라이언트의 데이터 구조로 변환
       const data = serverData.map((item) => ({
         id: item.id,
@@ -31,6 +33,7 @@ const ExpenseContainer = () => {
         date: item.createdAt.substring(0,10),
       }));
       setBudgets(data);
+      console.log('setBudgets', data);
       getCurrentExpenseData();
     } catch (error) {
         if (error instanceof TypeError) {

@@ -27,7 +27,6 @@ const RegisterBudgetModalContainer: React.FC<RegisterBudgetModalContainerProps> 
   }, [editingBudget]);
 
   const addBudget = async (content: string, price: number, category: string, subCategory: string) => {
-    if (content !== '' && price !== -1 && category!=='' && subCategory!=='') {
       // JSON 데이터 생성
       const newBudget = {
         spendingName: content,
@@ -48,23 +47,14 @@ const RegisterBudgetModalContainer: React.FC<RegisterBudgetModalContainerProps> 
       } catch (error) {
         console.error('add Budget 서버 요청 실패:', error);
       }
-    } else {
-      Alert.alert(
-        '',
-        '내용을 전부 입력하세요',
-        [{ text: '확인' }],
-        { cancelable: false }
-      );
-    }
   };
   
   const editBudget = async (content: string, price: number, category: string, subCategory: string) => {
-    if (content !== '' && price !== -1 && category!=='' && subCategory!=='') {
       try {
         // 서버에 업데이트 요청을 보냅니다.
         const updateBudget = {
           spendingName: content,
-          spendings: price,
+          spending: price,
           category: category,
           subCategory: subCategory,
         };
@@ -81,14 +71,6 @@ const RegisterBudgetModalContainer: React.FC<RegisterBudgetModalContainerProps> 
       } catch (error) {
         console.error('edit budget 서버 요청 실패:', error);
       }
-    } else {
-      Alert.alert(
-        '',
-        '수정사항이 없으면 취소를 눌러주세요',
-        [{ text: '확인' }],
-        { cancelable: false }
-      );
-    }
   };
 
   const deleteBudget = async () => {

@@ -13,7 +13,7 @@ import { useAuth } from '../../../auth/AuthContext';
 const TodosContainer = () => {
   const { userToken } = useAuth();
   const [thisWeekTodoList, setThisWeekTodoList] = useState<TodoProps[]>([]);
-  const [boxMaxHeight, setBoxMaxHeight] = useState<number | null>(200);
+  const [boxMaxHeight, setBoxMaxHeight] = useState<number | null>(130);
   const [boxMaxHeightButtonFocused, setBoxMaxHeightButtonFocused] = useState<boolean>(false);
   const [boxMaxHeightButtonColor, setBoxMaxHeightButtonColor] = useState<string>(Colors.button);
   const [todoCount, setTodoCount] = useState<number>(0);
@@ -21,7 +21,7 @@ const TodosContainer = () => {
   console.log('thisWeekTodoList', thisWeekTodoList)
 
   const toggleBoxHeight = () => {
-    setBoxMaxHeight(boxMaxHeightButtonFocused ? 200 : 630);
+    setBoxMaxHeight(boxMaxHeightButtonFocused ? 130 : 630);
     setBoxMaxHeightButtonFocused(boxMaxHeightButtonFocused ? false: true)
     setBoxMaxHeightButtonColor(boxMaxHeightButtonFocused ? Colors.button : Colors.theme)
   };

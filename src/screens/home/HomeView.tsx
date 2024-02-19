@@ -7,6 +7,7 @@ import PostView, { PostProps } from './PostView';
 import PlaceholderMessage from '../../common/PlaceholderMessage';
 import RegisterPostModalContainer from './register/RegisterPostModalContainer';
 import TodosContainer from '../calender/todo/TodosContainer';
+import MagnifyingGlassIcon from '../../assets/icons/MagnifyingGlassIcon';
 
 interface HomeViewProps {
   posts: PostProps[];
@@ -21,6 +22,8 @@ const HomeView:React.FC<HomeViewProps> = ({posts, getPosts, editPin}) => {
   const [editingPostId, setEditingPostId] = useState<number>(-1);
   const [editingPostContent, setEditingPostContent] = useState<string>('');
 
+  const [searchFieldVisivble, setSearchFieldVisible] = useState<boolean>(false); 
+  
   const openModal = () => {
     setModalVisible(true);
   }
@@ -34,6 +37,10 @@ const HomeView:React.FC<HomeViewProps> = ({posts, getPosts, editPin}) => {
   const toggleModalMode = (mode: 'create' | 'edit') => {
     if(mode==='create') setModalMode('create');
     else setModalMode('edit');
+  }
+
+  const handleSearchFieldVisible = () => {
+    setSearchFieldVisible(current => !current);
   }
 
   const [roundBoxHeight, setRoundBoxHeight] = useState<number>(0);
@@ -61,7 +68,22 @@ const HomeView:React.FC<HomeViewProps> = ({posts, getPosts, editPin}) => {
           setRoundBoxHeight(calculatedHeight);
         }}
       >
-        <Text style={[styles.title, { color: 'black' }]}>피드</Text>
+        <View style={{flexDirection: 'row', marginHorizontal: '5%'}}>
+          <View style={{flex: 1}}>
+            <Text style={[styles.title, { color: 'black' }]}>피드</Text>
+          </View>
+          <View style={{width: 30, justifyContent: 'center'}}>
+            <TouchableOpacity
+              onPress={handleSearchFieldVisible}>
+              <MagnifyingGlassIcon />
+            </TouchableOpacity>
+          </View>
+        </View>
+        { searchFieldVisivble && (
+          <View style={{borderBottomColor: '#000', borderBottomWidth: 1}}>
+           <MagnifyingGlassIcon />
+          </View>
+        )}
         <ScrollView>
           { posts.length > 0 ? (
             posts.map((post) => (

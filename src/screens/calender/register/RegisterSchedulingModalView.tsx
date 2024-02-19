@@ -25,7 +25,7 @@ LocaleConfig.locales['en'] = {
 };
 LocaleConfig.defaultLocale = 'en';
 
-interface SchedulingCreateModalViewProps {
+interface RegisterSchedulingModalViewProps {
   isVisible: boolean;
   onClose: () => void;
   addScheduling: (title: string, dates: string[], startTime: string, endTime: string)=> void;
@@ -37,7 +37,7 @@ interface showedDateProps {
   };
 }
 
-const SchedulingCreateModalView: React.FC<SchedulingCreateModalViewProps> = ({ isVisible, onClose, addScheduling }) => {
+const RegisterSchedulingModalView: React.FC<RegisterSchedulingModalViewProps> = ({ isVisible, onClose, addScheduling }) => {
   const [showedDates, setShowedDates] = useState<showedDateProps>({});
   const [title, setTitle] = useState<string>('');
   const [start, setStart] = useState<Date>(new Date());
@@ -289,4 +289,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SchedulingCreateModalView;
+export default RegisterSchedulingModalView;

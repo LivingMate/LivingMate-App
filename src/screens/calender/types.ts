@@ -32,7 +32,12 @@ interface SchedulingProps {
   startTime: string,
   endTime: string,
 }
+interface TimeSlotProps {
+  date: string,
+  time: string,
+  selecteBy: string[],
+}
 
 type modeType = 'create' | 'edit';
 
-export {AgendaItemProps, MarkedDateProps, EventProps, modeType, SchedulingProps}
+export {AgendaItemProps, MarkedDateProps, EventProps, modeType, SchedulingProps, TimeSlotProps}

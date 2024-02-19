@@ -57,6 +57,7 @@ const RegisterEventModalView: React.FC<RegisterEventModalViewProps> = ({ isVisib
   ]);
 
   const setInitialData = () => {
+ 
     if(mode==='edit' && editingEvent) {
       setTitle(editingEvent.title);
       setStartString(editingEvent.start);
@@ -65,6 +66,7 @@ const RegisterEventModalView: React.FC<RegisterEventModalViewProps> = ({ isVisib
       setEnd(new Date(editingEvent.end));
       setTerm(editingEvent.term);
       setParticipants(editingEvent.participants);
+      console.log('editingEvent.start', editingEvent.start);
     }
     console.log('editingEvent InitialData: ',editingEvent);
   }
@@ -78,15 +80,7 @@ const RegisterEventModalView: React.FC<RegisterEventModalViewProps> = ({ isVisib
     const currentDate = selectedDate || end;
     setEnd(currentDate);
   };
-/*
-  const onChangeStart = (selectedDate: Date) => {
-    setStart(selectedDate);
-  };
-  
-  const onChangeEnd = (selectedDate: Date) => {
-    setEnd(selectedDate);
-  };
-*/
+
   const handleCancel = () => {
     console.log('--------------handleCancel');
     onClose();

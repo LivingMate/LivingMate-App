@@ -1,16 +1,16 @@
 
-import React, { useEffect, useState } from 'react';
-import SchedulingCreateModalView from './SchedulingCreateModalView';
+import React from 'react';
 import { useAuth } from '../../../auth/AuthContext';
 import { postData } from '../../../api/APIs';
+import RegisterSchedulingModalView from './RegisterSchedulingModalView';
 
-interface SchedulingCreateModalContainerProps {
+interface RegisterSchedulingModalContainerProps {
   isVisible: boolean;
   onClose: () => void;
   setIsScheduling: () => void;
 }
 
-const SchedulingCreateModalContainer: React.FC<SchedulingCreateModalContainerProps> = ({ isVisible, onClose, setIsScheduling }) => {
+const RegisterSchedulingModalContainer: React.FC<RegisterSchedulingModalContainerProps> = ({ isVisible, onClose, setIsScheduling }) => {
 
   const {userToken} = useAuth();
 
@@ -37,9 +37,9 @@ const SchedulingCreateModalContainer: React.FC<SchedulingCreateModalContainerPro
       }
   };
   return (  
-    <SchedulingCreateModalView isVisible={isVisible} onClose={onClose} addScheduling ={addScheduling}/>
+    <RegisterSchedulingModalView isVisible={isVisible} onClose={onClose} addScheduling ={addScheduling}/>
   );
 };
 
 
-export default SchedulingCreateModalContainer;
+export default RegisterSchedulingModalContainer;
